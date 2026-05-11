@@ -1,4 +1,5 @@
 ---
+import { Droplet } from '@lucide/astro';
 import { getLocationText } from "@/config/site"
 
 interface Props {
@@ -31,7 +32,7 @@ const description = raw_description ? getLocationText(raw_description) : raw_des
 const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 ---
 
-<section class="py-16 md:py-24 bg-muted/30">
+<section class="py-16 md:py-24 bg-white">
   <div class="container mx-auto px-4">
     <div class={`grid md:grid-cols-2 gap-12 items-center ${imagePosition === "right" ? "md:flex-row-reverse" : ""}`}>
       {imagePosition === "left" && (
@@ -64,9 +65,12 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
       )}
       <div data-animate="fade-up">
         {badge && (
-          <span class="inline-block text-sm font-semibold text-accent uppercase tracking-wide border-b-2 border-accent pb-1">{badge}</span>
+          <span class="inline-flex items-center gap-2 text-accent text-sm font-bold py-2">
+            <Droplet class="w-4 h-4 animate-bounce" />
+            {badge}
+          </span>
         )}
-        <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-6">{title}</h2>
+        <h2 class="font-bold mt-4 mb-6" style="font-size: 40px;" set:html={title}></h2>
         <p class="text-muted-foreground mb-8" set:html={description} />
         {features.length > 0 && (
           <ul class="space-y-4 mb-8">

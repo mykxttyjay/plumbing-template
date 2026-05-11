@@ -17,12 +17,12 @@
     "phoneFormatted": "012-345-6789"
   },
   "colors": {
-    "primary": "#0b273f",
-    "secondary": "#196496",
-    "tertiary": "#d4d2d2",
+    "primary": "#091f41",
+    "secondary": "#184284",
+    "tertiary": "#40c4eb",
     "quaternary": "#fafeff",
-    "accent": "#A3032B",
-    "highlight": "#45f9ff"
+    "accent": "#40c4eb",
+    "highlight": "#40c4eb"
   },
   "logo": {
     "src": "https://ntv-template-1.vercel.app/logo/dealer-logo.avif",

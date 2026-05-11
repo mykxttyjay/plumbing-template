@@ -5,7 +5,7 @@ import {
   Menu, ChevronDown, Phone, Settings, DollarSign, 
   Utensils, Bath, Droplet, Waves, Flame, Pipette,
   Building, Zap, Shield, Search, AlertCircle, Filter,
-  Leaf, ClipboardList
+  Leaf, ClipboardList, Mail, MapPin
 } from "lucide-react"
 import { topNavItems, mainNavItems, quickActions, type MegaMenuItem, type ServiceCategory } from "@/config/navigation"
 import { siteConfig } from "@/config/site"
@@ -123,7 +123,7 @@ function ServiceNavItem({ item }: { item: MegaMenuItem }) {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <div className="flex items-center gap-1 text-sm font-semibold text-white hover:text-highlight hover:bg-white/10 transition-all duration-200 px-4 h-full relative after:absolute after:bottom-0 after:left-2 after:right-2 after:h-[3px] after:bg-highlight after:rounded-t after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-center">
+      <div className="flex items-center gap-1 text-base font-semibold text-white hover:text-white hover:bg-white/10 transition-all duration-200 px-4 h-full relative after:absolute after:bottom-0 after:left-2 after:right-2 after:h-[3px] after:bg-white after:rounded-t after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-center">
         <a href={item.href}>
           {item.title}
         </a>
@@ -143,34 +143,52 @@ export function Navbar() {
       {/* Top Bar - Dark Blue */}
       <div className="hidden lg:block bg-brand-primary text-white">
         <div className="container mx-auto px-4">
-          <div className="flex h-9 items-center justify-end gap-6">
-            {topNavItems.map((item) => (
-              <TopNavDropdown key={item.href} item={item} />
-            ))}
+          <div className="flex h-9 items-center justify-between gap-6 text-sm">
+            {/* Left: Contact Info with Icons */}
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2">
+                <Phone className="h-4 w-4" />
+                <span>{siteConfig.contact?.phoneFormatted}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="h-4 w-4" />
+                <span>{siteConfig.contact?.email}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="h-4 w-4" />
+                <span>{siteConfig.location?.city}, {siteConfig.location?.state}</span>
+              </div>
+            </div>
+            
+            {/* Right: Nav Links */}
+            <div className="flex items-center gap-6">
+              {topNavItems.map((item) => (
+                <TopNavDropdown key={item.href} item={item} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Middle Section - White with Logo, Quick Actions, Phone */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-4">
-          <div className="flex h-20 items-center justify-between">
-            {/* Logo */}
-            <a href="/" className="flex items-center gap-3">
-              <img 
-                src={siteConfig.logo?.src} 
-                alt={siteConfig.logo?.alt || "Logo"} 
-                className="h-14 w-14 object-contain"
-                width={56}
-                height={56}
-                decoding="async"
-                loading="eager"
-                fetchPriority="high"
-              />
-              <div className="hidden sm:block">
-                <span className="font-bold text-lg text-brand-secondary">{siteConfig.business?.name}</span>
-              </div>
-            </a>
+      <div className="bg-white">
+        <div className="container mx-auto px-4 flex h-20 items-center justify-between">
+          {/* Logo */}
+          <a href="/" className="flex items-center gap-3">
+            <img 
+              src={siteConfig.logo?.src} 
+              alt={siteConfig.logo?.alt || "Logo"} 
+              className="h-14 w-14 object-contain"
+              width={56}
+              height={56}
+              decoding="async"
+              loading="eager"
+              fetchPriority="high"
+            />
+            <div className="hidden sm:block">
+              <span className="font-bold text-lg" style={{ color: '#091f41' }}>{siteConfig.business?.name}</span>
+            </div>
+          </a>
 
             {/* Quick Actions - Desktop */}
             <div className="hidden lg:flex items-center gap-12">
@@ -187,57 +205,60 @@ export function Navbar() {
                       <DollarSign className="h-5 w-5 text-white" />
                     )}
                   </div>
-                  <span className="font-semibold text-brand-secondary transition-colors duration-200">{action.title}</span>
+                  <span className="font-semibold transition-colors duration-200" style={{ color: '#091f41' }}>{action.title}</span>
                 </a>
               ))}
             </div>
 
-            {/* Phone Number - Desktop */}
-            <a href={`tel:${siteConfig.contact?.phone}`} className="group hidden lg:flex items-center gap-3 hover:-translate-y-0.5 transition-transform duration-200">
-              <div className="w-10 h-10 rounded-full bg-brand-secondary flex items-center justify-center transition-all duration-200 group-hover:bg-highlight group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-highlight/30">
-                <span className="text-white text-xs font-bold group-hover:text-brand-primary transition-colors duration-200">24/7</span>
-              </div>
-              <div className="text-right">
-                <p className="text-xs text-gray-500 uppercase tracking-wide">Call Us Now</p>
-                <span className="font-bold text-lg text-brand-primary group-hover:text-highlight transition-colors duration-200">
-                  {siteConfig.contact?.phoneFormatted}
-                </span>
-              </div>
-            </a>
+            {/* Phone Number and CTA - Desktop */}
+            <div className="hidden lg:flex items-center gap-6">
+              <a href={`tel:${siteConfig.contact?.phone}`} className="group flex items-center gap-3 hover:-translate-y-0.5 transition-transform duration-200">
+                <div className="w-10 h-10 rounded-full bg-brand-secondary flex items-center justify-center transition-all duration-200 group-hover:bg-highlight group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-highlight/30">
+                  <span className="text-white text-xs font-bold group-hover:text-brand-primary transition-colors duration-200">24/7</span>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs uppercase tracking-wide" style={{ color: '#091f41' }}>Call Us Now</p>
+                  <span className="font-bold text-lg group-hover:text-highlight transition-colors duration-200" style={{ color: '#091f41' }}>
+                    {siteConfig.contact?.phoneFormatted}
+                  </span>
+                </div>
+              </a>
 
-            {/* Mobile Menu Button */}
-            <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger asChild className="lg:hidden">
-                <Button variant="ghost" size="icon" aria-label="Open menu">
-                  <Menu className="h-6 w-6" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-full sm:w-[400px] overflow-y-auto p-0">
-                <SheetHeader className="border-b p-4">
-                  <SheetTitle className="text-left">Menu</SheetTitle>
-                </SheetHeader>
-                <MobileNav onClose={() => setIsOpen(false)} />
-              </SheetContent>
-            </Sheet>
-          </div>
+              {/* GET A QUOTE Button */}
+              <Button 
+                className="bg-accent hover:bg-accent/90 text-white font-semibold px-6 rounded-full"
+                asChild
+              >
+                <a href="/contact">GET A QUOTE</a>
+              </Button>
+            </div>
+
+          {/* Mobile Menu Button */}
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild className="lg:hidden">
+              <Button variant="ghost" size="icon" aria-label="Open menu">
+                <Menu className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-full sm:w-[400px] overflow-y-auto p-0">
+              <SheetHeader className="border-b p-4">
+                <SheetTitle className="text-left">Menu</SheetTitle>
+              </SheetHeader>
+              <MobileNav onClose={() => setIsOpen(false)} />
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
 
       {/* Bottom Nav Bar - Blue */}
       <div className="hidden lg:block bg-brand-secondary relative z-[60]">
         <div className="container mx-auto px-4">
-          <div className="flex h-12 items-center justify-between">
+          <div className="flex h-12 items-center justify-center">
             <nav className="flex items-center h-full -mx-2">
               {mainNavItems.map((item) => (
                 <ServiceNavItem key={item.href} item={item} />
               ))}
             </nav>
-            <Button 
-              className="bg-accent hover:bg-accent/90 text-white font-semibold px-6 rounded-full ml-4"
-              asChild
-            >
-              <a href="/contact">GET A QUOTE</a>
-            </Button>
           </div>
         </div>
       </div>

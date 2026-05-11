@@ -70,6 +70,13 @@
       }
     },
     {
+      "component": "WavyDivider",
+      "props": {
+        "topColor": "#091f41",
+        "bottomColor": "#ffffff"
+      }
+    },
+    {
       "component": "CouponsSection",
       "props": {
         "coupons": [
@@ -92,6 +99,14 @@
             "expires": "December 2024"
           }
         ]
+      }
+    },
+    {
+      "component": "WavyDivider",
+      "props": {
+        "topColor": "#091f41",
+        "bottomColor": "#ffffff",
+        "flip": true
       }
     },
     {
