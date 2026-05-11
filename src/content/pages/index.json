@@ -113,7 +113,7 @@
       "component": "ContentSection",
       "props": {
         "badge": "Welcome to {fullName}",
-        "title": "Expert Plumbing Services You Can Trust",
+        "title": "Expert Plumbing Services<br>You Can Trust",
         "description": "With over 20 years of experience, {fullName} has been the trusted choice for plumbing services in {city}. Our licensed and insured plumbers provide quality solutions for residential and commercial properties, ensuring every job is done right the first time. From leaky faucets to complete pipe installations, we're here to help.",
         "features": [
           "Licensed & Insured Plumbers",

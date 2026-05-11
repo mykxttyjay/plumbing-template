@@ -22,14 +22,14 @@ const isMinimal = variant === 'minimal';
   <div class="container mx-auto px-4">
     <div class="text-center mb-10" data-animate="fade-up">
       {!isMinimal && (
-        <div class="flex justify-center mb-4">
-          <span class="inline-flex items-center gap-2 text-sm font-bold px-5 py-2" style="color: #40c4eb;">
+        <div class="flex justify-center mb-2">
+          <span class="inline-flex items-center gap-2 text-sm font-bold px-5 py-2 tracking-wide" style="color: #40c4eb;">
             <Droplet class="w-4 h-4 animate-bounce" />
             LIMITED TIME OFFERS
           </span>
         </div>
       )}
-      <h2 class="font-bold text-white" style="color: #ffffff; font-size: 40px;">
+      <h2 class="font-bold text-white" style="color: #ffffff; font-size: 43px;">
         {isMinimal ? 'Special Discounts & Promotions' : 'Save Big on Plumbing Services'}
       </h2>
       {isMinimal && (
