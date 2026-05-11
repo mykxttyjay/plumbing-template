@@ -75,7 +75,7 @@ function MegaMenu({ item, isOpen }: { item: MegaMenuItem; isOpen: boolean }) {
   if (!isOpen) return null
   
   return (
-    <div className="fixed left-0 right-0 bg-white shadow-2xl border-t-2 border-gray-200 z-[50]" style={{ top: '165px' }}>
+    <div className="absolute left-0 right-0 top-full bg-white shadow-2xl border-t-2 border-gray-200 z-[60] w-screen">
       <div className="w-full px-12 py-10">
         <div className="grid grid-cols-6 gap-x-8 gap-y-6 max-w-[1600px] mx-auto">
           {item.categories.map((category) => (
@@ -129,7 +129,11 @@ function ServiceNavItem({ item }: { item: MegaMenuItem }) {
         </a>
         <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </div>
-      {isOpen && <MegaMenu item={item} isOpen={isOpen} />}
+      {isOpen && (
+        <div className="absolute left-1/2 transform -translate-x-1/2 top-full w-screen">
+          <MegaMenu item={item} isOpen={isOpen} />
+        </div>
+      )}
     </div>
   )
 }

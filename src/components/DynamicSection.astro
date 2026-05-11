@@ -20,7 +20,7 @@ import PromoTilesSection from "@/components/sections/PromoTilesSection.astro"
 import ReviewsSection from "@/components/sections/ReviewsSection.astro"
 import ServiceAreaSection from "@/components/sections/ServiceAreaSection.astro"
 import ServiceCardsGridSection from "@/components/sections/ServiceCardsGridSection.astro"
-import ServicesSection from "@/components/sections/ServicesSection"
+import ServicesSection from "@/components/sections/ServicesSection.astro"
 import SignupBannerSection from "@/components/sections/SignupBannerSection.astro"
 import TestimonialsSection from "@/components/sections/TestimonialsSection.astro"
 import TrustBadges from "@/components/sections/TrustBadges.astro"
@@ -49,6 +49,7 @@ const astroComponents: Record<string, any> = {
   ReviewsSection,
   ServiceAreaSection,
   ServiceCardsGridSection,
+  ServicesSection,
   SignupBannerSection,
   TestimonialsSection,
   TrustBadges,
@@ -62,17 +63,11 @@ interface Props {
 
 const { component, props = {} } = Astro.props
 
-// React component must be referenced by its literal import for client directives
-// to wire up hydration correctly.
-const isServicesSection = component === "ServicesSection"
-const AstroComponent = isServicesSection ? null : astroComponents[component]
+const AstroComponent = astroComponents[component]
 
-if (!isServicesSection && !AstroComponent) {
+if (!AstroComponent) {
   throw new Error(`Unknown section component: "${component}". Add it to src/components/DynamicSection.astro.`)
 }
 ---
 
-{isServicesSection
-  ? <ServicesSection client:visible {...props} />
-  : <AstroComponent {...props} />
-}
+<AstroComponent {...props} />

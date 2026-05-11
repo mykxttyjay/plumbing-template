@@ -5,6 +5,7 @@ interface Service {
   title: string;
   description: string;
   href?: string;
+  icon?: string;
 }
 
 interface ServiceCategory {
@@ -23,15 +24,23 @@ const { title: raw_title, description: raw_description, categories } = Astro.pro
 // Process text placeholders
 const title = raw_title ? getLocationText(raw_title) : raw_title;
 const description = raw_description ? getLocationText(raw_description) : raw_description;
+
+// Map category titles to banner images
+const CATEGORY_IMAGES: Record<string, string> = {
+  'Residential Plumbing Services': '/images/photos/freepik-male-plumber-working-fix-problems-client-s-house_23-2150990700.jpg',
+  'Commercial Plumbing Services':  '/images/photos/freepik-man-installs-heating-system-house-checks-pipes-with-wrench_169016-55834.jpg',
+  'Specialty Plumbing Services':   '/images/photos/freepik-female-plumber-working-fix-problems-client-s-house_23-2150990725.jpg',
+  'Maintenance Services':          '/images/photos/plumber-bathroom.jpg',
+};
 ---
 
 <section class="py-16 md:py-24 relative overflow-hidden">
   <!-- Background image -->
   <div class="absolute inset-0 z-0">
     <img 
-      src="https://images.unsplash.com/photo-1712145176725-673500482322?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+      src="https://images.unsplash.com/photo-1640995810429-5785ca363fc5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
       alt="Background" 
-      class="w-full h-full object-cover blur-sm"
+      class="w-full h-full object-cover"
       loading="lazy"
     />
     <!-- Overlay for readability -->
@@ -43,32 +52,194 @@ const description = raw_description ? getLocationText(raw_description) : raw_des
       <h2 class="font-bold mb-4" style="font-size: 43px;">{title}</h2>
       <p class="text-muted-foreground max-w-3xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
     </div>
-    
-    <div class="space-y-12" data-animate-stagger>
-      {categories.map((category) => (
-        <div>
-          <h3 class="text-2xl font-bold mb-6 text-center flex items-center justify-center gap-3">
-            <span class="w-8 h-0.5 bg-accent rounded-full"></span>
+
+    {/* Grid layout with tabs on left and content on right */}
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      {/* Left side: Vertical tabs */}
+      <div class="lg:col-span-1 flex lg:flex-col gap-3 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0">
+        {categories.map((category, index) => (
+          <button
+            data-tab-button={index}
+            class="services-tab-button flex-shrink-0 lg:flex-shrink px-6 py-4 rounded-lg text-base font-semibold transition-all duration-300 whitespace-nowrap lg:whitespace-normal text-left w-full"
+            data-active={index === 0 ? 'true' : 'false'}
+            style={index === 0 ? 'background-color: #40c4eb; color: white; box-shadow: 0 4px 15px -3px rgba(64, 196, 235, 0.3);' : 'background-color: rgba(255, 255, 255, 0.8); color: rgba(0, 0, 0, 0.6); border: 1px solid rgba(0, 0, 0, 0.1);'}
+          >
             {category.title}
-            <span class="w-8 h-0.5 bg-accent rounded-full"></span>
-          </h3>
-          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {category.services.map((service) => (
-              service.href ? (
-                <a href={service.href} class="group bg-card border rounded-lg p-6 hover:shadow-md hover:border-accent/30 transition-all cursor-pointer">
-                  <h4 class="font-semibold mb-2 group-hover:text-accent transition-colors">{service.title}</h4>
-                  <p class="text-sm text-muted-foreground" set:html={service.description} />
-                </a>
-              ) : (
-                <div class="bg-card border rounded-lg p-6 cursor-default">
-                  <h4 class="font-semibold mb-2">{service.title}</h4>
-                  <p class="text-sm text-muted-foreground" set:html={service.description} />
+          </button>
+        ))}
+      </div>
+
+      {/* Right side: Content */}
+      <div class="lg:col-span-3 relative">
+        {categories.map((category, categoryIndex) => (
+          <div
+            data-tab-content={categoryIndex}
+            class="services-tab-content transition-opacity duration-300"
+            data-active={categoryIndex === 0 ? 'true' : 'false'}
+            style={categoryIndex === 0 ? 'opacity: 1;' : 'opacity: 0; position: absolute; inset: 0; pointer-events: none;'}
+          >
+            {/* Category image banner */}
+            {CATEGORY_IMAGES[category.title] && (
+              <div class="relative w-full mb-8 rounded-xl overflow-hidden h-48 md:h-64">
+                <img
+                  src={CATEGORY_IMAGES[category.title]}
+                  alt={category.title}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                  <div>
+                    <h3 class="text-xl md:text-2xl font-bold text-white">{category.title}</h3>
+                    <div class="w-12 h-0.5 bg-accent mt-2 rounded-full"></div>
+                  </div>
                 </div>
-              )
-            ))}
+              </div>
+            )}
+            <div class="grid sm:grid-cols-2 gap-4">
+              {category.services.map((service, serviceIndex) => (
+                service.href ? (
+                  <a 
+                    href={service.href} 
+                    class="services-card group bg-card border rounded-lg p-6 transition-all duration-300 flex flex-col items-center text-center gap-3 hover:shadow-lg hover:border-accent/50 hover:-translate-y-1 cursor-pointer"
+                    style={`animation-delay: ${serviceIndex * 50}ms;`}
+                  >
+                    <div class="shrink-0 w-16 h-16 rounded-full flex items-center justify-center overflow-hidden" style="background-color: rgba(64, 196, 235, 0.1);">
+                      {service.icon ? (
+                        <img src={service.icon} alt="" class="w-10 h-10 object-contain" style="filter: brightness(0) saturate(100%) invert(10%) sepia(90%) saturate(5000%) hue-rotate(340deg) brightness(80%);" />
+                      ) : (
+                        <svg class="w-6 h-6" style="color: #40c4eb;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m6 2a2 2 0 11-4 0m0 0a2 2 0 11-4 0m6 0a2 2 0 11-4 0m0 0a2 2 0 11-4 0m6 0v2m0 0v2m0-6v-2m0 6v2"></path>
+                        </svg>
+                      )}
+                    </div>
+                    <div>
+                      <h4 class="font-semibold mb-1 group-hover:text-accent transition-colors">
+                        {service.title}
+                      </h4>
+                      <p class="text-sm text-muted-foreground" set:html={service.description} />
+                    </div>
+                  </a>
+                ) : (
+                  <div 
+                    class="services-card bg-card border rounded-lg p-6 flex flex-col items-center text-center gap-3 cursor-default"
+                    style={`animation-delay: ${serviceIndex * 50}ms;`}
+                  >
+                    <div class="shrink-0 w-16 h-16 rounded-full flex items-center justify-center overflow-hidden" style="background-color: rgba(64, 196, 235, 0.1);">
+                      {service.icon ? (
+                        <img src={service.icon} alt="" class="w-10 h-10 object-contain" style="filter: brightness(0) saturate(100%) invert(10%) sepia(90%) saturate(5000%) hue-rotate(340deg) brightness(80%);" />
+                      ) : (
+                        <svg class="w-6 h-6" style="color: #40c4eb;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m6 2a2 2 0 11-4 0m0 0a2 2 0 11-4 0m6 0a2 2 0 11-4 0m0 0a2 2 0 11-4 0m6 0v2m0 0v2m0-6v-2m0 6v2"></path>
+                        </svg>
+                      )}
+                    </div>
+                    <div>
+                      <h4 class="font-semibold mb-1">
+                        {service.title}
+                      </h4>
+                      <p class="text-sm text-muted-foreground" set:html={service.description} />
+                    </div>
+                  </div>
+                )
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .services-card {
+    animation: fadeInSlideUp 0.3s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeInSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  function initServicesTabs() {
+    const tabButtons = document.querySelectorAll<HTMLButtonElement>('.services-tab-button');
+    const tabContents = document.querySelectorAll<HTMLElement>('.services-tab-content');
+
+    tabButtons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        // Update buttons
+        tabButtons.forEach((btn, i) => {
+          if (i === index) {
+            btn.setAttribute('data-active', 'true');
+            btn.style.backgroundColor = '#40c4eb';
+            btn.style.color = 'white';
+            btn.style.boxShadow = '0 4px 15px -3px rgba(64, 196, 235, 0.3)';
+          } else {
+            btn.setAttribute('data-active', 'false');
+            btn.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+            btn.style.color = 'rgba(0, 0, 0, 0.6)';
+            btn.style.boxShadow = 'none';
+            btn.style.border = '1px solid rgba(0, 0, 0, 0.1)';
+          }
+        });
+
+        // Update content
+        tabContents.forEach((content, i) => {
+          if (i === index) {
+            content.setAttribute('data-active', 'true');
+            content.style.opacity = '1';
+            content.style.position = 'relative';
+            content.style.pointerEvents = 'auto';
+          } else {
+            content.setAttribute('data-active', 'false');
+            content.style.opacity = '0';
+            content.style.position = 'absolute';
+            content.style.pointerEvents = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  initServicesTabs();
+  document.addEventListener('astro:page-load', initServicesTabs);
+
+  // Enhanced parallax effect for background
+  function initParallax() {
+    const section = document.querySelector<HTMLElement>('.services-section');
+    const bgParallax = document.querySelector<HTMLElement>('.services-bg-parallax');
+    
+    if (!section || !bgParallax) return;
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const windowHeight = window.innerHeight;
+      
+      // Calculate parallax offset based on scroll position
+      // The background moves at 40% of the scroll speed for a nice parallax effect
+      const parallaxOffset = (scrollY - sectionTop + windowHeight) * 0.4;
+      
+      bgParallax.style.transform = `translateY(${parallaxOffset}px)`;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Cleanup on page transition
+    document.addEventListener('astro:before-swap', () => {
+      window.removeEventListener('scroll', handleScroll);
+    }, { once: true });
+  }
+
+  initParallax();
+  document.addEventListener('astro:page-load', initParallax);
+</script>
