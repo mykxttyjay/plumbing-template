@@ -1,7 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions"
 import "../styles/global.css"
-import { Navbar } from "@/components/Navbar"
+import Navbar from "@/components/Navbar.astro"
 import { Footer } from "@/components/Footer"
 import ThemeProvider from "@/components/ThemeProvider.astro"
 import { siteConfig } from "@/config/site"
@@ -88,7 +88,7 @@ const canonical = new URL(Astro.url.pathname, siteConfig.seo.siteUrl).href
     <ThemeProvider />
   </head>
   <body class="min-h-screen flex flex-col">
-    <Navbar client:idle />
+    <Navbar />
     <main class="flex-1">
       <slot />
     </main>

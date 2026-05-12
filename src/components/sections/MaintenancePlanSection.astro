@@ -20,6 +20,26 @@ const { title: raw_title, description: raw_description, includedItems, benefits,
 // Process text placeholders
 const title = raw_title ? getLocationText(raw_title) : raw_title;
 const description = raw_description ? getLocationText(raw_description) : raw_description;
+
+// Function to get icon based on title
+function getIconForItem(title: string) {
+  const lowerTitle = title.toLowerCase();
+  
+  if (lowerTitle.includes('inspection')) {
+    return '<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>';
+  } else if (lowerTitle.includes('drain')) {
+    return '<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>';
+  } else if (lowerTitle.includes('water heater') || lowerTitle.includes('heater')) {
+    return '<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path></svg>';
+  } else if (lowerTitle.includes('priority') || lowerTitle.includes('scheduling')) {
+    return '<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
+  } else if (lowerTitle.includes('discount') || lowerTitle.includes('repair')) {
+    return '<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>';
+  }
+  
+  // Default icon
+  return '<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+}
 ---
 
 <section class="py-12 md:py-16 bg-primary/5">
@@ -29,35 +49,40 @@ const description = raw_description ? getLocationText(raw_description) : raw_des
       <p class="text-muted-foreground max-w-4xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
     </div>
     
-    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto" data-animate-stagger>
-      <div class="bg-card border rounded-lg p-8">
-        <h3 class="text-xl font-bold mb-6">What's Included in Our Maintenance Plans?</h3>
-        <ul class="space-y-4">
+    <div class="space-y-12" data-animate-stagger>
+      <div>
+        <h3 class="text-2xl font-bold mb-8 text-center">What's Included in Our Maintenance Plans?</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {includedItems.map((item) => (
-            <li class="flex items-start gap-3">
-              <span class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"></span>
-              <div>
-                <span class="font-semibold">{item.title}</span>
-                <p class="text-sm text-muted-foreground" set:html={item.description} />
+            <div class="bg-white border-2 border-brand-secondary/30 rounded-xl px-6 pt-6 pb-2 hover:border-brand-secondary hover:shadow-2xl shadow-lg transition-all duration-300 flex flex-col items-center text-center aspect-square hover:scale-105">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center mb-4 text-accent shadow-md">
+                <span set:html={getIconForItem(item.title)}></span>
               </div>
-            </li>
+              <h4 class="font-bold mb-3 text-brand-primary whitespace-nowrap" style="font-size: 17px;">{item.title}</h4>
+              <p class="text-gray-600 leading-snug" style="font-size: 15px;" set:html={item.description} />
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
       
-      <div class="bg-card border rounded-lg p-8 flex flex-col">
-        <h3 class="text-xl font-bold mb-6">Why Invest in a Maintenance Plan?</h3>
-        <ul class="space-y-4">
+      <div>
+        <h3 class="text-2xl font-bold mb-8 text-center">Why Invest in a Maintenance Plan?</h3>
+        <div class="grid md:grid-cols-2 gap-6">
           {benefits.map((benefit) => (
-            <li class="flex items-start gap-3">
-              <span class="w-6 h-6 rounded-full bg-accent/10 text-accent flex items-center justify-center text-sm shrink-0 mt-0.5 font-bold">✓</span>
-              <span>{benefit}</span>
-            </li>
+            <div class="bg-white border-2 border-brand-secondary/30 rounded-xl p-6 hover:border-brand-secondary hover:shadow-2xl shadow-lg transition-all duration-300 flex items-start gap-4 hover:scale-[1.02]">
+              <span class="w-10 h-10 rounded-full bg-gradient-to-br from-accent/20 to-accent/10 text-accent flex items-center justify-center text-xl shrink-0 mt-1 font-bold shadow-md">✓</span>
+              <span class="text-gray-600 leading-relaxed" style="font-size: 18px;">{benefit}</span>
+            </div>
           ))}
-        </ul>
-        <div class="mt-auto pt-8">
-          <a href={buttonHref} class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-6 py-3 font-semibold hover:bg-primary/90 transition-colors">
-            {buttonText}
+        </div>
+        <div class="mt-10 text-center">
+          <a href={buttonHref} class="inline-flex items-center justify-between gap-3 rounded-full bg-highlight text-white px-6 py-2.5 font-bold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 text-lg">
+            <span>{buttonText}</span>
+            <span class="w-12 h-12 rounded-full bg-white flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M7 7h8.586L5.293 17.293l1.414 1.414L17 8.414V17h2V5H7v2z"/>
+              </svg>
+            </span>
           </a>
         </div>
       </div>
