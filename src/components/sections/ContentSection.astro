@@ -102,9 +102,9 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
           </ul>
         )}
         {buttonText && buttonHref && (
-          <a href={buttonHref} class="inline-flex items-center justify-between rounded-full bg-accent text-accent-foreground pl-8 pr-2 py-2 text-lg font-semibold hover:bg-accent/90 transition-colors shadow-lg shadow-accent/30">
+          <a href={buttonHref} class="inline-flex items-center justify-between rounded-full bg-accent text-accent-foreground pl-8 pr-2 py-2 text-lg font-semibold transition-colors shadow-lg shadow-accent/30 group hover:bg-brand-primary hover:text-white">
             <span class="mr-4">{buttonText}</span>
-            <span class="flex items-center justify-center w-12 h-12 rounded-full bg-white flex-shrink-0">
+            <span class="flex items-center justify-center w-12 h-12 rounded-full bg-white flex-shrink-0 transition-colors group-hover:bg-highlight">
               <ArrowUpRight class="w-6 h-6 text-black" />
             </span>
           </a>
