@@ -1,5 +1,6 @@
 ---
 import { getLocationText } from "@/config/site"
+import WavyDivider from "@/components/sections/WavyDivider.astro"
 
 interface IncludedItem {
   title: string;
@@ -42,50 +43,49 @@ function getIconForItem(title: string) {
 }
 ---
 
-<section class="py-12 md:py-16 bg-primary/5">
+<section class="py-12 md:py-16" style="background-color: #091f41;">
   <div class="container mx-auto px-4">
     <div class="text-center mb-12" data-animate="fade-up">
-      <h2 class="font-bold mb-4" style="font-size: 43px;">{title}</h2>
-      <p class="text-muted-foreground max-w-4xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
+      <h2 class="font-bold mb-4 text-white" style="font-size: 43px;">{title}</h2>
+      <p class="text-white/80 max-w-4xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
     </div>
     
-    <div class="space-y-12" data-animate-stagger>
-      <div>
-        <h3 class="text-2xl font-bold mb-8 text-center">What's Included in Our Maintenance Plans?</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+    <div class="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto" data-animate-stagger>
+      <div class="bg-white border-2 border-brand-secondary/30 rounded-xl shadow-lg py-8 px-6">
+        <h3 class="font-bold mb-8 text-center text-brand-primary whitespace-nowrap" style="font-size: 22px;">What's Included in Our Maintenance Plans?</h3>
+        <div class="grid grid-cols-1 gap-4">
           {includedItems.map((item) => (
-            <div class="bg-white border-2 border-brand-secondary/30 rounded-xl px-6 pt-6 pb-2 hover:border-brand-secondary hover:shadow-2xl shadow-lg transition-all duration-300 flex flex-col items-center text-center aspect-square hover:scale-105">
-              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center mb-4 text-accent shadow-md">
+            <div class="flex items-start gap-4 p-4 rounded-lg hover:bg-brand-secondary/5 transition-colors duration-200">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center text-accent shadow-md flex-shrink-0">
                 <span set:html={getIconForItem(item.title)}></span>
               </div>
-              <h4 class="font-bold mb-3 text-brand-primary whitespace-nowrap" style="font-size: 17px;">{item.title}</h4>
-              <p class="text-gray-600 leading-snug" style="font-size: 15px;" set:html={item.description} />
+              <div class="flex-1">
+                <h4 class="font-bold mb-1 text-brand-primary" style="font-size: 17px;">{item.title}</h4>
+                <p class="text-gray-600 leading-snug" style="font-size: 15px;" set:html={item.description} />
+              </div>
             </div>
           ))}
         </div>
       </div>
       
-      <div>
-        <h3 class="text-2xl font-bold mb-8 text-center">Why Invest in a Maintenance Plan?</h3>
-        <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white border-2 border-brand-secondary/30 rounded-xl shadow-lg py-8 px-6 flex flex-col">
+        <h3 class="font-bold mb-8 text-center text-brand-primary whitespace-nowrap" style="font-size: 22px;">Why Invest in a Maintenance Plan?</h3>
+        <div class="grid grid-cols-1 gap-2 flex-1">
           {benefits.map((benefit) => (
-            <div class="bg-white border-2 border-brand-secondary/30 rounded-xl p-6 hover:border-brand-secondary hover:shadow-2xl shadow-lg transition-all duration-300 flex items-start gap-4 hover:scale-[1.02]">
-              <span class="w-10 h-10 rounded-full bg-gradient-to-br from-accent/20 to-accent/10 text-accent flex items-center justify-center text-xl shrink-0 mt-1 font-bold shadow-md">✓</span>
-              <span class="text-gray-600 leading-relaxed" style="font-size: 18px;">{benefit}</span>
+            <div class="flex items-center gap-4 p-2 rounded-lg hover:bg-brand-secondary/5 transition-colors duration-200">
+              <span class="w-10 h-10 rounded-full bg-gradient-to-br from-accent/20 to-accent/10 text-accent flex items-center justify-center text-xl shrink-0 font-bold shadow-md">✓</span>
+              <span class="text-gray-600 leading-relaxed flex-1" style="font-size: 17px;">{benefit}</span>
             </div>
           ))}
         </div>
-        <div class="mt-10 text-center">
-          <a href={buttonHref} class="inline-flex items-center justify-between gap-3 rounded-full bg-highlight text-white px-6 py-2.5 font-bold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 text-lg">
+        <div class="mt-8 text-center">
+          <a href={buttonHref} class="inline-flex items-center justify-center gap-3 rounded-full bg-highlight text-white px-6 py-2.5 font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 text-lg">
             <span>{buttonText}</span>
-            <span class="w-12 h-12 rounded-full bg-white flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M7 7h8.586L5.293 17.293l1.414 1.414L17 8.414V17h2V5H7v2z"/>
-              </svg>
-            </span>
           </a>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<WavyDivider topColor="white" bottomColor="#091f41" />
