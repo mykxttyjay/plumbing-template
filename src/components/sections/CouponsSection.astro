@@ -78,7 +78,7 @@ const isMinimal = variant === 'minimal';
             
             {/* Accent Button Section */}
             <div class="px-6 py-6 text-center" style="background-color: #40c4eb;">
-              <button class="bg-white text-accent font-bold py-3 px-10 rounded-full hover:bg-blue-100 transition-colors duration-200 text-sm uppercase tracking-wide cursor-pointer" style="color: #40c4eb;">
+              <button class="bg-white text-accent font-bold py-3 px-10 rounded-full transition-colors duration-200 text-sm uppercase tracking-wide cursor-pointer" style="color: #40c4eb;" onmouseover="this.style.backgroundColor='#091f41'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='#40c4eb';">
                 Redeem & Save Today
               </button>
             </div>
@@ -103,7 +103,7 @@ const isMinimal = variant === 'minimal';
             
             {/* Accent Button Section */}
             <div class="px-6 py-6 text-center" style="background-color: #40c4eb;">
-              <button class="bg-white text-accent font-bold py-3 px-10 rounded-full hover:bg-blue-100 transition-colors duration-200 text-sm uppercase tracking-wide cursor-pointer" style="color: #40c4eb;">
+              <button class="bg-white text-accent font-bold py-3 px-10 rounded-full transition-colors duration-200 text-sm uppercase tracking-wide cursor-pointer" style="color: #40c4eb;" onmouseover="this.style.backgroundColor='#091f41'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='#40c4eb';">
                 Redeem & Save Today
               </button>
             </div>
@@ -112,7 +112,7 @@ const isMinimal = variant === 'minimal';
           // CARD 3: Cream background, scalloped edges top and bottom, accent button section
           <div class="coupon-card-3 group relative transition-all duration-300 overflow-hidden rounded-xl">
             {/* Cream Content Section */}
-            <div class="bg-amber-50 px-6 pt-10 pb-2 text-center">
+            <div class="bg-amber-50 px-6 pt-10 pb-2 text-center relative">
               <span class="inline-block bg-accent/20 text-accent text-sm font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4" style="background-color: rgba(64, 196, 235, 0.2); color: #40c4eb;">
                 {coupon.label}
               </span>
@@ -121,6 +121,12 @@ const isMinimal = variant === 'minimal';
               </div>
               <p class="text-base text-gray-600 font-medium mb-4" set:html={coupon.description} />
               <p class="text-xs text-gray-600 font-medium mb-8">Offer Expires: {coupon.expires}</p>
+              
+              {/* Coupon Notches - positioned at the middle of the border between cream and blue */}
+              <div class="absolute left-0 right-0 flex justify-between" style="bottom: -16px; z-index: 5;">
+                <div class="w-8 h-8 rounded-full" style="background-color: #091f41; margin-left: -16px;"></div>
+                <div class="w-8 h-8 rounded-full" style="background-color: #091f41; margin-right: -16px;"></div>
+              </div>
             </div>
             
             {/* Wavy Edge in middle - Sine wave */}
@@ -128,7 +134,7 @@ const isMinimal = variant === 'minimal';
             
             {/* Accent Button Section */}
             <div class="px-6 py-6 text-center rounded-b-xl" style="background-color: #40c4eb;">
-              <button class="bg-white text-accent font-bold py-3 px-10 rounded-full hover:bg-blue-100 transition-colors duration-200 text-sm uppercase tracking-wide cursor-pointer" style="color: #40c4eb;">
+              <button class="bg-white text-accent font-bold py-3 px-10 rounded-full transition-colors duration-200 text-sm uppercase tracking-wide cursor-pointer" style="color: #40c4eb;" onmouseover="this.style.backgroundColor='#091f41'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='#40c4eb';">
                 Redeem & Save Today
               </button>
             </div>
