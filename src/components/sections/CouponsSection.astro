@@ -1,5 +1,5 @@
 ---
-import { Droplet, Scissors, Clock } from '@lucide/astro';
+import { Droplet } from '@lucide/astro';
 import { getLocationText } from "@/config/site"
 
 interface Coupon {
@@ -39,7 +39,7 @@ const isMinimal = variant === 'minimal';
       )}
     </div>
     <div class={isMinimal ? 'grid sm:grid-cols-2 lg:grid-cols-3 gap-4' : 'grid md:grid-cols-3 gap-6'} data-animate-stagger>
-      {coupons.map((coupon) => (
+      {coupons.map((coupon, index) => (
         isMinimal ? (
           <div class="bg-card border border-border rounded-lg p-5 hover:border-accent/50 transition-colors">
             <div class="flex items-start justify-between gap-3 mb-3">
@@ -55,28 +55,82 @@ const isMinimal = variant === 'minimal';
             </div>
             <p class="text-sm text-muted-foreground" set:html={coupon.description} />
           </div>
+        ) : index === 0 ? (
+          // CARD 1: Ribbon corner, cream background, scalloped bottom, accent button section
+          <div class="coupon-card-1 group relative transition-all duration-300 overflow-visible rounded-xl">
+            {/* Cream Content Section */}
+            <div class="bg-amber-50 px-8 pt-10 pb-6 text-center relative rounded-t-2xl">
+              <span class="inline-block bg-accent/20 text-accent text-sm font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4" style="background-color: rgba(64, 196, 235, 0.2); color: #40c4eb;">
+                DISCOUNT
+              </span>
+              <div class="text-7xl md:text-8xl font-black text-gray-800 mb-2 group-hover:scale-105 transition-transform duration-300 leading-none">
+                {coupon.discount}
+              </div>
+              <p class="text-base text-gray-600 font-medium tracking-wide mb-4" set:html={coupon.description} />
+              <p class="text-xs text-gray-600 font-medium mb-6">Offer Expires: {coupon.expires}</p>
+              
+              {/* Coupon Notches - positioned at the middle of the border between cream and blue */}
+              <div class="absolute left-0 right-0 flex justify-between" style="bottom: -16px; z-index: 5;">
+                <div class="w-8 h-8 rounded-full" style="background-color: #091f41; margin-left: -16px;"></div>
+                <div class="w-8 h-8 rounded-full" style="background-color: #091f41; margin-right: -16px;"></div>
+              </div>
+            </div>
+            
+            {/* Accent Button Section */}
+            <div class="px-6 py-6 text-center" style="background-color: #40c4eb;">
+              <button class="bg-white text-accent font-bold py-3 px-10 rounded-full hover:bg-blue-100 transition-colors duration-200 text-sm uppercase tracking-wide cursor-pointer" style="color: #40c4eb;">
+                Redeem & Save Today
+              </button>
+            </div>
+            
+            {/* Wavy Edge at bottom - Sine wave */}
+            <div class="h-3" style="background-color: #40c4eb; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 60%22 preserveAspectRatio=%22none%22><path d=%22M0,30 Q75,0 150,30 T300,30 T450,30 T600,30 T750,30 T900,30 T1050,30 T1200,30 L1200,60 L0,60 Z%22 fill=%22%23091f41%22/></svg>'); background-repeat: repeat-x; background-size: 150px 100%;"></div>
+          </div>
+        ) : index === 1 ? (
+          // CARD 2: Accent border frame, white background, accent button section
+          <div class="coupon-card-2 group relative transition-all duration-300 overflow-hidden rounded-xl" style="border: 8px solid #40c4eb;">
+            {/* White Content Section */}
+            <div class="bg-white px-6 pt-12 pb-8 text-center">
+              <span class="inline-block bg-accent/20 text-accent text-sm font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4" style="background-color: rgba(64, 196, 235, 0.2); color: #40c4eb;">
+                {coupon.label}
+              </span>
+              <div class="text-7xl md:text-8xl font-black text-gray-800 mb-3 group-hover:scale-105 transition-transform duration-300">
+                {coupon.discount}
+              </div>
+              <p class="text-base text-gray-600 font-medium mb-4" set:html={coupon.description} />
+              <p class="text-xs text-gray-600 font-medium">Offer Expires: {coupon.expires}</p>
+            </div>
+            
+            {/* Accent Button Section */}
+            <div class="px-6 py-6 text-center" style="background-color: #40c4eb;">
+              <button class="bg-white text-accent font-bold py-3 px-10 rounded-full hover:bg-blue-100 transition-colors duration-200 text-sm uppercase tracking-wide cursor-pointer" style="color: #40c4eb;">
+                Redeem & Save Today
+              </button>
+            </div>
+          </div>
         ) : (
-          <div class="coupon-card group relative bg-card border-2 border-dashed border-accent/40 rounded-lg p-6 text-center shadow-lg hover:shadow-2xl hover:border-highlight transition-all duration-300 overflow-hidden hover:-translate-y-1">
-            <div class="absolute -right-8 top-4 bg-accent text-accent-foreground text-xs font-bold py-1 px-10 rotate-45 shadow-md">
-              SAVE
+          // CARD 3: Cream background, scalloped edges top and bottom, accent button section
+          <div class="coupon-card-3 group relative transition-all duration-300 overflow-hidden rounded-xl">
+            {/* Cream Content Section */}
+            <div class="bg-amber-50 px-6 pt-10 pb-2 text-center">
+              <span class="inline-block bg-accent/20 text-accent text-sm font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4" style="background-color: rgba(64, 196, 235, 0.2); color: #40c4eb;">
+                {coupon.label}
+              </span>
+              <div class="text-7xl md:text-8xl font-black text-gray-800 mb-3 group-hover:scale-105 transition-transform duration-300">
+                {coupon.discount}
+              </div>
+              <p class="text-base text-gray-600 font-medium mb-4" set:html={coupon.description} />
+              <p class="text-xs text-gray-600 font-medium mb-8">Offer Expires: {coupon.expires}</p>
             </div>
-            <div class="absolute -left-1 bottom-[52px] text-accent">
-              <Scissors class="w-5 h-5" />
-            </div>
-            <span class="inline-block bg-accent/10 text-accent text-sm font-bold px-3 py-1 rounded-full uppercase tracking-wide">
-              {coupon.label}
-            </span>
-            <h3 class="text-lg font-bold mt-3 mb-2" style="color: #091f41;">Special Deal</h3>
-            <p class="text-sm mb-3" style="color: #091f41;">Redeem & Save Today</p>
-            <div class="text-5xl md:text-6xl font-black text-accent mb-4 group-hover:scale-110 transition-transform duration-300">
-              {coupon.discount}
-            </div>
-            <p class="text-sm mb-4" style="color: #091f41;" set:html={coupon.description} />
-            <div class="border-t border-dashed border-accent/30 pt-3 mt-3">
-              <p class="inline-flex items-center gap-1 text-xs text-accent font-semibold">
-                <Clock class="w-3 h-3" />
-                Offer Expires: {coupon.expires}
-              </p>
+            
+            {/* Wavy Edge in middle - Sine wave */}
+            <div class="h-2" style="background-color: #fffbeb; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 60%22 preserveAspectRatio=%22none%22><path d=%22M0,30 Q75,0 150,30 T300,30 T450,30 T600,30 T750,30 T900,30 T1050,30 T1200,30 L1200,60 L0,60 Z%22 fill=%22%2340c4eb%22/></svg>'); background-repeat: repeat-x; background-size: 150px 100%;"></div>
+            
+            {/* Accent Button Section */}
+            <div class="px-6 py-6 text-center rounded-b-xl" style="background-color: #40c4eb;">
+              <button class="bg-white text-accent font-bold py-3 px-10 rounded-full hover:bg-blue-100 transition-colors duration-200 text-sm uppercase tracking-wide cursor-pointer" style="color: #40c4eb;">
+                Redeem & Save Today
+              </button>
             </div>
           </div>
         )
@@ -86,13 +140,4 @@ const isMinimal = variant === 'minimal';
 </section>
 
 <style>
-  .coupon-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent), var(--brand-highlight, #45f9ff), var(--accent));
-  }
 </style>
