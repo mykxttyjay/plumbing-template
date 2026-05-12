@@ -219,10 +219,10 @@ const hasSlideshow = slides.length > 1;
               <div>
                 <a
                   href={buttonHref}
-                  class="inline-flex items-center justify-between rounded-full bg-accent text-accent-foreground pl-8 pr-2 py-2 text-lg font-semibold transition-colors shadow-lg shadow-accent/30 group hover:bg-brand-primary hover:text-white"
+                  class="hero-cta-button inline-flex items-center justify-between rounded-full bg-accent text-accent-foreground pl-8 pr-2 py-2 text-lg font-semibold transition-colors duration-300 shadow-lg shadow-accent/30 group"
                 >
                   <span class="mr-4">{slide.buttonText || buttonText}</span>
-                  <span class="flex items-center justify-center w-12 h-12 rounded-full bg-white flex-shrink-0 transition-colors group-hover:bg-highlight">
+                  <span class="flex items-center justify-center w-12 h-12 rounded-full bg-white flex-shrink-0">
                     <ArrowUpRight class="w-6 h-6 text-black" />
                   </span>
                 </a>
@@ -371,6 +371,12 @@ const hasSlideshow = slides.length > 1;
 )}
 
 <style>
+  /* Hero CTA button hover */
+  .hero-cta-button:hover {
+    background-color: #1e3a8a !important;
+    color: white !important;
+  }
+
   /* Subpage hero styles */
   .subpage-hero-cta {
     position: relative;
