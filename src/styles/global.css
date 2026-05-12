@@ -64,7 +64,7 @@
   --muted: var(--brand-tertiary);
   --muted-foreground: var(--brand-primary);
   --accent: var(--brand-accent, var(--brand-secondary));
-  --accent-foreground: var(--brand-quaternary);
+  --accent-foreground: var(--brand-primary);
   --destructive: var(--brand-accent, #dc2626);
   --border: var(--brand-tertiary);
   --input: var(--brand-tertiary);
