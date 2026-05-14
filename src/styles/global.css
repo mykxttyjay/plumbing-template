@@ -82,6 +82,12 @@
   --sidebar-accent-foreground: var(--brand-primary);
   --sidebar-border: var(--brand-tertiary);
   --sidebar-ring: var(--brand-secondary);
+  /* Top edge of CouponsSection (primary + ~14% radial highlight); use for WavyDivider fill */
+  --coupons-section-seam: color-mix(
+    in oklab,
+    var(--brand-highlight, #45f9ff) 13%,
+    var(--brand-primary)
+  );
 }
 
 .dark {
