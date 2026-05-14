@@ -49,8 +49,8 @@ const CATEGORY_IMAGES: Record<string, string> = {
   
   <div class="container mx-auto px-4 relative z-10">
     <div class="text-center mb-12" data-animate="fade-up">
-      <h2 class="font-bold mb-4" style="font-size: 43px;">{title}</h2>
-      <p class="text-muted-foreground max-w-3xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
+      <h2 class="font-extrabold mb-4" style="font-size: 43px;">{title}</h2>
+      <p class="text-clay-muted max-w-3xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
     </div>
 
     {/* Grid layout with tabs on left and content on right */}
@@ -60,9 +60,9 @@ const CATEGORY_IMAGES: Record<string, string> = {
         {categories.map((category, index) => (
           <button
             data-tab-button={index}
-            class="services-tab-button flex-shrink-0 lg:flex-shrink px-6 py-4 rounded-lg text-base font-semibold transition-all duration-300 whitespace-nowrap lg:whitespace-normal text-left w-full"
+            class="services-tab-button flex-shrink-0 lg:flex-shrink px-6 py-4 rounded-clay-sm text-base font-semibold transition-all duration-300 whitespace-nowrap lg:whitespace-normal text-left w-full shadow-clay-button clay-squish"
             data-active={index === 0 ? 'true' : 'false'}
-            style={index === 0 ? 'background-color: #40c4eb; color: white; box-shadow: 0 4px 15px -3px rgba(64, 196, 235, 0.3);' : 'background-color: rgba(255, 255, 255, 0.8); color: rgba(0, 0, 0, 0.6); border: 1px solid rgba(0, 0, 0, 0.1);'}
+            style={index === 0 ? 'background-color: #40c4eb; color: white;' : 'background-color: rgba(255, 255, 255, 0.8); color: rgba(0, 0, 0, 0.6);'}
           >
             {category.title}
           </button>
@@ -80,7 +80,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
           >
             {/* Category image banner */}
             {CATEGORY_IMAGES[category.title] && (
-              <div class="relative w-full mb-8 rounded-xl overflow-hidden h-48 md:h-64">
+              <div class="relative w-full mb-8 rounded-clay overflow-hidden h-48 md:h-64 shadow-clay-card">
                 <img
                   src={CATEGORY_IMAGES[category.title]}
                   alt={category.title}
@@ -89,7 +89,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
                 />
                 <div class="absolute inset-0 flex items-end bg-black/50 p-6">
                   <div>
-                    <h3 class="text-xl md:text-2xl font-bold text-white">{category.title}</h3>
+                    <h3 class="text-xl md:text-2xl font-extrabold text-white">{category.title}</h3>
                     <div class="w-12 h-0.5 bg-accent mt-2 rounded-full"></div>
                   </div>
                 </div>
@@ -100,10 +100,10 @@ const CATEGORY_IMAGES: Record<string, string> = {
                 service.href ? (
                   <a 
                     href={service.href} 
-                    class="services-card group bg-card border rounded-lg p-6 transition-all duration-300 flex flex-col items-center text-center gap-3 hover:shadow-lg hover:border-accent/50 hover:-translate-y-1 cursor-pointer"
+                    class="services-card group glass-clay shadow-clay-card rounded-clay p-6 clay-lift hover:shadow-clay-card-hover transition-all duration-300 flex flex-col items-center text-center gap-3 cursor-pointer"
                     style={`animation-delay: ${serviceIndex * 50}ms;`}
                   >
-                    <div class="shrink-0 w-16 h-16 rounded-full flex items-center justify-center overflow-hidden" style="background-color: rgba(64, 196, 235, 0.1);">
+                    <div class="shrink-0 w-16 h-16 rounded-full flex items-center justify-center overflow-hidden shadow-clay-button" style="background-color: rgba(64, 196, 235, 0.1);">
                       {service.icon ? (
                         <img src={service.icon} alt="" class="w-10 h-10 object-contain" style="filter: brightness(0) saturate(100%) invert(10%) sepia(90%) saturate(5000%) hue-rotate(340deg) brightness(80%);" />
                       ) : (
@@ -116,15 +116,15 @@ const CATEGORY_IMAGES: Record<string, string> = {
                       <h4 class="font-semibold mb-1 group-hover:text-accent transition-colors">
                         {service.title}
                       </h4>
-                      <p class="text-sm text-muted-foreground" set:html={service.description} />
+                      <p class="text-sm text-clay-muted" set:html={service.description} />
                     </div>
                   </a>
                 ) : (
                   <div 
-                    class="services-card bg-card border rounded-lg p-6 flex flex-col items-center text-center gap-3 cursor-default"
+                    class="services-card glass-clay shadow-clay-card rounded-clay p-6 flex flex-col items-center text-center gap-3 cursor-default"
                     style={`animation-delay: ${serviceIndex * 50}ms;`}
                   >
-                    <div class="shrink-0 w-16 h-16 rounded-full flex items-center justify-center overflow-hidden" style="background-color: rgba(64, 196, 235, 0.1);">
+                    <div class="shrink-0 w-16 h-16 rounded-full flex items-center justify-center overflow-hidden shadow-clay-button" style="background-color: rgba(64, 196, 235, 0.1);">
                       {service.icon ? (
                         <img src={service.icon} alt="" class="w-10 h-10 object-contain" style="filter: brightness(0) saturate(100%) invert(10%) sepia(90%) saturate(5000%) hue-rotate(340deg) brightness(80%);" />
                       ) : (
@@ -137,7 +137,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
                       <h4 class="font-semibold mb-1">
                         {service.title}
                       </h4>
-                      <p class="text-sm text-muted-foreground" set:html={service.description} />
+                      <p class="text-sm text-clay-muted" set:html={service.description} />
                     </div>
                   </div>
                 )
@@ -181,13 +181,10 @@ const CATEGORY_IMAGES: Record<string, string> = {
             btn.setAttribute('data-active', 'true');
             btn.style.backgroundColor = '#40c4eb';
             btn.style.color = 'white';
-            btn.style.boxShadow = '0 4px 15px -3px rgba(64, 196, 235, 0.3)';
           } else {
             btn.setAttribute('data-active', 'false');
             btn.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
             btn.style.color = 'rgba(0, 0, 0, 0.6)';
-            btn.style.boxShadow = 'none';
-            btn.style.border = '1px solid rgba(0, 0, 0, 0.1)';
           }
         });
 

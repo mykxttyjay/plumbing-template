@@ -77,7 +77,7 @@ const hasSlideshow = slides.length > 1;
         <div class="relative flex items-center py-10 md:py-14 pr-8">
           {badge_processed && (
             <div class="absolute top-0 left-0 right-0 pt-8">
-              <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]" style="color: var(--brand-highlight, #45f9ff);">
+              <span class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em]" style="color: var(--brand-highlight, #45f9ff);">
                 <span class="w-8 h-px" style="background: var(--brand-highlight, #45f9ff); opacity: 0.6;"></span>
                 {badge_processed}
               </span>
@@ -87,7 +87,7 @@ const hasSlideshow = slides.length > 1;
             {/* Teal accent bar above title */}
             <div class="w-12 h-1 rounded-full mb-5" style="background: var(--brand-highlight, #45f9ff);"></div>
 
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-5 leading-tight">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-primary-foreground mb-5 leading-tight">
               {title}
             </h1>
             {subtitle && (
@@ -95,7 +95,7 @@ const hasSlideshow = slides.length > 1;
             )}
 
             <div class="flex flex-wrap items-center gap-4">
-              <a href={buttonHref} class="subpage-hero-cta inline-flex items-center justify-center rounded-md bg-accent text-accent-foreground px-7 py-3.5 font-semibold transition-all duration-300 shadow-lg shadow-accent/25">
+              <a href={buttonHref} class="subpage-hero-cta inline-flex items-center justify-center rounded-clay-sm bg-accent text-accent-foreground px-7 py-3.5 font-semibold shadow-clay-button clay-squish hover:shadow-clay-button-hover transition-all duration-300">
                 {buttonText}
               </a>
             </div>
@@ -156,7 +156,7 @@ const hasSlideshow = slides.length > 1;
         </div>
         <div class="hidden md:block">
           {image ? (
-            <img src={image} alt={title} class="rounded-lg w-full aspect-video object-cover" />
+            <img src={image} alt={title} class="rounded-clay w-full aspect-video object-cover shadow-clay-card" />
           ) : (
             <div class="aspect-video bg-muted rounded-lg flex items-center justify-center">
               <span class="text-muted-foreground">Hero Image</span>
@@ -216,7 +216,7 @@ const hasSlideshow = slides.length > 1;
               <div>
                 <a
                   href={buttonHref}
-                  class="hero-cta-button group inline-flex items-center justify-between rounded-full bg-accent pl-8 pr-2 py-2 text-lg font-semibold text-accent-foreground shadow-lg shadow-accent/30 transition-colors duration-300 hover:bg-[#1e3a8a] hover:text-white"
+                  class="hero-cta-button group inline-flex items-center justify-between rounded-clay-sm bg-accent pl-8 pr-2 py-2 text-lg font-semibold text-accent-foreground shadow-clay-button clay-squish hover:shadow-clay-button-hover transition-all duration-300 hover:bg-[#1e3a8a] hover:text-white"
                 >
                   <span class="mr-4">{slide.buttonText || buttonText}</span>
                   <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white transition-colors group-hover:bg-white/15">
@@ -247,7 +247,7 @@ const hasSlideshow = slides.length > 1;
                   ></div>
 
                   <article
-                    class="hero-coupon-ticket relative overflow-hidden rounded-[1.35rem] border border-white/25 bg-white text-center shadow-[0_28px_60px_-20px_rgba(0,0,0,0.55)] ring-1 ring-black/[0.05]"
+                    class="hero-coupon-ticket relative overflow-hidden rounded-clay border border-white/25 bg-white text-center shadow-clay-card ring-1 ring-black/[0.05]"
                   >
                     <div
                       class="h-1 w-full bg-[var(--brand-secondary)]"
@@ -277,7 +277,7 @@ const hasSlideshow = slides.length > 1;
                       ></div>
 
                       {slide.promoImage && (
-                        <div class="relative z-[1] mb-4 h-24 w-full overflow-hidden rounded-xl shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06)]">
+                        <div class="relative z-[1] mb-4 h-24 w-full overflow-hidden rounded-clay-sm shadow-clay-button">
                           <img src={slide.promoImage} alt="" class="h-full w-full object-cover" loading="lazy" />
                         </div>
                       )}
@@ -288,7 +288,7 @@ const hasSlideshow = slides.length > 1;
                       <p class="relative z-[1] mb-4 text-xs" style="color: var(--brand-primary); opacity: 0.7;">Redeem &amp; Save Today</p>
 
                       <div
-                        class="promo-value-box relative z-[1] mb-4 inline-flex items-baseline gap-1 rounded-xl px-6 py-2.5 shadow-[0_10px_24px_-12px_rgba(0,0,0,0.45)]"
+                        class="promo-value-box relative z-[1] mb-4 inline-flex items-baseline gap-1 rounded-clay-sm px-6 py-2.5 shadow-clay-button"
                         style="background: var(--brand-primary);"
                       >
                         <span class="promo-value text-3xl font-black leading-none tracking-tight text-white md:text-4xl">
@@ -369,7 +369,7 @@ const hasSlideshow = slides.length > 1;
         </div>
         <div class="hidden md:block">
           {image ? (
-            <img src={image} alt={title} class="rounded-lg w-full" />
+            <img src={image} alt={title} class="rounded-clay w-full shadow-clay-card" />
           ) : (
             <div class="aspect-video bg-muted rounded-lg flex items-center justify-center">
               <span class="text-muted-foreground">Hero Image</span>
@@ -382,13 +382,11 @@ const hasSlideshow = slides.length > 1;
 )}
 
 <style>
-  /* Subpage hero styles */
   .subpage-hero-cta {
     position: relative;
   }
   .subpage-hero-cta:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 25px -5px color-mix(in srgb, var(--brand-accent) 40%, transparent);
+    transform: translateY(-2px);
   }
 
   @keyframes hero-fill {

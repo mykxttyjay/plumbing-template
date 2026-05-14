@@ -49,24 +49,24 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
       {badge && (
         <span class="inline-block text-sm font-semibold text-accent uppercase tracking-wide mb-4">{badge}</span>
       )}
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold">
         {title}{" "}
         {titleHighlightProcessed && (
           <span class="text-accent">{titleHighlightProcessed}</span>
         )}
       </h2>
-      <p class="text-muted-foreground mt-4 max-w-3xl mx-auto" set:html={description} />
+      <p class="text-clay-muted mt-4 max-w-3xl mx-auto" set:html={description} />
     </div>
 
     {/* Two column layout */}
     <div class={`grid md:grid-cols-2 gap-8 lg:gap-12 items-start ${imagePosition === "right" ? "" : ""}`}>
       {imagePosition === "left" && (
-        <div class="rounded-lg overflow-hidden max-h-[400px]" data-animate="fade-right">
+        <div class="rounded-clay overflow-hidden max-h-[400px] shadow-clay-card clay-lift hover:shadow-clay-card-hover transition-all" data-animate="fade-right">
           {image ? (
             <img src={image} alt={imageAlt} class="w-full h-full object-cover" />
           ) : (
             <div class="aspect-video bg-muted flex items-center justify-center">
-              <span class="text-muted-foreground text-sm">Image</span>
+              <span class="text-clay-muted text-sm">Image</span>
             </div>
           )}
         </div>
@@ -76,12 +76,12 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
         {features.length > 0 && (
           <>
             {featuresTitle && (
-              <h3 class="text-xl md:text-2xl font-bold mb-6">{featuresTitle}</h3>
+              <h3 class="text-xl md:text-2xl font-extrabold mb-6">{featuresTitle}</h3>
             )}
             <ul class="space-y-6">
               {features.map((feature) => (
                 <li class="flex gap-4">
-                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center shadow-clay-button">
                     {feature.icon ? (
                       <span class="text-lg" set:html={feature.icon} />
                     ) : (
@@ -93,7 +93,7 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
                   </div>
                   <div>
                     <h4 class="font-semibold text-foreground">{feature.title}</h4>
-                    <p class="text-muted-foreground text-sm mt-1" set:html={feature.description} />
+                    <p class="text-clay-muted text-sm mt-1" set:html={feature.description} />
                   </div>
                 </li>
               ))}
@@ -103,7 +103,7 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 
         {buttonText && buttonHref && (
           <div class="pt-6">
-            <a href={buttonHref} class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-6 py-3 font-semibold hover:bg-primary/90 transition-colors">
+            <a href={buttonHref} class="inline-flex items-center justify-center rounded-clay-sm bg-primary text-primary-foreground px-6 py-3 font-semibold shadow-clay-button clay-squish hover:shadow-clay-button-hover hover:-translate-y-1 transition-all">
               {buttonText}
             </a>
           </div>
@@ -111,12 +111,12 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
       </div>
 
       {imagePosition === "right" && (
-        <div class="rounded-lg overflow-hidden max-h-[300px]" data-animate="fade-left">
+        <div class="rounded-clay overflow-hidden max-h-[300px] shadow-clay-card clay-lift hover:shadow-clay-card-hover transition-all" data-animate="fade-left">
           {image ? (
             <img src={image} alt={imageAlt} class="w-full h-full object-cover" />
           ) : (
             <div class="aspect-video bg-muted flex items-center justify-center">
-              <span class="text-muted-foreground text-sm">Image</span>
+              <span class="text-clay-muted text-sm">Image</span>
             </div>
           )}
         </div>

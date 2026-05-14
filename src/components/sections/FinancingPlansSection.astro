@@ -49,21 +49,21 @@ const defaultIcon = variant === "services" ? Wrench : CheckCircle;
         {badge && (
           <span class="inline-block text-sm font-semibold text-accent uppercase tracking-wide border-b-2 border-accent pb-1">{badge}</span>
         )}
-        <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-4">{title}</h2>
+        <h2 class="text-3xl md:text-4xl font-extrabold mt-4 mb-4">{title}</h2>
         <div class="w-16 h-1 bg-accent mx-auto mb-4 rounded-full"></div>
-        {subtitle && <p class="text-muted-foreground max-w-3xl mx-auto" set:html={subtitle} />}
+        {subtitle && <p class="text-clay-muted max-w-3xl mx-auto" set:html={subtitle} />}
       </div>
       
       <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto" data-animate-stagger>
         {items.map((item) => {
           const IconComponent = iconMap[item.icon as keyof typeof iconMap] || CheckCircle;
           return (
-            <div class="text-center p-6 bg-card border rounded-lg hover:border-accent/30 hover:shadow-md transition-all">
-              <div class="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
+            <div class="text-center p-6 glass-clay shadow-clay-card rounded-clay clay-lift hover:shadow-clay-card-hover transition-all">
+              <div class="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4 shadow-clay-button">
                 <IconComponent className="w-8 h-8 text-accent" />
               </div>
-              <h3 class="text-xl font-bold mb-3">{item.title}</h3>
-              {item.text && <p class="text-muted-foreground" set:html={item.text} />}
+              <h3 class="text-xl font-extrabold mb-3">{item.title}</h3>
+              {item.text && <p class="text-clay-muted" set:html={item.text} />}
             </div>
           );
         })}
@@ -74,23 +74,23 @@ const defaultIcon = variant === "services" ? Wrench : CheckCircle;
   <section class="py-16 md:py-24 bg-muted/30">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12" data-animate="fade-up">
-        <h2 class="text-3xl md:text-4xl font-bold">{title}</h2>
+        <h2 class="text-3xl md:text-4xl font-extrabold">{title}</h2>
         <div class="w-16 h-1 bg-accent mx-auto mt-4 rounded-full"></div>
-        {subtitle && <p class="text-muted-foreground max-w-3xl mx-auto mt-4" set:html={subtitle} />}
+        {subtitle && <p class="text-clay-muted max-w-3xl mx-auto mt-4" set:html={subtitle} />}
       </div>
       
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-8xl mx-auto" data-animate-stagger>
         {items.map((item) => {
           return (
-            <div class="bg-card rounded-xl border overflow-hidden hover:shadow-lg transition-all">
+            <div class="glass-clay shadow-clay-card rounded-clay overflow-hidden clay-lift hover:shadow-clay-card-hover transition-all">
               {item.image && (
                 <div class="w-full h-48 bg-muted/50 flex items-center justify-center overflow-hidden">
                   <img src={item.image} alt={item.title} class="w-full h-full object-cover" />
                 </div>
               )}
               <div class="p-6 text-center">
-                <h3 class="text-lg font-bold mb-2">{item.title}</h3>
-                {item.text && <p class="text-sm text-muted-foreground leading-relaxed" set:html={item.text} />}
+                <h3 class="text-lg font-extrabold mb-2">{item.title}</h3>
+                {item.text && <p class="text-sm text-clay-muted leading-relaxed" set:html={item.text} />}
               </div>
             </div>
           );
@@ -102,21 +102,21 @@ const defaultIcon = variant === "services" ? Wrench : CheckCircle;
   <section class="py-16 md:py-24">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12" data-animate="fade-up">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">{title}</h2>
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4">{title}</h2>
         <div class="w-16 h-1 bg-accent mx-auto mb-4 rounded-full"></div>
-        {subtitle && <p class="text-muted-foreground max-w-3xl mx-auto" set:html={subtitle} />}
+        {subtitle && <p class="text-clay-muted max-w-3xl mx-auto" set:html={subtitle} />}
       </div>
       
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto" data-animate-stagger>
         {items.map((item) => {
           const IconComponent = iconMap[item.icon as keyof typeof iconMap] || defaultIcon;
           return (
-            <div class="bg-card border rounded-lg p-6 text-center hover:shadow-lg hover:border-accent/30 transition-all">
-              <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
+            <div class="glass-clay shadow-clay-card rounded-clay p-6 text-center clay-lift hover:shadow-clay-card-hover transition-all">
+              <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center shadow-clay-button">
                 <IconComponent className="w-8 h-8 text-accent" />
               </div>
-              <h3 class="text-lg font-bold mb-2">{item.title}</h3>
-              {item.text && <p class="text-sm text-muted-foreground" set:html={item.text} />}
+              <h3 class="text-lg font-extrabold mb-2">{item.title}</h3>
+              {item.text && <p class="text-sm text-clay-muted" set:html={item.text} />}
             </div>
           );
         })}

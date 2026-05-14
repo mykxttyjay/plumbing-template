@@ -25,11 +25,11 @@ const faqs = rawFaqs.map(faq => ({
 <section class="py-16 md:py-24 bg-muted/30">
   <div class="container mx-auto px-4">
     <div class="max-w-3xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12" data-animate="fade-up">{title}</h2>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12" data-animate="fade-up">{title}</h2>
       
       <div class="space-y-4" data-animate-stagger>
         {faqs.map((faq, index) => (
-          <details class="group bg-card border border-l-4 border-l-accent rounded-lg overflow-hidden">
+          <details class="group glass-clay shadow-clay-card rounded-clay overflow-hidden clay-lift hover:shadow-clay-card-hover transition-all" style="border-left: 3px solid var(--brand-accent);">
             <summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-muted/50 transition-colors">
               <span class="font-semibold pr-4">{faq.question}</span>
               <span class="shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary group-open:rotate-180 transition-transform">
@@ -39,7 +39,7 @@ const faqs = rawFaqs.map(faq => ({
               </span>
             </summary>
             {faq.answer && (
-              <div class="px-6 pb-6 text-muted-foreground" set:html={faq.answer} />
+              <div class="px-6 pb-6 text-clay-muted" set:html={faq.answer} />
             )}
           </details>
         ))}

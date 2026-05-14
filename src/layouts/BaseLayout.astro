@@ -4,6 +4,7 @@ import "../styles/global.css"
 import Navbar from "@/components/Navbar.astro"
 import Footer from "@/components/Footer.astro"
 import ThemeProvider from "@/components/ThemeProvider.astro"
+import ClayBlobs from "@/components/ui/ClayBlobs.astro"
 import { siteConfig } from "@/config/site"
 import PopupModal from "@/components/ui/PopupModal.astro"
 import FreeScanButton from "@/components/ui/FreeScanButton.astro"
@@ -88,6 +89,7 @@ const canonical = new URL(Astro.url.pathname, siteConfig.seo.siteUrl).href
     <ThemeProvider />
   </head>
   <body class="min-h-screen flex flex-col">
+    <ClayBlobs />
     <Navbar />
     <main class="flex-1">
       <slot />

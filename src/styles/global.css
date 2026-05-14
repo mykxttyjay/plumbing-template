@@ -46,28 +46,33 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 2rem;
   /* Brand colors are set dynamically by ThemeProvider.astro from site.ts */
   /* --brand-primary, --brand-secondary, --brand-tertiary, --brand-quaternary, --brand-accent */
   
+  /* Claymorphism color system using brand palette */
+  --clay-canvas: color-mix(in srgb, var(--brand-quaternary) 95%, var(--brand-tertiary) 5%);
+  --clay-foreground: var(--brand-primary);
+  --clay-muted: color-mix(in srgb, var(--brand-primary) 60%, transparent);
+  
   /* Theme colors using brand palette */
-  --background: var(--brand-quaternary);
-  --foreground: var(--brand-primary);
-  --card: #ffffff;
+  --background: var(--clay-canvas);
+  --foreground: var(--clay-foreground);
+  --card: rgba(255, 255, 255, 0.7);
   --card-foreground: var(--brand-primary);
-  --popover: #ffffff;
+  --popover: rgba(255, 255, 255, 0.95);
   --popover-foreground: var(--brand-primary);
   --primary: var(--brand-primary);
   --primary-foreground: var(--brand-quaternary);
   --secondary: var(--brand-secondary);
   --secondary-foreground: var(--brand-quaternary);
   --muted: var(--brand-tertiary);
-  --muted-foreground: var(--brand-primary);
+  --muted-foreground: var(--clay-muted);
   --accent: var(--brand-accent, var(--brand-secondary));
   --accent-foreground: var(--brand-primary);
   --destructive: var(--brand-accent, #dc2626);
-  --border: var(--brand-tertiary);
-  --input: var(--brand-tertiary);
+  --border: color-mix(in srgb, var(--brand-tertiary) 30%, transparent);
+  --input: color-mix(in srgb, var(--brand-tertiary) 20%, white);
   --ring: var(--brand-secondary);
   --chart-1: var(--brand-primary);
   --chart-2: var(--brand-secondary);
@@ -130,12 +135,15 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--clay-canvas);
+    color: var(--clay-foreground);
     font-family: 'Poppins', system-ui, -apple-system, sans-serif;
     font-display: swap;
+    position: relative;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    font-weight: 800;
   }
   .container {
     @apply max-w-7xl;
@@ -146,16 +154,33 @@
   }
 }
 
-/* Global button hover highlight */
+/* Claymorphism Button Styles */
 @layer components {
-  /* Accent buttons: hover to highlight bg */
+  /* Clay button with squish effect */
+  .btn-clay {
+    @apply inline-flex items-center justify-center font-bold tracking-wide;
+    @apply rounded-clay-sm h-14 px-8;
+    @apply shadow-clay-button;
+    @apply transition-all duration-200;
+  }
+  
+  .btn-clay:hover {
+    @apply -translate-y-1 shadow-clay-button-hover;
+  }
+  
+  .btn-clay:active {
+    @apply scale-[0.92] shadow-clay-pressed;
+  }
+  
+  /* Accent buttons with clay effect */
   a[class*="bg-accent"]:hover,
   button[class*="bg-accent"]:hover,
   [class*="bg-accent"] > a:hover {
     background-color: var(--brand-highlight, #45f9ff) !important;
     color: var(--brand-primary) !important;
   }
-  /* Primary buttons: hover to highlight bg */
+  
+  /* Primary buttons with clay effect */
   a[class*="bg-primary"]:not(section):hover,
   button[class*="bg-primary"]:not(section):hover {
     background-color: var(--brand-highlight, #45f9ff) !important;
@@ -321,5 +346,195 @@
       transform: none !important;
       transition: none !important;
     }
+  }
+}
+
+/* High-Fidelity Claymorphism Utilities */
+
+/* Clay color utilities */
+@utility bg-clay-canvas {
+  background-color: var(--clay-canvas);
+}
+@utility text-clay-foreground {
+  color: var(--clay-foreground);
+}
+@utility text-clay-muted {
+  color: var(--clay-muted);
+}
+
+/* 4-Layer Shadow Stacks for High-Fidelity Depth */
+
+/* Deep Clay Surface - for large containers */
+@utility shadow-clay-deep {
+  box-shadow: 
+    30px 30px 60px color-mix(in srgb, var(--brand-primary) 12%, transparent),
+    -30px -30px 60px rgba(255, 255, 255, 0.8),
+    inset 10px 10px 20px color-mix(in srgb, var(--brand-secondary) 3%, transparent),
+    inset -10px -10px 20px rgba(255, 255, 255, 0.6);
+}
+
+/* Clay Card - floating content cards */
+@utility shadow-clay-card {
+  box-shadow: 
+    16px 16px 32px color-mix(in srgb, var(--brand-primary) 15%, transparent),
+    -10px -10px 24px rgba(255, 255, 255, 0.9),
+    inset 6px 6px 12px color-mix(in srgb, var(--brand-secondary) 2%, transparent),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.8);
+}
+
+/* Clay Card Hover - enhanced depth on hover */
+@utility shadow-clay-card-hover {
+  box-shadow: 
+    20px 20px 40px color-mix(in srgb, var(--brand-primary) 20%, transparent),
+    -12px -12px 28px rgba(255, 255, 255, 1),
+    inset 8px 8px 16px color-mix(in srgb, var(--brand-secondary) 3%, transparent),
+    inset -8px -8px 16px rgba(255, 255, 255, 0.9);
+}
+
+/* Clay Button - high convexity for clickable elements */
+@utility shadow-clay-button {
+  box-shadow: 
+    12px 12px 24px color-mix(in srgb, var(--brand-primary) 25%, transparent),
+    -8px -8px 16px rgba(255, 255, 255, 0.4),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.3),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Clay Button Hover - enhanced on hover */
+@utility shadow-clay-button-hover {
+  box-shadow: 
+    16px 16px 32px color-mix(in srgb, var(--brand-primary) 30%, transparent),
+    -10px -10px 20px rgba(255, 255, 255, 0.5),
+    inset 5px 5px 10px rgba(255, 255, 255, 0.4),
+    inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Clay Pressed - recessed/inset for inputs and active states */
+@utility shadow-clay-pressed {
+  box-shadow: 
+    inset 10px 10px 20px color-mix(in srgb, var(--brand-primary) 8%, transparent),
+    inset -10px -10px 20px rgba(255, 255, 255, 0.9);
+}
+
+/* Super-Rounded Corners (Claymorphism Standard) */
+@utility rounded-clay-sm {
+  border-radius: 1.25rem; /* 20px */
+}
+@utility rounded-clay {
+  border-radius: 2rem; /* 32px */
+}
+@utility rounded-clay-lg {
+  border-radius: 3rem; /* 48px */
+}
+@utility rounded-clay-xl {
+  border-radius: 3.75rem; /* 60px */
+}
+
+/* Glass-Clay Hybrid */
+@utility glass-clay {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+@utility glass-clay-strong {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+/* Clay Interactive Effects */
+@utility clay-lift {
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms ease;
+}
+
+@utility clay-squish {
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 200ms ease;
+}
+
+/* Hover and active states need to be defined as regular CSS */
+.clay-lift:hover {
+  transform: translateY(-8px);
+}
+
+.clay-squish:active {
+  transform: scale(0.92);
+}
+
+/* Claymorphism Animations */
+
+/* Clay Float - for background blobs */
+@keyframes clay-float {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-20px) rotate(2deg); 
+  }
+}
+
+@utility animate-clay-float {
+  animation: clay-float 8s ease-in-out infinite;
+}
+
+/* Clay Float Delayed - alternative animation */
+@keyframes clay-float-delayed {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-15px) rotate(-2deg); 
+  }
+}
+
+@utility animate-clay-float-delayed {
+  animation: clay-float-delayed 10s ease-in-out infinite;
+}
+
+/* Clay Float Slow - for hero decorative elements */
+@keyframes clay-float-slow {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-30px) rotate(5deg); 
+  }
+}
+
+@utility animate-clay-float-slow {
+  animation: clay-float-slow 12s ease-in-out infinite;
+}
+
+/* Clay Breathe - for stat orbs */
+@keyframes clay-breathe {
+  0%, 100% { 
+    transform: scale(1); 
+  }
+  50% { 
+    transform: scale(1.02); 
+  }
+}
+
+@utility animate-clay-breathe {
+  animation: clay-breathe 6s ease-in-out infinite;
+}
+
+/* Animation delays */
+@utility animation-delay-2000 {
+  animation-delay: 2s;
+}
+@utility animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-clay-float,
+  .animate-clay-float-delayed,
+  .animate-clay-float-slow,
+  .animate-clay-breathe,
+  .clay-lift,
+  .clay-squish {
+    animation: none !important;
+    transition: none !important;
   }
 }

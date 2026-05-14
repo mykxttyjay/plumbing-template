@@ -32,14 +32,14 @@ const placeholderCount = images.length > 0 ? images.length : 8;
         <Droplet class="w-4 h-4 animate-bounce" />
         {badge}
       </span>
-      <h2 class="font-bold mt-2" style="font-size: 43px;">{title}</h2>
+      <h2 class="font-extrabold mt-2" style="font-size: 43px;">{title}</h2>
     </div>
     
     <div class={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-${columns} gap-4`} data-animate-stagger>
       {images.length > 0 ? (
         images.map((img, i) => (
-          <a href={instagramUrl} target="_blank" rel="noopener noreferrer" class="aspect-square rounded-lg overflow-hidden cursor-pointer group relative">
-            <img src={img} alt={`${title} - project ${i + 1}`} class="w-full h-full object-cover group-hover:scale-105 group-hover:blur-[2px] transition-all ring-2 ring-transparent group-hover:ring-accent/50" loading="lazy" />
+          <a href={instagramUrl} target="_blank" rel="noopener noreferrer" class="aspect-square rounded-clay overflow-hidden cursor-pointer group relative shadow-clay-card clay-lift hover:shadow-clay-card-hover">
+            <img src={img} alt={`${title} - project ${i + 1}`} class="w-full h-full object-cover group-hover:scale-105 group-hover:blur-[2px] transition-all" loading="lazy" />
             {/* Eye icon overlay */}
             <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
               <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -51,8 +51,8 @@ const placeholderCount = images.length > 0 ? images.length : 8;
         ))
       ) : (
         Array.from({ length: placeholderCount }).map((_, i) => (
-          <div class="aspect-square bg-muted rounded-lg flex items-center justify-center">
-            <span class="text-muted-foreground text-sm">Project {i + 1}</span>
+          <div class="aspect-square bg-muted rounded-clay flex items-center justify-center shadow-clay-card">
+            <span class="text-clay-muted text-sm">Project {i + 1}</span>
           </div>
         ))
       )}

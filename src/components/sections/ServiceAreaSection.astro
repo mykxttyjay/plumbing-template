@@ -47,7 +47,7 @@ const embedUrl = mapEmbed || (mapAddress ? getMapEmbedUrl(mapAddress) : null);
       <div class="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
         <div class="order-2 md:order-1">
           {embedUrl ? (
-            <div class="aspect-[4/3] rounded-lg overflow-hidden shadow-lg">
+            <div class="aspect-[4/3] rounded-clay overflow-hidden shadow-clay-card">
               <iframe
                 src={embedUrl}
                 width="100%"
@@ -60,18 +60,18 @@ const embedUrl = mapEmbed || (mapAddress ? getMapEmbedUrl(mapAddress) : null);
               ></iframe>
             </div>
           ) : mapImage ? (
-            <img src={mapImage} alt="Service Area Map" class="rounded-lg w-full shadow-lg" />
+            <img src={mapImage} alt="Service Area Map" class="rounded-clay w-full shadow-clay-card" />
           ) : (
-            <div class="aspect-[4/3] bg-muted rounded-lg flex items-center justify-center">
-              <span class="text-muted-foreground">Map - Service Area</span>
+            <div class="aspect-[4/3] bg-muted rounded-clay flex items-center justify-center shadow-clay-card">
+              <span class="text-clay-muted">Map - Service Area</span>
             </div>
           )}
         </div>
         
         <div class="order-1 md:order-2 text-center md:text-left">
-          <h2 class="text-2xl md:text-3xl font-bold mb-4">{title}</h2>
-          <p class="text-muted-foreground mb-6" set:html={description} />
-          <a href={buttonHref} class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-6 py-3 font-semibold hover:bg-primary/90 transition-colors">
+          <h2 class="text-2xl md:text-3xl font-extrabold mb-4">{title}</h2>
+          <p class="text-clay-muted mb-6" set:html={description} />
+          <a href={buttonHref} class="inline-flex items-center justify-center rounded-clay-sm bg-primary text-primary-foreground px-6 py-3 font-semibold shadow-clay-button clay-squish hover:shadow-clay-button-hover hover:-translate-y-1 transition-all">
             {buttonText}
           </a>
         </div>
@@ -83,15 +83,15 @@ const embedUrl = mapEmbed || (mapAddress ? getMapEmbedUrl(mapAddress) : null);
     <div class="container mx-auto px-4">
       <div class="grid md:grid-cols-2 gap-12">
         <div data-animate="fade-right">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">{title}</h2>
-          <p class="text-muted-foreground mb-8" set:html={description} />
+          <h2 class="text-3xl md:text-4xl font-extrabold mb-6">{title}</h2>
+          <p class="text-clay-muted mb-8" set:html={description} />
           
           {areas && areas.length > 0 && (
             <>
-              <h3 class="text-xl font-bold mb-4">Areas We Serve</h3>
+              <h3 class="text-xl font-extrabold mb-4">Areas We Serve</h3>
               <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm">
                 {areas.map((area) => (
-                  <span class="text-muted-foreground hover:text-accent transition-colors cursor-default flex items-center gap-2">
+                  <span class="text-clay-muted hover:text-accent transition-colors cursor-default flex items-center gap-2">
                     <span class="w-1.5 h-1.5 rounded-full bg-accent/60"></span>
                     {area}
                   </span>
@@ -103,7 +103,7 @@ const embedUrl = mapEmbed || (mapAddress ? getMapEmbedUrl(mapAddress) : null);
         
         <div data-animate="fade-left">
           {embedUrl ? (
-            <div class="aspect-[4/3] rounded-lg overflow-hidden">
+            <div class="aspect-[4/3] rounded-clay overflow-hidden shadow-clay-card">
               <iframe
                 src={embedUrl}
                 width="100%"
@@ -116,10 +116,10 @@ const embedUrl = mapEmbed || (mapAddress ? getMapEmbedUrl(mapAddress) : null);
               ></iframe>
             </div>
           ) : mapImage ? (
-            <img src={mapImage} alt="Service Area Map" class="rounded-lg w-full" />
+            <img src={mapImage} alt="Service Area Map" class="rounded-clay w-full shadow-clay-card" />
           ) : (
-            <div class="aspect-[4/3] bg-muted rounded-lg flex items-center justify-center">
-              <span class="text-muted-foreground">Map - Service Area</span>
+            <div class="aspect-[4/3] bg-muted rounded-clay flex items-center justify-center shadow-clay-card">
+              <span class="text-clay-muted">Map - Service Area</span>
             </div>
           )}
         </div>

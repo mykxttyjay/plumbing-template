@@ -72,7 +72,7 @@
     {
       "component": "WavyDivider",
       "props": {
-        "topColor": "var(--brand-primary)",
+        "topColor": "var(--clay-canvas)",
         "bottomColor": "#ffffff"
       }
     },
@@ -104,8 +104,8 @@
     {
       "component": "WavyDivider",
       "props": {
-        "topColor": "#ffffff",
-        "bottomColor": "var(--brand-primary)",
+        "topColor": "var(--brand-primary)",
+        "bottomColor": "#ffffff",
         "flip": true
       }
     },

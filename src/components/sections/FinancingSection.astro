@@ -31,13 +31,13 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
         <Droplet class="w-4 h-4 animate-bounce" />
         {badge}
       </span>
-      <h2 class="font-bold mt-2 mb-4" style="font-size: 43px;">{title}</h2>
-      <p class="text-muted-foreground max-w-4xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
+      <h2 class="font-extrabold mt-2 mb-4" style="font-size: 43px;">{title}</h2>
+      <p class="text-clay-muted max-w-4xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
     </div>
     
     <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12" data-animate-stagger>
-      <div class="financing-card bg-card border rounded-lg p-8 transition-all duration-300" style="border-left: 3px solid var(--brand-highlight, #45f9ff);">
-        <h3 class="text-xl font-bold mb-6">Flexible Payment Plans</h3>
+      <div class="financing-card glass-clay shadow-clay-card rounded-clay p-8 clay-lift hover:shadow-clay-card-hover transition-all duration-300" style="border-left: 3px solid var(--brand-highlight, #45f9ff);">
+        <h3 class="text-xl font-extrabold mb-6">Flexible Payment Plans</h3>
         <ul class="space-y-3">
           {paymentPlans.map((plan) => (
             <li class="flex items-start gap-3">
@@ -48,8 +48,8 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
         </ul>
       </div>
       
-      <div class="financing-card bg-card border rounded-lg p-8 transition-all duration-300" style="border-left: 3px solid var(--brand-highlight, #45f9ff);">
-        <h3 class="text-xl font-bold mb-6">What Can You Finance?</h3>
+      <div class="financing-card glass-clay shadow-clay-card rounded-clay p-8 clay-lift hover:shadow-clay-card-hover transition-all duration-300" style="border-left: 3px solid var(--brand-highlight, #45f9ff);">
+        <h3 class="text-xl font-extrabold mb-6">What Can You Finance?</h3>
         <ul class="space-y-3">
           {financingOptions.map((option) => (
             <li class="flex items-start gap-3">
@@ -62,15 +62,15 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
     </div>
     
     <div class="max-w-5xl mx-auto">
-      <h3 class="text-2xl font-bold mb-10 text-center" data-animate="fade-up">How to Apply</h3>
+      <h3 class="text-2xl font-extrabold mb-10 text-center" data-animate="fade-up">How to Apply</h3>
       <div class="relative grid md:grid-cols-3 gap-8" data-animate-stagger>
         {/* Connecting line between steps (desktop only) */}
         <div class="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5 bg-[var(--brand-highlight,#45f9ff)]/40"></div>
         {steps.map((step, index) => (
-          <div class="financing-step relative text-center bg-card border rounded-xl p-8 transition-all duration-300">
-            <div class="relative z-10 w-14 h-14 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xl font-bold mx-auto mb-5 shadow-md ring-4 ring-background">{index + 1}</div>
-            <h4 class="font-bold text-lg mb-2">{step.title}</h4>
-            <p class="text-sm text-muted-foreground leading-relaxed" set:html={step.description} />
+          <div class="financing-step relative text-center glass-clay shadow-clay-card rounded-clay p-8 clay-lift hover:shadow-clay-card-hover transition-all duration-300">
+            <div class="relative z-10 w-14 h-14 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xl font-bold mx-auto mb-5 shadow-clay-button ring-4 ring-background">{index + 1}</div>
+            <h4 class="font-extrabold text-lg mb-2">{step.title}</h4>
+            <p class="text-sm text-clay-muted leading-relaxed" set:html={step.description} />
           </div>
         ))}
       </div>
@@ -80,11 +80,6 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 
 <style>
   .financing-card:hover {
-    box-shadow: 0 4px 20px -8px rgba(0,0,0,0.1);
     border-color: color-mix(in srgb, var(--brand-highlight, #45f9ff) 30%, var(--border));
-  }
-  .financing-step:hover {
-    box-shadow: 0 4px 20px -8px rgba(0,0,0,0.1);
-    transform: translateY(-2px);
   }
 </style>

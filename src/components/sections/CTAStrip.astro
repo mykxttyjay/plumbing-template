@@ -90,7 +90,7 @@ const iconMap = {
         <div class="flex items-center justify-center md:justify-end">
           <a 
             href={buttonHref} 
-            class="cta-button inline-flex items-center justify-center rounded-full bg-accent text-accent-foreground px-10 py-5 text-lg font-bold transition-all duration-300 shadow-2xl"
+            class="cta-button inline-flex items-center justify-center rounded-clay-sm bg-accent text-accent-foreground px-10 py-5 text-lg font-bold shadow-clay-button clay-squish hover:shadow-clay-button-hover hover:-translate-y-1 transition-all duration-300"
           >
             {buttonText}
           </a>
@@ -132,14 +132,8 @@ const iconMap = {
     color: var(--brand-highlight, #45f9ff);
   }
   
-  .cta-button {
-    box-shadow: 0 25px 50px -12px rgba(64, 196, 235, 0.4);
-  }
-  
   .cta-button:hover {
     background-color: #1e3a8a;
     color: white;
-    transform: scale(1.05);
-    box-shadow: 0 25px 50px -12px rgba(30, 58, 138, 0.4);
   }
 </style>

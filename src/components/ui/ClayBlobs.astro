@@ -1,0 +1,30 @@
+---
+// Floating 3D Blobs for Claymorphism Background
+// Creates ambient colored lighting that shows through glass-clay cards
+---
+
+<div class="pointer-events-none fixed inset-0 overflow-hidden -z-10" aria-hidden="true">
+  <!-- Blob 1: Primary color - top left -->
+  <div 
+    class="absolute h-[60vh] w-[60vh] rounded-full blur-3xl animate-clay-float bg-brand-primary/10"
+    style="top: -10%; left: -10%;"
+  ></div>
+  
+  <!-- Blob 2: Secondary color - top right -->
+  <div 
+    class="absolute h-[50vh] w-[50vh] rounded-full blur-3xl animate-clay-float-delayed animation-delay-2000 bg-brand-secondary/10"
+    style="top: 20%; right: -10%;"
+  ></div>
+  
+  <!-- Blob 3: Accent color - bottom left -->
+  <div 
+    class="absolute h-[55vh] w-[55vh] rounded-full blur-3xl animate-clay-float animation-delay-4000 bg-brand-accent/10"
+    style="bottom: -10%; left: 10%;"
+  ></div>
+  
+  <!-- Blob 4: Highlight color - middle right -->
+  <div 
+    class="absolute h-[45vh] w-[45vh] rounded-full blur-3xl animate-clay-float-delayed bg-highlight/8"
+    style="top: 50%; right: 5%;"
+  ></div>
+</div>
