@@ -72,8 +72,8 @@
     {
       "component": "WavyDivider",
       "props": {
-        "topColor": "var(--clay-canvas)",
-        "bottomColor": "#ffffff"
+        "topColor": "#091f41",
+        "bottomColor": "#f1fbfe"
       }
     },
     {
