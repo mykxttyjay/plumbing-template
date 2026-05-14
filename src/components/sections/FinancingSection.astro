@@ -1,8 +1,7 @@
 ---
-import { Droplet } from '@lucide/astro';
+import { Droplet, Check, CreditCard, Wallet, Calendar, ArrowRight, User, Clipboard, Star } from '@lucide/astro';
 import WavyDivider from './WavyDivider.astro';
 import { getLocationText } from "@/config/site"
-
 
 interface Step {
   title: string;
@@ -26,10 +25,14 @@ const description = raw_description ? getLocationText(raw_description) : raw_des
 const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 ---
 
-<section class="bg-[#f1fbfe] pb-12 md:pb-20">
-  <div class="container mx-auto px-4">
-    <div class="text-center mb-12" data-animate="fade-up">
-      <span class="inline-flex items-center gap-2 text-accent text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide justify-center" style="border: 1.5px solid currentColor; background-color: rgba(64, 196, 235, 0.08);">
+<section class="relative bg-[#f1fbfe] pb-12 md:pb-24 pt-0 overflow-hidden">
+  {/* Decorative Background Elements */}
+  <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[500px] h-[500px] bg-[#40c4eb]/5 rounded-full blur-[100px] pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[80px] pointer-events-none"></div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="text-center mb-10" data-animate="fade-up">
+      <span class="inline-flex items-center gap-2 text-accent text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide justify-center mb-6" style="border: 1.5px solid currentColor; background-color: rgba(64, 196, 235, 0.08);">
         <Droplet class="w-3 h-3 flex-shrink-0" />
         {badge}
       </span>
@@ -37,44 +40,88 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
       <p class="text-clay-muted max-w-4xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
     </div>
     
-    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12" data-animate-stagger>
-      <div class="financing-card glass-clay shadow-clay-card rounded-clay p-8 clay-lift hover:shadow-clay-card-hover transition-all duration-300" style="border-left: 3px solid var(--brand-highlight, #45f9ff);">
-        <h3 class="text-xl font-extrabold mb-6">Flexible Payment Plans</h3>
-        <ul class="space-y-3">
-          {paymentPlans.map((plan) => (
-            <li class="flex items-start gap-3">
-              <span class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"></span>
-              <span>{plan}</span>
-            </li>
-          ))}
-        </ul>
+    <div class="grid lg:grid-cols-2 gap-10 max-w-6xl mx-auto mb-24" data-animate-stagger>
+      {/* Payment Plans Card */}
+      <div class="group relative bg-white border border-slate-200/60 rounded-[2rem] p-10 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden">
+        <div class="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] group-hover:scale-110 transition-all duration-500">
+          <CreditCard class="w-32 h-32 text-[#091f41]" />
+        </div>
+        
+        <div class="relative z-10">
+          <div class="w-14 h-14 rounded-2xl bg-[#f1fbfe] flex items-center justify-center mb-8 border border-[#40c4eb]/20 group-hover:scale-110 transition-transform duration-300">
+            <Wallet class="w-7 h-7 text-[#40c4eb]" />
+          </div>
+          <h3 class="text-2xl font-black text-[#091f41] mb-8">Flexible Payment Plans</h3>
+          <ul class="space-y-4">
+            {paymentPlans.map((plan) => (
+              <li class="flex items-center gap-4 group/item">
+                <div class="w-6 h-6 rounded-full bg-[#40c4eb]/10 flex items-center justify-center shrink-0 group-hover/item:bg-[#40c4eb] transition-colors duration-300">
+                  <Check class="w-3.5 h-3.5 text-[#40c4eb] group-hover/item:text-white transition-colors" />
+                </div>
+                <span class="text-slate-600 font-medium">{plan}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       
-      <div class="financing-card glass-clay shadow-clay-card rounded-clay p-8 clay-lift hover:shadow-clay-card-hover transition-all duration-300" style="border-left: 3px solid var(--brand-highlight, #45f9ff);">
-        <h3 class="text-xl font-extrabold mb-6">What Can You Finance?</h3>
-        <ul class="space-y-3">
-          {financingOptions.map((option) => (
-            <li class="flex items-start gap-3">
-              <span class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"></span>
-              <span>{option}</span>
-            </li>
-          ))}
-        </ul>
+      {/* Financing Options Card */}
+      <div class="group relative bg-[#091f41] rounded-[2rem] p-10 shadow-2xl hover:shadow-[#091f41]/20 transition-all duration-500 overflow-hidden">
+        <div class="absolute -bottom-10 -right-10 p-8 opacity-[0.05] group-hover:opacity-[0.1] group-hover:-translate-y-4 transition-all duration-500">
+          <Star class="w-48 h-48 text-white" />
+        </div>
+
+        <div class="relative z-10">
+          <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-8 border border-white/20 group-hover:rotate-12 transition-transform duration-300">
+            <Calendar class="w-7 h-7 text-white" />
+          </div>
+          <h3 class="text-2xl font-black text-white mb-8">What Can You Finance?</h3>
+          <ul class="space-y-4">
+            {financingOptions.map((option) => (
+              <li class="flex items-center gap-4 group/item">
+                <div class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover/item:bg-[#40c4eb] transition-colors duration-300">
+                  <Check class="w-3.5 h-3.5 text-[#40c4eb] group-hover/item:text-white transition-colors" />
+                </div>
+                <span class="text-white/80 font-medium">{option}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
     
-    <div class="max-w-5xl mx-auto">
-      <h3 class="text-2xl font-extrabold mb-10 text-center" data-animate="fade-up">How to Apply</h3>
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-center justify-center gap-4 mb-12" data-animate="fade-up">
+        <div class="h-px w-12 bg-slate-200"></div>
+        <h3 class="text-2xl font-black text-[#091f41] text-center">How to Apply</h3>
+        <div class="h-px w-12 bg-slate-200"></div>
+      </div>
+
       <div class="relative grid md:grid-cols-3 gap-8" data-animate-stagger>
-        {/* Connecting line between steps (desktop only) */}
-        <div class="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5 bg-[var(--brand-highlight,#45f9ff)]/40"></div>
-        {steps.map((step, index) => (
-          <div class="financing-step relative text-center glass-clay shadow-clay-card rounded-clay p-8 clay-lift hover:shadow-clay-card-hover transition-all duration-300">
-            <div class="relative z-10 w-14 h-14 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xl font-bold mx-auto mb-5 shadow-clay-button ring-4 ring-background">{index + 1}</div>
-            <h4 class="font-extrabold text-lg mb-2">{step.title}</h4>
-            <p class="text-sm text-clay-muted leading-relaxed" set:html={step.description} />
-          </div>
-        ))}
+        {/* Connecting line (desktop) */}
+        <div class="hidden md:block absolute top-[45px] left-[15%] right-[15%] h-[2px] bg-dashed border-t-2 border-dashed border-slate-200"></div>
+        
+        {steps.map((step, index) => {
+          const StepIcon = [User, Clipboard, Star][index] || Check;
+          return (
+            <div class="group relative text-center">
+              <div class="relative z-10 w-20 h-20 rounded-[2rem] bg-white text-[#40c4eb] flex items-center justify-center text-2xl font-black mx-auto mb-8 shadow-sm border border-slate-100 group-hover:border-[#40c4eb]/30 group-hover:shadow-xl group-hover:-translate-y-2 transition-all duration-500">
+                <StepIcon class="w-8 h-8" />
+                <div class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-[#091f41] text-white text-xs flex items-center justify-center border-4 border-white">
+                  {index + 1}
+                </div>
+              </div>
+              <h4 class="font-black text-[#091f41] text-xl mb-4">{step.title}</h4>
+              <p class="text-[15px] text-slate-500 leading-relaxed px-4" set:html={step.description} />
+              
+              {index < steps.length - 1 && (
+                <div class="hidden md:flex absolute top-[40px] -right-[15%] items-center justify-center text-slate-200">
+                   <ArrowRight class="w-6 h-6" />
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   </div>
@@ -82,9 +129,11 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 
 <WavyDivider topColor="#c2ecf9" bottomColor="#f1fbfe" />
 
-
 <style>
-  .financing-card:hover {
-    border-color: color-mix(in srgb, var(--brand-highlight, #45f9ff) 30%, var(--border));
+  .bg-dashed {
+    background-image: linear-gradient(to right, #e2e8f0 50%, rgba(255, 255, 255, 0) 0%);
+    background-position: bottom;
+    background-size: 15px 2px;
+    background-repeat: repeat-x;
   }
 </style>

@@ -95,7 +95,7 @@ const hasSlideshow = slides.length > 1;
             )}
 
             <div class="flex flex-wrap items-center gap-4">
-              <a href={buttonHref} class="subpage-hero-cta inline-flex items-center justify-center rounded-clay-sm bg-accent text-accent-foreground px-7 py-3.5 font-semibold shadow-clay-button clay-squish hover:shadow-clay-button-hover transition-all duration-300">
+              <a href={buttonHref} class="subpage-hero-cta inline-flex items-center justify-center rounded-clay-sm bg-accent text-accent-foreground px-7 py-3.5 font-semibold shadow-clay-button clay-squish hover:shadow-clay-button-hover transition-all duration-300 hover:bg-[#091f41] hover:text-white">
                 {buttonText}
               </a>
             </div>
@@ -150,7 +150,7 @@ const hasSlideshow = slides.length > 1;
           {subtitle && (
             <p class="text-xl text-muted-foreground mb-8" set:html={subtitle} />
           )}
-          <a href={buttonHref} class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-8 py-4 text-lg font-semibold hover:bg-primary/90 transition-colors">
+          <a href={buttonHref} class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-8 py-4 text-lg font-semibold hover:bg-[#091f41] hover:text-white transition-colors">
             {buttonText}
           </a>
         </div>
@@ -216,7 +216,7 @@ const hasSlideshow = slides.length > 1;
               <div>
                 <a
                   href={buttonHref}
-                  class="hero-cta-button group inline-flex items-center justify-between rounded-clay-sm bg-accent pl-8 pr-2 py-2 text-lg font-semibold text-accent-foreground shadow-clay-button clay-squish hover:shadow-clay-button-hover transition-all duration-300 hover:bg-[#1e3a8a] hover:text-white"
+                  class="hero-cta-button group inline-flex items-center justify-between rounded-clay-sm bg-accent pl-8 pr-2 py-2 text-lg font-semibold text-accent-foreground shadow-clay-button clay-squish hover:shadow-clay-button-hover transition-all duration-300 hover:bg-[#091f41] hover:text-white"
                 >
                   <span class="mr-4">{slide.buttonText || buttonText}</span>
                   <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white transition-colors group-hover:bg-white/15">
@@ -363,7 +363,7 @@ const hasSlideshow = slides.length > 1;
           {subtitle && (
             <p class="text-xl text-muted-foreground mb-8" set:html={subtitle} />
           )}
-          <a href={buttonHref} class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-8 py-4 text-lg font-semibold hover:bg-primary/90 transition-colors">
+          <a href={buttonHref} class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-8 py-4 text-lg font-semibold hover:bg-[#091f41] hover:text-white transition-colors">
             {buttonText}
           </a>
         </div>

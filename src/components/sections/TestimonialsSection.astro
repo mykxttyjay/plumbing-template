@@ -1,7 +1,6 @@
 ---
-import { Droplet } from '@lucide/astro';
+import { Droplet, Star, ChevronLeft, ChevronRight } from '@lucide/astro';
 import { getLocationText } from "@/config/site"
-
 
 interface Testimonial {
   name: string;
@@ -24,13 +23,17 @@ const { badge: raw_badge = "Testimonials", title: raw_title, description: raw_de
 const title = raw_title ? getLocationText(raw_title) : raw_title;
 const description = raw_description ? getLocationText(raw_description) : raw_description;
 const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
-const testimonials = rawTestimonials.map(t => ({
+
+const processedTestimonials = rawTestimonials.map(t => ({
   ...t,
   content: getLocationText(t.content),
 }));
+
+const featured = processedTestimonials.slice(0, 4);
+const carouselItems = processedTestimonials.slice(4);
 ---
 
-<section class="py-16 md:py-24 bg-[#f1fbfe]">
+<section class="py-16 md:py-24 bg-[#f1fbfe] overflow-hidden">
   <div class="container mx-auto px-4">
     <div class="text-center mb-12" data-animate="fade-up">
       <span class="inline-flex items-center gap-2 text-accent text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide justify-center" style="border: 1.5px solid currentColor; background-color: rgba(64, 196, 235, 0.08);">
@@ -41,197 +44,206 @@ const testimonials = rawTestimonials.map(t => ({
       {description && <p class="text-clay-muted max-w-4xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />}
     </div>
 
-    <div class="testimonials-carousel overflow-hidden cursor-grab active:cursor-grabbing select-none" data-animate="fade-up">
-      <div class="testimonials-marquee flex" style="will-change: transform;">
-        {/* Render cards twice for seamless loop */}
-        {[...testimonials, ...testimonials].map((testimonial) => (
-          <div class="flex-shrink-0 w-[340px] sm:w-[400px] px-3">
-            <div class="glass-clay shadow-clay-card rounded-clay p-6 clay-lift hover:shadow-clay-card-hover transition-all h-full flex flex-col">
-              {/* Header: Avatar + Name + Verified + Timestamp */}
-              <div class="flex items-start gap-3 mb-4">
-                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                  <span class="text-lg font-bold text-white">{testimonial.initials}</span>
-                </div>
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center gap-1.5 mb-0.5">
-                    <p class="font-bold text-[15px] leading-tight" style="color: #0f1419;">{testimonial.name}</p>
-                    {/* Verified badge */}
-                    <svg class="w-[18px] h-[18px] flex-shrink-0" viewBox="0 0 22 22" fill="none">
-                      <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z" fill="#40c4eb"/>
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        {/* Left Side: 2x2 Grid of Featured Google Reviews */}
+        <div class="lg:col-span-2">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-animate-stagger>
+            {featured.map((testimonial) => (
+              <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-all duration-300 flex flex-col">
+                <div class="flex items-center justify-between mb-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold text-lg border border-slate-200">
+                      {testimonial.initials}
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-[#091f41] leading-none mb-1">{testimonial.name}</h4>
+                      <p class="text-xs text-slate-400">{testimonial.date}</p>
+                    </div>
+                  </div>
+                  <div class="w-6 h-6 shrink-0">
+                    <svg viewBox="0 0 24 24" class="w-full h-full">
+                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                     </svg>
                   </div>
-                  <p class="text-[13px] text-gray-500">@{testimonial.name.toLowerCase().replace(/\s+/g, '')} · {testimonial.date}</p>
                 </div>
-                {/* Rating badge in top right */}
-                <div class="flex items-center gap-1 px-2.5 py-1 rounded-clay-sm shadow-clay-button" style="background-color: rgba(64, 196, 235, 0.12);">
-                  <svg class="w-3.5 h-3.5" style="color: #40c4eb;" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                  </svg>
-                  <span class="text-xs font-bold" style="color: #40c4eb;">{testimonial.rating}.0</span>
+                
+                <div class="flex gap-0.5 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star class={`w-4 h-4 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-200 fill-slate-200'}`} />
+                  ))}
+                </div>
+
+                <div class="flex-1 mb-4 text-[#091f41] leading-relaxed text-[15px]">
+                  <p class="whitespace-pre-wrap line-clamp-6" set:html={testimonial.content} />
+                </div>
+                
+                <div class="text-[11px] font-bold uppercase tracking-wider text-slate-300">
+                  Verified Google Review
                 </div>
               </div>
-              
-              {/* Content */}
-              <div class="flex-1 mb-4">
-                <p class="text-[15px] leading-[1.5] whitespace-pre-wrap" style="color: #0f1419;" set:html={testimonial.content} />
+            ))}
+          </div>
+        </div>
+
+        {/* Right Side: Carousel of More Google Reviews */}
+        <div class="lg:col-span-1 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col h-full min-h-[500px]" data-animate="fade-left">
+          <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center gap-2">
+               <div class="w-5 h-5">
+                <svg viewBox="0 0 24 24" class="w-full h-full">
+                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                </svg>
               </div>
-              
-              {/* Footer: Interaction buttons */}
-              <div class="flex items-center justify-between pt-3 border-t" style="border-color: rgb(239, 243, 244);">
-                <button class="flex items-center gap-2 text-gray-500 hover:text-accent transition-colors group" aria-label="Reply to testimonial">
-                  <div class="p-2 rounded-full group-hover:bg-accent/10 transition-colors">
-                    <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                    </svg>
-                  </div>
-                </button>
-                <button class="flex items-center gap-2 text-gray-500 hover:text-green-600 transition-colors group" aria-label="Repost testimonial">
-                  <div class="p-2 rounded-full group-hover:bg-green-50 transition-colors">
-                    <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                    </svg>
-                  </div>
-                </button>
-                <button class="flex items-center gap-2 text-gray-500 hover:text-red-600 transition-colors group" aria-label="Like testimonial">
-                  <div class="p-2 rounded-full group-hover:bg-red-50 transition-colors">
-                    <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                    </svg>
-                  </div>
-                </button>
-                <button class="flex items-center gap-2 text-gray-500 hover:text-accent transition-colors group" aria-label="Share testimonial">
-                  <div class="p-2 rounded-full group-hover:bg-accent/10 transition-colors">
-                    <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
-                    </svg>
-                  </div>
-                </button>
-              </div>
+              <h3 class="font-bold text-[#091f41] text-lg">Google Reviews</h3>
+            </div>
+            <div class="flex gap-1">
+              <button id="prev-btn" class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-[#f1fbfe] hover:text-[#40c4eb] transition-all">
+                <ChevronLeft class="w-5 h-5" />
+              </button>
+              <button id="next-btn" class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-[#f1fbfe] hover:text-[#40c4eb] transition-all">
+                <ChevronRight class="w-5 h-5" />
+              </button>
             </div>
           </div>
-        ))}
+
+          <div class="testimonial-carousel-container relative flex-1 overflow-hidden">
+            <div id="testimonial-track" class="h-full flex transition-transform duration-500 ease-out">
+              {carouselItems.map((testimonial) => (
+                <div class="flex-shrink-0 w-full h-full flex flex-col">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 font-bold text-sm border border-slate-200">
+                      {testimonial.initials}
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-[#091f41] text-sm leading-none mb-1">{testimonial.name}</h4>
+                      <p class="text-[10px] text-slate-400">{testimonial.date}</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex gap-0.5 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star class={`w-3.5 h-3.5 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-100 fill-slate-100'}`} />
+                    ))}
+                  </div>
+
+                  <div class="flex-1 text-[#091f41] leading-relaxed text-[15px] italic">
+                    <p class="whitespace-pre-wrap" set:html={testimonial.content} />
+                  </div>
+                  
+                  <div class="mt-6 flex items-center justify-between opacity-30 grayscale pointer-events-none">
+                     <span class="text-[10px] font-bold">GOOGLE BUSINESS</span>
+                     <div class="w-4 h-4">
+                        <svg viewBox="0 0 24 24" class="w-full h-full">
+                          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="currentColor"/>
+                          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="currentColor"/>
+                          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="currentColor"/>
+                          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="currentColor"/>
+                        </svg>
+                     </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dots for carousel */}
+          <div class="flex justify-center gap-1.5 mt-8">
+            {carouselItems.map((_, i) => (
+              <div class={`h-1 rounded-full transition-all duration-300 ${i === 0 ? 'w-6 bg-[#40c4eb]' : 'w-2 bg-slate-100 carousel-dot'}`} data-index={i}></div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
+<style>
+  .line-clamp-6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
 <script>
-  function initTestimonialsMarquee() {
-    document.querySelectorAll<HTMLElement>('.testimonials-carousel').forEach((carousel) => {
-      const marquee = carousel.querySelector<HTMLElement>('.testimonials-marquee');
-      if (!marquee) return;
+  function initTestimonialSlider() {
+    const track = document.getElementById('testimonial-track');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    
+    if (!track || !prevBtn || !nextBtn) return;
 
-      // Prevent re-init
-      if (marquee.dataset.init === 'true') return;
-      marquee.dataset.init = 'true';
+    let currentIndex = 0;
+    const items = track.children;
+    const totalItems = items.length;
 
-      let offset = 0;
-      let speed = 0.5; // px per frame
-      let paused = false;
-      let dragging = false;
-      let dragStartX = 0;
-      let dragOffsetStart = 0;
-      let momentum = 0;
-      let rafId: number;
+    function updateSlider() {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      
+      // Update buttons
+      prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+      prevBtn.style.pointerEvents = currentIndex === 0 ? 'none' : 'auto';
+      nextBtn.style.opacity = currentIndex === totalItems - 1 ? '0.5' : '1';
+      nextBtn.style.pointerEvents = currentIndex === totalItems - 1 ? 'none' : 'auto';
 
-      // Half-width = width of the original set of cards (before duplication)
-      function getHalfWidth(): number {
-        return marquee!.scrollWidth / 2;
-      }
-
-      function wrapOffset() {
-        const half = getHalfWidth();
-        if (half > 0) {
-          offset = ((offset % half) + half) % half;
+      // Update dots
+      document.querySelectorAll('[data-index]').forEach(dot => {
+        const idx = Number(dot.getAttribute('data-index'));
+        if (idx === currentIndex) {
+          dot.classList.add('w-6', 'bg-[#40c4eb]');
+          dot.classList.remove('w-2', 'bg-slate-100');
+        } else {
+          dot.classList.remove('w-6', 'bg-[#40c4eb]');
+          dot.classList.add('w-2', 'bg-slate-100');
         }
-      }
-
-      function animate() {
-        if (dragging) {
-          // During drag, offset is set directly by pointer events
-        } else if (momentum !== 0) {
-          offset += momentum;
-          momentum *= 0.95;
-          if (Math.abs(momentum) < 0.1) momentum = 0;
-        } else if (!paused) {
-          offset += speed;
-        }
-        wrapOffset();
-        marquee!.style.transform = `translateX(-${offset}px)`;
-        rafId = requestAnimationFrame(animate);
-      }
-
-      // Auto-scroll pause on hover (only when not dragging)
-      carousel.addEventListener('mouseenter', () => { if (!dragging) paused = true; });
-      carousel.addEventListener('mouseleave', () => { paused = false; dragging = false; });
-
-      // --- Mouse drag ---
-      carousel.addEventListener('mousedown', (e: MouseEvent) => {
-        dragging = true;
-        paused = true;
-        momentum = 0;
-        dragStartX = e.clientX;
-        dragOffsetStart = offset;
-        e.preventDefault();
       });
+    }
 
-      window.addEventListener('mousemove', (e: MouseEvent) => {
-        if (!dragging) return;
-        const delta = dragStartX - e.clientX;
-        offset = dragOffsetStart + delta;
-      });
-
-      window.addEventListener('mouseup', () => {
-        if (!dragging) return;
-        dragging = false;
-        // Calculate momentum from final drag delta
-        momentum = offset - dragOffsetStart > 0 ? 2 : offset - dragOffsetStart < 0 ? -2 : 0;
-      });
-
-      // --- Touch drag ---
-      let touchStartX = 0;
-      let lastTouchX = 0;
-
-      carousel.addEventListener('touchstart', (e: TouchEvent) => {
-        dragging = true;
-        paused = true;
-        momentum = 0;
-        touchStartX = e.touches[0].clientX;
-        lastTouchX = touchStartX;
-        dragOffsetStart = offset;
-      }, { passive: true });
-
-      carousel.addEventListener('touchmove', (e: TouchEvent) => {
-        if (!dragging) return;
-        const currentX = e.touches[0].clientX;
-        const delta = touchStartX - currentX;
-        offset = dragOffsetStart + delta;
-        lastTouchX = currentX;
-      }, { passive: true });
-
-      carousel.addEventListener('touchend', () => {
-        if (!dragging) return;
-        dragging = false;
-        const totalDelta = offset - dragOffsetStart;
-        momentum = totalDelta > 0 ? 2 : totalDelta < 0 ? -2 : 0;
-        // Resume auto-scroll after a short delay
-        setTimeout(() => { paused = false; }, 2000);
-      }, { passive: true });
-
-      // Respect reduced motion
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        paused = true;
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateSlider();
       }
-
-      rafId = requestAnimationFrame(animate);
-
-      // Cleanup on page transition
-      document.addEventListener('astro:before-swap', () => {
-        cancelAnimationFrame(rafId);
-      }, { once: true });
     });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < totalItems - 1) {
+        currentIndex++;
+        updateSlider();
+      }
+    });
+
+    // Auto-advance
+    let interval = setInterval(() => {
+      if (currentIndex < totalItems - 1) currentIndex++;
+      else currentIndex = 0;
+      updateSlider();
+    }, 5000);
+
+    // Pause on hover
+    track.parentElement?.addEventListener('mouseenter', () => clearInterval(interval));
+    track.parentElement?.addEventListener('mouseleave', () => {
+       interval = setInterval(() => {
+        if (currentIndex < totalItems - 1) currentIndex++;
+        else currentIndex = 0;
+        updateSlider();
+      }, 5000);
+    });
+
+    updateSlider();
   }
 
-  initTestimonialsMarquee();
-  document.addEventListener('astro:page-load', initTestimonialsMarquee);
+  document.addEventListener('astro:page-load', initTestimonialSlider);
+  initTestimonialSlider();
 </script>
