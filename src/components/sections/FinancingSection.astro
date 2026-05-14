@@ -88,8 +88,24 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
       </div>
 
       <div class="relative grid md:grid-cols-3 gap-8" data-animate-stagger>
-        {/* Connecting line (desktop) */}
-        <div class="hidden md:block absolute top-[45px] left-[15%] right-[15%] h-[2px] bg-dashed border-t-2 border-dashed border-slate-200"></div>
+        {/* Connecting arrows (desktop) */}
+        <div class="hidden md:block absolute top-[25px] left-0 w-full pointer-events-none z-0">
+          <div class="flex justify-between items-center max-w-6xl mx-auto relative px-[22%]">
+            <div class="flex-1">
+              <svg class="w-full h-12 text-slate-300/60" viewBox="0 0 200 40" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4">
+                <path d="M10 35 Q100 -5 190 35" />
+                <path d="M180 25 L190 35 L177 38" stroke-dasharray="0" />
+              </svg>
+            </div>
+            <div class="w-28"></div>
+            <div class="flex-1">
+              <svg class="w-full h-12 text-slate-300/60" viewBox="0 0 200 40" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4">
+                <path d="M10 35 Q100 -5 190 35" />
+                <path d="M180 25 L190 35 L177 38" stroke-dasharray="0" />
+              </svg>
+            </div>
+          </div>
+        </div>
         
         {steps.map((step, index) => {
           const StepIcon = [UserCheck, ClipboardCheck, Sparkles][index] || Check;
@@ -102,7 +118,7 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
                 </div>
               </div>
               <h4 class="font-black text-[#091f41] text-xl mb-4">{step.title}</h4>
-              <p class="text-[15px] text-slate-500 leading-relaxed px-4" set:html={step.description} />
+              <p class="text-[16px] text-slate-500 leading-relaxed px-4" set:html={step.description} />
               
 
             </div>

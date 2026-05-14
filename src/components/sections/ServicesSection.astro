@@ -69,9 +69,9 @@ const CATEGORY_IMAGES: Record<string, string> = {
         {categories.map((category, index) => (
           <button
             data-tab-button={index}
-            class="services-tab-button flex-shrink-0 lg:flex-shrink px-6 py-4 rounded-clay-sm text-base font-semibold transition-all duration-300 whitespace-nowrap lg:whitespace-normal text-left w-full shadow-clay-button clay-squish"
+            class="services-tab-button flex-shrink-0 lg:flex-shrink px-6 py-4 rounded-2xl text-base font-bold transition-all duration-500 whitespace-nowrap lg:whitespace-normal text-left w-full border-2"
             data-active={index === 0 ? 'true' : 'false'}
-            style={index === 0 ? 'background-color: #40c4eb; color: white;' : 'background-color: rgba(255, 255, 255, 0.8); color: rgba(0, 0, 0, 0.6);'}
+            style={index === 0 ? 'background-color: #40c4eb; color: white; border-color: #40c4eb;' : 'background-color: rgba(255, 255, 255, 0.8); color: #091f41; border-color: rgba(9, 31, 65, 0.08);'}
           >
             {category.title}
           </button>
@@ -118,7 +118,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
                   <span class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(135deg, rgba(64,196,235,0.10) 0%, rgba(9,31,65,0.06) 100%);"></span>
 
                   {/* Icon */}
-                  <div class="relative shrink-0 w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden shadow-clay-button transition-all duration-300 group-hover:scale-110 group-hover:shadow-clay-button-hover" style="background: linear-gradient(135deg, rgba(64,196,235,0.18) 0%, rgba(9,31,65,0.10) 100%); border: 1.5px solid rgba(64,196,235,0.25);">
+                  <div class="relative shrink-0 w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:scale-110" style="background: linear-gradient(135deg, rgba(64,196,235,0.1) 0%, rgba(9,31,65,0.05) 100%); border: 1.5px solid rgba(64,196,235,0.4);">
                     {service.icon ? (
                       <img src={service.icon} alt="" class="w-8 h-8 object-contain" style="filter: brightness(0) saturate(100%) invert(62%) sepia(80%) saturate(400%) hue-rotate(160deg) brightness(105%);" />
                     ) : (
@@ -202,10 +202,12 @@ const CATEGORY_IMAGES: Record<string, string> = {
             btn.setAttribute('data-active', 'true');
             btn.style.backgroundColor = '#40c4eb';
             btn.style.color = 'white';
+            btn.style.borderColor = '#40c4eb';
           } else {
             btn.setAttribute('data-active', 'false');
             btn.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
-            btn.style.color = 'rgba(0, 0, 0, 0.6)';
+            btn.style.color = '#091f41';
+            btn.style.borderColor = 'rgba(9, 31, 65, 0.08)';
           }
         });
 

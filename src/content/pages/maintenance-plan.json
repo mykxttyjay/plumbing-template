@@ -19,7 +19,7 @@
     {
       "component": "PricingPlansSection",
       "props": {
-        "title": "Protect Your Plumbing with {fullName} Maintenance Plans",
+        "title": "Protect Your Plumbing with ABC Company <br /> Heating and Cooling Maintenance Plans",
         "description": "At {fullName}, we understand that regular maintenance is essential to keep your plumbing system efficient and prevent costly repairs. That is why we have designed flexible maintenance plans to meet your needs and budget. Our expert team will ensure your home or business plumbing operates at peak performance year-round.",
         "plans": [
           {

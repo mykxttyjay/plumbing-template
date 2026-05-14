@@ -42,86 +42,115 @@ const embedUrl = mapEmbed || (mapAddress ? getMapEmbedUrl(mapAddress) : null);
 ---
 
 {variant === "compact" ? (
-  <section class="py-12 md:py-16 bg-white">
-    <div class="container mx-auto px-4">
-      <div class="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
-        <div class="order-2 md:order-1">
-          {embedUrl ? (
-            <div class="aspect-[4/3] rounded-clay overflow-hidden shadow-clay-card">
-              <iframe
-                src={embedUrl}
-                width="100%"
-                height="100%"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Service Area Map"
-              ></iframe>
-            </div>
-          ) : mapImage ? (
-            <img src={mapImage} alt="Service Area Map" class="rounded-clay w-full shadow-clay-card" />
-          ) : (
-            <div class="aspect-[4/3] bg-muted rounded-clay flex items-center justify-center shadow-clay-card">
-              <span class="text-clay-muted">Map - Service Area</span>
-            </div>
-          )}
+  <section class="py-12 md:py-16 bg-white relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+        {/* Map Container */}
+        <div class="order-2 md:order-1" data-animate="fade-right">
+          <div class="relative">
+            {embedUrl ? (
+              <div class="aspect-[4/3] rounded-[2rem] overflow-hidden border-4 border-brand-primary/5 bg-muted/20">
+                <iframe
+                  src={embedUrl}
+                  width="100%"
+                  height="100%"
+                  style="border:0;"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  title="Service Area Map"
+                ></iframe>
+              </div>
+            ) : mapImage ? (
+              <img src={mapImage} alt="Service Area Map" class="rounded-[2rem] w-full border-4 border-brand-primary/5 bg-muted/20" />
+            ) : (
+              <div class="aspect-[4/3] bg-muted rounded-[2rem] flex items-center justify-center shadow-inner">
+                <span class="text-brand-primary/40 font-bold uppercase tracking-widest text-xs">Service Map Unavailable</span>
+              </div>
+            )}
+          </div>
         </div>
         
-        <div class="order-1 md:order-2 text-center md:text-left">
-          <h2 class="text-2xl md:text-3xl font-extrabold mb-4">{title}</h2>
-          <p class="text-clay-muted mb-6" set:html={description} />
-          <a href={buttonHref} class="inline-flex items-center justify-center rounded-clay-sm bg-primary text-primary-foreground px-6 py-3 font-semibold shadow-clay-button clay-squish hover:shadow-clay-button-hover hover:-translate-y-1 transition-all">
-            {buttonText}
+        {/* Text Content */}
+        <div class="order-1 md:order-2 text-center md:text-left" data-animate="fade-left">
+          <span class="inline-flex items-center gap-2 text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide justify-center mb-6" style="color: #40c4eb; border: 1.5px solid rgba(64,196,235,0.6); background-color: rgba(64,196,235,0.12);">
+            <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            Local Service
+          </span>
+          
+          <h2 class="font-black mb-6 leading-tight" style="font-size: 43px;">{title}</h2>
+          <div class="text-brand-primary/70 mb-10 leading-relaxed space-y-4" style="font-size: 18px;" set:html={description} />
+          
+          <a href={buttonHref} class="group inline-flex items-center justify-center gap-3 rounded-2xl bg-[#091f41] text-white px-8 py-4 font-black shadow-xl hover:bg-[#40c4eb] transition-all duration-500">
+            <span>{buttonText}</span>
+            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
           </a>
         </div>
       </div>
     </div>
   </section>
 ) : (
-  <section class="py-12 md:py-16 bg-white">
-    <div class="container mx-auto px-4">
-      <div class="grid md:grid-cols-2 gap-12">
+  <section class="py-12 md:py-16 bg-white relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-20">
         <div data-animate="fade-right">
-          <h2 class="text-3xl md:text-4xl font-extrabold mb-6">{title}</h2>
-          <p class="text-clay-muted mb-8" set:html={description} />
+          <span class="inline-flex items-center gap-2 text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide justify-center mb-6" style="color: #40c4eb; border: 1.5px solid rgba(64,196,235,0.6); background-color: rgba(64,196,235,0.12);">
+            <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            Service Locations
+          </span>
+
+          <h2 class="font-black mb-6 leading-tight max-w-[700px]" style="font-size: 43px;">{title}</h2>
+          <div class="text-brand-primary/70 mb-10 leading-relaxed" style="font-size: 18px;" set:html={description} />
           
           {areas && areas.length > 0 && (
-            <>
-              <h3 class="text-xl font-extrabold mb-4">Areas We Serve</h3>
-              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm">
+            <div class="p-8 rounded-[2rem] bg-muted/30 border border-brand-primary/5">
+              <h3 class="text-xl font-black text-brand-primary mb-6 flex items-center gap-3">
+                <span class="w-1.5 h-6 bg-[#40c4eb] rounded-full"></span>
+                Areas We Serve
+              </h3>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-y-3 gap-x-4 text-sm">
                 {areas.map((area) => (
-                  <span class="text-clay-muted hover:text-accent transition-colors cursor-default flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 rounded-full bg-accent/60"></span>
+                  <span class="text-brand-primary/60 hover:text-[#40c4eb] transition-colors cursor-default flex items-center gap-2 font-medium">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#40c4eb]/40 group-hover:bg-[#40c4eb]"></span>
                     {area}
                   </span>
                 ))}
               </div>
-            </>
+            </div>
           )}
         </div>
         
-        <div data-animate="fade-left">
-          {embedUrl ? (
-            <div class="aspect-[4/3] rounded-clay overflow-hidden shadow-clay-card">
-              <iframe
-                src={embedUrl}
-                width="100%"
-                height="100%"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Service Area Map"
-              ></iframe>
-            </div>
-          ) : mapImage ? (
-            <img src={mapImage} alt="Service Area Map" class="rounded-clay w-full shadow-clay-card" />
-          ) : (
-            <div class="aspect-[4/3] bg-muted rounded-clay flex items-center justify-center shadow-clay-card">
-              <span class="text-clay-muted">Map - Service Area</span>
-            </div>
-          )}
+        <div data-animate="fade-left" class="lg:pt-20">
+          <div class="relative">
+            {embedUrl ? (
+              <div class="aspect-[4/3] rounded-[2rem] overflow-hidden border-4 border-brand-primary/5 bg-muted/20 shadow-sm">
+                <iframe
+                  src={embedUrl}
+                  width="100%"
+                  height="100%"
+                  style="border:0;"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  title="Service Area Map"
+                ></iframe>
+              </div>
+            ) : mapImage ? (
+              <img src={mapImage} alt="Service Area Map" class="rounded-[2rem] w-full border-4 border-brand-primary/5 bg-muted/20 shadow-sm" />
+            ) : (
+              <div class="aspect-[4/3] bg-muted rounded-[2rem] flex items-center justify-center shadow-inner">
+                <span class="text-brand-primary/40 font-bold uppercase tracking-widest text-xs">Service Map Unavailable</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
