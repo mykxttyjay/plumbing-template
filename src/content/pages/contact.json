@@ -49,10 +49,9 @@
       "component": "CTAStrip",
       "props": {
         "buttonText": "SCHEDULE NOW",
-        "buttonHref": "tel:{phoneRaw}",
+        "buttonHref": "/contact",
         "phoneLabel": "Call or Text for Great Service",
         "phone": "{phone}",
-        "borderColor": "#7dd3fc",
         "features": [
           {
             "icon": "siren",
@@ -60,7 +59,7 @@
           },
           {
             "icon": "award",
-            "text": "Experienced and Certified Technician"
+            "text": "Experienced & Certified Technicians"
           }
         ]
       }

@@ -1,5 +1,6 @@
 ---
 import { getLocationText } from "@/config/site"
+import { Droplet, ArrowRight } from '@lucide/astro';
 
 interface ServiceCard {
   image: string;
@@ -9,16 +10,18 @@ interface ServiceCard {
 }
 
 interface Props {
+  badge?: string;
   title: string;
   description?: string;
   services: ServiceCard[];
 }
 
-const { title: raw_title, description: raw_description, services } = Astro.props;
+const { badge: raw_badge, title: raw_title, description: raw_description, services } = Astro.props;
 
 // Process text placeholders
 const title = raw_title ? getLocationText(raw_title) : raw_title;
 const description = raw_description ? getLocationText(raw_description) : raw_description;
+const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 
 const iconMap: Record<string, string> = {
   kitchen: `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>`,
@@ -30,38 +33,52 @@ const iconMap: Record<string, string> = {
 };
 ---
 
-<section class="py-16 md:py-24 bg-primary">
-  <div class="container mx-auto px-4">
+<section class="py-12 md:py-16 bg-white relative overflow-hidden">
+  <div class="container mx-auto px-4 relative z-10">
     <!-- Header -->
     <div class="text-center mb-12" data-animate="fade-up">
-      <h2 class="text-3xl md:text-4xl font-extrabold text-primary-foreground">{title}</h2>
+      {badge && (
+        <span class="inline-flex items-center gap-2 text-accent text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide justify-center mb-6" style="border: 1.5px solid currentColor; background-color: rgba(64, 196, 235, 0.08);">
+          <Droplet class="w-3 h-3 flex-shrink-0" />
+          {badge}
+        </span>
+      )}
+      <h2 class="font-black mb-6 leading-tight text-brand-primary" style="font-size: 40px;">{title}</h2>
       {description && (
-        <p class="text-primary-foreground/80 mt-4 max-w-2xl mx-auto" set:html={description} />
+        <p class="text-brand-primary/80 max-w-3xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
       )}
     </div>
 
     <!-- Services Grid -->
-    <div class="grid md:grid-cols-3 gap-6" data-animate-stagger>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8" data-animate-stagger>
       {services.map((service) => (
-        <a href={service.href || "#"} class="group block">
-          <div class="relative rounded-clay overflow-hidden glass-clay shadow-clay-card clay-lift hover:shadow-clay-card-hover transition-all">
-            <!-- Image -->
-            <div class="aspect-[4/3] overflow-hidden">
+        <a href={service.href || "#"} class="group block h-full">
+          <div class="relative h-full bg-white rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-brand-tertiary/10 hover:border-accent/30 transition-all duration-500 hover:-translate-y-2 flex flex-col">
+            <!-- Image Container -->
+            <div class="relative aspect-[4/3] overflow-hidden">
               <img 
                 src={service.image} 
                 alt={service.title} 
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              
+              <!-- Icon overlay -->
+              <div class="absolute top-4 left-4 w-12 h-12 rounded-2xl bg-white/90 backdrop-blur-sm text-accent flex items-center justify-center shadow-lg group-hover:bg-accent group-hover:text-white transition-all duration-500">
+                <Fragment set:html={iconMap[service.icon] || iconMap.kitchen} />
+              </div>
             </div>
             
-            <!-- Icon overlay -->
-            <div class="absolute top-4 left-4 w-12 h-12 rounded-clay-sm bg-secondary/90 text-white flex items-center justify-center shadow-clay-button">
-              <Fragment set:html={iconMap[service.icon] || iconMap.kitchen} />
-            </div>
-            
-            <!-- Title bar -->
-            <div class="bg-secondary text-white py-3 px-4 text-center">
-              <span class="font-semibold">{service.title}</span>
+            <!-- Content -->
+            <div class="p-6 flex flex-col flex-grow">
+              <h3 class="text-lg font-black text-brand-primary leading-tight mb-4 group-hover:text-accent transition-colors duration-300">
+                {service.title}
+              </h3>
+              
+              <div class="mt-auto flex items-center justify-between text-accent font-bold text-sm uppercase tracking-wider">
+                <span>View Service</span>
+                <ArrowRight class="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </div>
             </div>
           </div>
         </a>

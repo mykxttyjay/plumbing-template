@@ -13,28 +13,33 @@ interface Coupon {
 interface Props {
   coupons: Coupon[];
   variant?: 'default' | 'minimal';
+  backgroundColor?: string;
+  paddingTop?: boolean;
 }
 
-const { coupons, variant = 'default' } = Astro.props;
+const { coupons, variant = 'default', backgroundColor = '#091f41', paddingTop = true } = Astro.props;
 const isMinimal = variant === 'minimal';
+const isDarkBackground = backgroundColor === '#091f41';
+const textColorClass = isDarkBackground ? 'text-white' : 'text-brand-primary';
+const subtextColorClass = isDarkBackground ? 'text-white/70' : 'text-brand-primary/70';
 ---
 
-<section class="py-12 md:py-16" style="background-color: #eaf9fe;">
+<section class={`pb-12 md:pb-16 ${paddingTop ? 'pt-12 md:pt-16' : 'pt-0'}`} style={`background-color: ${backgroundColor};`}>
   <div class="container mx-auto px-4">
     <div class="text-center mb-16" data-animate="fade-up">
       {!isMinimal && (
         <div class="flex justify-center mb-6">
-          <span class="inline-flex items-center gap-2 text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide" style="color: #40c4eb; border: 1.5px solid rgba(64, 196, 235, 0.6); background-color: rgba(64, 196, 235, 0.1);">
+          <span class="inline-flex items-center gap-2 text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide" style="color: #40c4eb; border: 1.5px solid rgba(64, 196, 235, 0.4); background-color: rgba(64, 196, 235, 0.15);">
             <Droplet class="w-4 h-4 flex-shrink-0" />
             LIMITED TIME OFFERS
           </span>
         </div>
       )}
-      <h2 class="font-black text-brand-primary leading-tight" style="font-size: 43px;">
+      <h2 class={`font-black ${textColorClass} leading-tight`} style="font-size: 43px;">
         {isMinimal ? 'Special Discounts & Promotions' : 'Save Big on Plumbing Services'}
       </h2>
       {isMinimal && (
-        <p class="text-brand-primary/70 mt-6 max-w-2xl mx-auto leading-relaxed" style="font-size: 18px;">
+        <p class={`${subtextColorClass} mt-6 max-w-2xl mx-auto leading-relaxed`} style="font-size: 18px;">
           Check this page regularly for the latest special offers and promotions from {getLocationText("{fullName}")}. We also offer financing.
         </p>
       )}
@@ -44,8 +49,8 @@ const isMinimal = variant === 'minimal';
         isMinimal ? (
           <div class="relative group bg-white border-2 border-dashed rounded-[2rem] p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl overflow-hidden" style="border-color: rgba(64, 196, 235, 0.4);">
             {/* Punch hole effects */}
-            <div class="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#eaf9fe] border-2 border-dashed border-r-0" style="border-color: rgba(64, 196, 235, 0.4);"></div>
-            <div class="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#eaf9fe] border-2 border-dashed border-l-0" style="border-color: rgba(64, 196, 235, 0.4);"></div>
+            <div class="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full border-2 border-dashed border-r-0" style={`background-color: ${backgroundColor}; border-color: rgba(64, 196, 235, 0.4);`}></div>
+            <div class="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full border-2 border-dashed border-l-0" style={`background-color: ${backgroundColor}; border-color: rgba(64, 196, 235, 0.4);`}></div>
             
             <div class="flex items-center justify-between gap-3 mb-6">
               <span class="text-xs font-black px-3 py-1 rounded-full uppercase tracking-widest bg-[#40c4eb]/10 text-[#40c4eb]">
@@ -89,8 +94,8 @@ const isMinimal = variant === 'minimal';
               
               {/* Coupon Notches - positioned at the middle of the border between cream and blue */}
               <div class="absolute left-0 right-0 flex justify-between" style="bottom: -16px; z-index: 5;">
-                <div class="w-8 h-8 rounded-full" style="background-color: #091f41; margin-left: -16px;"></div>
-                <div class="w-8 h-8 rounded-full" style="background-color: #091f41; margin-right: -16px;"></div>
+                <div class="w-8 h-8 rounded-full" style={`background-color: ${backgroundColor}; margin-left: -16px;`}></div>
+                <div class="w-8 h-8 rounded-full" style={`background-color: ${backgroundColor}; margin-right: -16px;`}></div>
               </div>
             </div>
             
@@ -102,7 +107,7 @@ const isMinimal = variant === 'minimal';
             </div>
             
             {/* Wavy Edge at bottom - Sine wave */}
-            <div class="h-3" style="background-color: #40c4eb; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 60%22 preserveAspectRatio=%22none%22><path d=%22M0,30 Q75,0 150,30 T300,30 T450,30 T600,30 T750,30 T900,30 T1050,30 T1200,30 L1200,60 L0,60 Z%22 fill=%22%23091f41%22/></svg>'); background-repeat: repeat-x; background-size: 150px 100%;"></div>
+            <div class="h-3" style={`background-color: #40c4eb; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 60%22 preserveAspectRatio=%22none%22><path d=%22M0,30 Q75,0 150,30 T300,30 T450,30 T600,30 T750,30 T900,30 T1050,30 T1200,30 L1200,60 L0,60 Z%22 fill=%22${backgroundColor.replace('#', '%23')}%22/></svg>'); background-repeat: repeat-x; background-size: 150px 100%;`}></div>
           </div>
         ) : index === 1 ? (
           // CARD 2: Accent border frame, white background, accent button section
@@ -142,8 +147,8 @@ const isMinimal = variant === 'minimal';
               
               {/* Coupon Notches - positioned at the middle of the border between cream and blue */}
               <div class="absolute left-0 right-0 flex justify-between" style="bottom: -16px; z-index: 5;">
-                <div class="w-8 h-8 rounded-full" style="background-color: #091f41; margin-left: -16px;"></div>
-                <div class="w-8 h-8 rounded-full" style="background-color: #091f41; margin-right: -16px;"></div>
+                <div class="w-8 h-8 rounded-full" style={`background-color: ${backgroundColor}; margin-left: -16px;`}></div>
+                <div class="w-8 h-8 rounded-full" style={`background-color: ${backgroundColor}; margin-right: -16px;`}></div>
               </div>
             </div>
             

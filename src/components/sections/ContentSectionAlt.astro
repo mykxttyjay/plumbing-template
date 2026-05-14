@@ -1,5 +1,5 @@
 ---
-import { ArrowRight } from '@lucide/astro';
+import { ArrowRight, Droplet, Check } from '@lucide/astro';
 import { getLocationText } from "@/config/site"
 
 interface FeatureItem {
@@ -43,86 +43,74 @@ const description = raw_description ? getLocationText(raw_description) : raw_des
 const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 ---
 
-<section class="py-16 md:py-24">
-  <div class="container mx-auto px-4">
+<section class="py-12 md:py-16 bg-[#f1fbfe] relative overflow-hidden">
+  <div class="container mx-auto px-4 relative z-10">
     {/* Header - centered above the two columns */}
-    <div class="text-center mb-12" data-animate="fade-up">
+    <div class="text-center mb-16" data-animate="fade-up">
       {badge && (
-        <span class="inline-block text-sm font-semibold text-accent uppercase tracking-wide mb-4">{badge}</span>
+        <span class="inline-flex items-center gap-2 text-accent text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide justify-center mb-6" style="border: 1.5px solid currentColor; background-color: rgba(64, 196, 235, 0.08);">
+          <Droplet class="w-3 h-3 flex-shrink-0" />
+          {badge}
+        </span>
       )}
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold">
+      <h2 class="font-black mb-6 leading-tight text-brand-primary" style="font-size: 43px;">
         {title}{" "}
         {titleHighlightProcessed && (
           <span class="text-accent">{titleHighlightProcessed}</span>
         )}
       </h2>
-      <p class="text-brand-primary/85 mt-4 max-w-3xl mx-auto" style="font-size: 18px;" set:html={description} />
+      <p class="text-brand-primary/80 max-w-5xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
     </div>
 
     {/* Two column layout */}
-    <div class={`grid md:grid-cols-2 gap-8 lg:gap-12 items-start ${imagePosition === "right" ? "" : ""}`}>
-      {imagePosition === "left" && (
-        <div class="rounded-clay overflow-hidden max-h-[400px] shadow-clay-card clay-lift hover:shadow-clay-card-hover transition-all" data-animate="fade-right">
-          {image ? (
-            <img src={image} alt={imageAlt} class="w-full h-full object-cover" />
-          ) : (
-            <div class="aspect-video bg-muted flex items-center justify-center">
-              <span class="text-clay-muted text-sm">Image</span>
-            </div>
-          )}
-        </div>
-      )}
-
-      <div class="space-y-2" data-animate="fade-up">
+    <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div class={`order-2 ${imagePosition === "left" ? "md:order-2" : "md:order-1"}`} data-animate="fade-up">
         {features.length > 0 && (
-          <>
+          <div class="space-y-8">
             {featuresTitle && (
-              <h3 class="text-xl md:text-2xl font-extrabold mb-6">{featuresTitle}</h3>
+              <h3 class="text-2xl font-black text-brand-primary uppercase tracking-wider">{featuresTitle}</h3>
             )}
             <ul class="space-y-6">
               {features.map((feature) => (
-                <li class="flex gap-4">
-                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center shadow-clay-button">
-                    {feature.icon ? (
-                      <span class="text-lg" set:html={feature.icon} />
-                    ) : (
-                      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                        <polyline points="22 4 12 14.01 9 11.01" />
-                      </svg>
-                    )}
+                <li class="flex gap-4 group">
+                  <div class="flex-shrink-0 w-12 h-12 rounded-2xl bg-white text-accent flex items-center justify-center shadow-[0_10px_25px_rgba(0,0,0,0.05)] group-hover:bg-accent group-hover:text-white transition-all duration-500">
+                    <Check class="w-6 h-6" />
                   </div>
                   <div>
-                    <h4 class="font-semibold text-foreground">{feature.title}</h4>
-                    <p class="text-clay-muted text-sm mt-1" set:html={feature.description} />
+                    <h4 class="text-lg font-black text-brand-primary leading-tight mb-1">{feature.title}</h4>
+                    <p class="text-brand-primary/60 text-sm leading-relaxed" set:html={feature.description} />
                   </div>
                 </li>
               ))}
             </ul>
-          </>
+          </div>
         )}
 
         {buttonText && buttonHref && (
-          <div class="pt-6">
-            <a href={buttonHref} class="inline-flex items-center justify-center gap-3 rounded-full bg-[#091f41] text-white px-10 py-4 text-lg font-bold shadow-xl hover:bg-accent transition-all duration-300 group no-underline">
+          <div class="pt-10">
+            <a href={buttonHref} class="group inline-flex items-center justify-center gap-3 rounded-2xl bg-[#091f41] text-white px-8 py-4 font-black shadow-xl hover:bg-accent transition-all duration-500 hover:translate-y-[-4px]">
               <span>{buttonText}</span>
-              <ArrowRight class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowRight class="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </a>
           </div>
         )}
       </div>
 
-      {imagePosition === "right" && (
-        <div class="rounded-clay overflow-hidden max-h-[300px] shadow-clay-card clay-lift hover:shadow-clay-card-hover transition-all" data-animate="fade-left">
+      <div class={`${imagePosition === "left" ? "order-1 md:order-1" : "order-1 md:order-2"}`} data-animate={imagePosition === "left" ? "fade-right" : "fade-left"}>
+        <div class="relative group">
+          <div class="absolute -inset-4 bg-accent/20 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
           {image ? (
-            <img src={image} alt={imageAlt} class="w-full h-full object-cover" />
+            <div class="relative rounded-[2rem] overflow-hidden shadow-[0_32px_64px_-15px_rgba(0,0,0,0.5)] border-4 border-white/50">
+              <img src={image} alt={imageAlt} class="w-full h-full object-cover aspect-[4/3]" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            </div>
           ) : (
-            <div class="aspect-video bg-muted flex items-center justify-center">
-              <span class="text-clay-muted text-sm">Image</span>
+            <div class="aspect-video bg-muted rounded-[2rem] flex items-center justify-center shadow-inner">
+              <span class="text-brand-primary/30 font-black uppercase tracking-widest text-xs">Image Placeholder</span>
             </div>
           )}
         </div>
-      )}
+      </div>
     </div>
   </div>
 </section>

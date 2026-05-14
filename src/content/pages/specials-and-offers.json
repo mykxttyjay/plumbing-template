@@ -20,6 +20,7 @@
       "component": "CouponsSection",
       "props": {
         "variant": "minimal",
+        "backgroundColor": "#f1fbfe",
         "coupons": [
           {
             "label": "Until March",

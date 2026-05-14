@@ -9,9 +9,10 @@ interface Props {
   images?: string[];
   columns?: number;
   instagramUrl?: string;
+  paddingTop?: boolean;
 }
 
-const { badge: raw_badge = "Portfolio", title: raw_title, images = [], columns = 4, instagramUrl = "https://instagram.com" } = Astro.props;
+const { badge: raw_badge = "Portfolio", title: raw_title, images = [], columns = 4, instagramUrl = "https://instagram.com", paddingTop = false } = Astro.props;
 
 // Process text placeholders
 const title = raw_title ? getLocationText(raw_title) : raw_title;
@@ -19,7 +20,7 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 const placeholderCount = images.length > 0 ? images.length : 8;
 ---
 
-<section class="pb-12 md:pb-16" style="background-color: #c2ecf9;">
+<section class={`${paddingTop ? "py-12 md:py-16" : "pb-12 md:pb-16"}`} style="background-color: #c2ecf9;">
   
   <div class="container mx-auto px-4">
     <div class="text-center mb-12" data-animate="fade-up">

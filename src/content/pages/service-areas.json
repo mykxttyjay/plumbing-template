@@ -119,6 +119,7 @@
     {
       "component": "ServiceCardsGridSection",
       "props": {
+        "badge": "Our Services",
         "title": "Related Services",
         "services": [
           {

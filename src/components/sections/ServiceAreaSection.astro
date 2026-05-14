@@ -81,7 +81,7 @@ const embedUrl = mapEmbed || (mapAddress ? getMapEmbedUrl(mapAddress) : null);
             Local Service
           </span>
           
-          <h2 class="font-black mb-6 leading-tight" style="font-size: 43px;">{title}</h2>
+          <h2 class="font-black mb-6 leading-tight" style="font-size: 40px;" set:html={title} />
           <div class="text-brand-primary/70 mb-10 leading-relaxed space-y-4" style="font-size: 18px;" set:html={description} />
           
           <a href={buttonHref} class="group inline-flex items-center justify-center gap-3 rounded-2xl bg-[#091f41] text-white px-8 py-4 font-black shadow-xl hover:bg-[#40c4eb] transition-all duration-500">
@@ -107,7 +107,7 @@ const embedUrl = mapEmbed || (mapAddress ? getMapEmbedUrl(mapAddress) : null);
             Service Locations
           </span>
 
-          <h2 class="font-black mb-6 leading-tight max-w-[700px]" style="font-size: 43px;">{title}</h2>
+          <h2 class="font-black mb-6 leading-tight max-w-[850px]" style="font-size: 40px;" set:html={title} />
           <div class="text-brand-primary/70 mb-10 leading-relaxed" style="font-size: 18px;" set:html={description} />
           
           {areas && areas.length > 0 && (
@@ -128,10 +128,10 @@ const embedUrl = mapEmbed || (mapAddress ? getMapEmbedUrl(mapAddress) : null);
           )}
         </div>
         
-        <div data-animate="fade-left" class="lg:pt-20">
-          <div class="relative">
+        <div data-animate="fade-left" class="h-full lg:pt-[72px]">
+          <div class="relative h-full">
             {embedUrl ? (
-              <div class="aspect-[4/3] rounded-[2rem] overflow-hidden border-4 border-brand-primary/5 bg-muted/20 shadow-sm">
+              <div class="h-full min-h-[450px] rounded-[2rem] overflow-hidden border-4 border-brand-primary/5 bg-muted/20 shadow-sm">
                 <iframe
                   src={embedUrl}
                   width="100%"
@@ -144,9 +144,9 @@ const embedUrl = mapEmbed || (mapAddress ? getMapEmbedUrl(mapAddress) : null);
                 ></iframe>
               </div>
             ) : mapImage ? (
-              <img src={mapImage} alt="Service Area Map" class="rounded-[2rem] w-full border-4 border-brand-primary/5 bg-muted/20 shadow-sm" />
+              <img src={mapImage} alt="Service Area Map" class="h-full min-h-[450px] object-cover rounded-[2rem] w-full border-4 border-brand-primary/5 bg-muted/20 shadow-sm" />
             ) : (
-              <div class="aspect-[4/3] bg-muted rounded-[2rem] flex items-center justify-center shadow-inner">
+              <div class="h-full min-h-[450px] bg-muted rounded-[2rem] flex items-center justify-center shadow-inner">
                 <span class="text-brand-primary/40 font-bold uppercase tracking-widest text-xs">Service Map Unavailable</span>
               </div>
             )}

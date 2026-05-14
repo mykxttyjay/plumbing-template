@@ -79,6 +79,7 @@
     {
       "component": "CouponsSection",
       "props": {
+        "paddingTop": false,
         "coupons": [
           {
             "label": "Senior & Military",
