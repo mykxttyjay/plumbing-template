@@ -1,6 +1,8 @@
 ---
 import { Droplet } from '@lucide/astro';
+import WavyDivider from './WavyDivider.astro';
 import { getLocationText } from "@/config/site"
+
 
 interface Step {
   title: string;
@@ -24,11 +26,11 @@ const description = raw_description ? getLocationText(raw_description) : raw_des
 const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 ---
 
-<section class="bg-[#f1fbfe]">
+<section class="bg-[#f1fbfe] pb-12 md:pb-20">
   <div class="container mx-auto px-4">
     <div class="text-center mb-12" data-animate="fade-up">
-      <span class="inline-flex items-center gap-2 text-accent text-sm font-bold py-2 uppercase tracking-wide justify-center">
-        <Droplet class="w-4 h-4 animate-bounce" />
+      <span class="inline-flex items-center gap-2 text-accent text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide justify-center" style="border: 1.5px solid currentColor; background-color: rgba(64, 196, 235, 0.08);">
+        <Droplet class="w-3 h-3 flex-shrink-0" />
         {badge}
       </span>
       <h2 class="font-extrabold mt-2 mb-4" style="font-size: 43px;">{title}</h2>
@@ -77,6 +79,9 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
     </div>
   </div>
 </section>
+
+<WavyDivider topColor="#c2ecf9" bottomColor="#f1fbfe" />
+
 
 <style>
   .financing-card:hover {

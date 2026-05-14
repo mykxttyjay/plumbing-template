@@ -80,8 +80,8 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
       )}
       <div data-animate="fade-up">
         {badge && (
-          <span class="inline-flex items-center gap-2 text-accent text-sm font-bold py-2 uppercase tracking-wide">
-            <Droplet class="w-4 h-4 animate-bounce" />
+          <span class="inline-flex items-center gap-2 text-accent text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide" style="border: 1.5px solid currentColor; background-color: rgba(64, 196, 235, 0.08);">
+            <Droplet class="w-3 h-3 flex-shrink-0" />
             {badge}
           </span>
         )}

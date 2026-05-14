@@ -1,4 +1,5 @@
 ---
+import { Droplet } from '@lucide/astro';
 import { getLocationText } from "@/config/site"
 
 interface Service {
@@ -14,16 +15,18 @@ interface ServiceCategory {
 }
 
 interface Props {
+  badge?: string;
   title: string;
   description: string;
   categories: ServiceCategory[];
 }
 
-const { title: raw_title, description: raw_description, categories } = Astro.props;
+const { badge: raw_badge, title: raw_title, description: raw_description, categories } = Astro.props;
 
 // Process text placeholders
 const title = raw_title ? getLocationText(raw_title) : raw_title;
 const description = raw_description ? getLocationText(raw_description) : raw_description;
+const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 
 // Map category titles to banner images
 const CATEGORY_IMAGES: Record<string, string> = {
@@ -38,7 +41,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
   <!-- Background image -->
   <div class="absolute inset-0 z-0">
     <img 
-      src="https://images.unsplash.com/photo-1640995810429-5785ca363fc5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+      src="https://images.unsplash.com/photo-1604147706283-d7119b5b822c?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
       alt="Background" 
       class="w-full h-full object-cover"
       loading="lazy"
@@ -49,6 +52,12 @@ const CATEGORY_IMAGES: Record<string, string> = {
   
   <div class="container mx-auto px-4 relative z-10">
     <div class="text-center mb-12" data-animate="fade-up">
+      {badge && (
+        <span class="inline-flex items-center gap-2 text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide justify-center mb-3" style="color: #40c4eb; border: 1.5px solid rgba(64,196,235,0.6); background-color: rgba(64,196,235,0.12);">
+          <Droplet class="w-3 h-3 flex-shrink-0" />
+          {badge}
+        </span>
+      )}
       <h2 class="font-extrabold mb-4" style="font-size: 43px;">{title}</h2>
       <p class="text-clay-muted max-w-3xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
     </div>
@@ -97,50 +106,43 @@ const CATEGORY_IMAGES: Record<string, string> = {
             )}
             <div class="grid sm:grid-cols-2 gap-4">
               {category.services.map((service, serviceIndex) => (
-                service.href ? (
-                  <a 
-                    href={service.href} 
-                    class="services-card group glass-clay shadow-clay-card rounded-clay p-6 clay-lift hover:shadow-clay-card-hover transition-all duration-300 flex flex-col items-center text-center gap-3 cursor-pointer"
-                    style={`animation-delay: ${serviceIndex * 50}ms;`}
-                  >
-                    <div class="shrink-0 w-16 h-16 rounded-full flex items-center justify-center overflow-hidden shadow-clay-button" style="background-color: rgba(64, 196, 235, 0.1);">
-                      {service.icon ? (
-                        <img src={service.icon} alt="" class="w-10 h-10 object-contain" style="filter: brightness(0) saturate(100%) invert(10%) sepia(90%) saturate(5000%) hue-rotate(340deg) brightness(80%);" />
-                      ) : (
-                        <svg class="w-6 h-6" style="color: #40c4eb;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m6 2a2 2 0 11-4 0m0 0a2 2 0 11-4 0m6 0a2 2 0 11-4 0m0 0a2 2 0 11-4 0m6 0v2m0 0v2m0-6v-2m0 6v2"></path>
-                        </svg>
-                      )}
-                    </div>
-                    <div>
-                      <h4 class="font-semibold mb-1 group-hover:text-accent transition-colors">
-                        {service.title}
-                      </h4>
-                      <p class="text-sm text-clay-muted" set:html={service.description} />
-                    </div>
-                  </a>
-                ) : (
-                  <div 
-                    class="services-card glass-clay shadow-clay-card rounded-clay p-6 flex flex-col items-center text-center gap-3 cursor-default"
-                    style={`animation-delay: ${serviceIndex * 50}ms;`}
-                  >
-                    <div class="shrink-0 w-16 h-16 rounded-full flex items-center justify-center overflow-hidden shadow-clay-button" style="background-color: rgba(64, 196, 235, 0.1);">
-                      {service.icon ? (
-                        <img src={service.icon} alt="" class="w-10 h-10 object-contain" style="filter: brightness(0) saturate(100%) invert(10%) sepia(90%) saturate(5000%) hue-rotate(340deg) brightness(80%);" />
-                      ) : (
-                        <svg class="w-6 h-6" style="color: #40c4eb;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m6 2a2 2 0 11-4 0m0 0a2 2 0 11-4 0m6 0a2 2 0 11-4 0m0 0a2 2 0 11-4 0m6 0v2m0 0v2m0-6v-2m0 6v2"></path>
-                        </svg>
-                      )}
-                    </div>
-                    <div>
-                      <h4 class="font-semibold mb-1">
-                        {service.title}
-                      </h4>
-                      <p class="text-sm text-clay-muted" set:html={service.description} />
-                    </div>
+                <a
+                  href={service.href || '#'}
+                  class="services-card group relative overflow-hidden rounded-clay p-5 clay-lift transition-all duration-300 flex items-center gap-4 cursor-pointer no-underline"
+                  style={`animation-delay: ${serviceIndex * 50}ms;`}
+                >
+                  {/* Gradient accent bar on left */}
+                  <span class="services-card-bar absolute left-0 top-0 bottom-0 w-1 rounded-l-clay transition-all duration-300" style="background: linear-gradient(180deg, #40c4eb, #091f41);"></span>
+
+                  {/* Hover background glow */}
+                  <span class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(135deg, rgba(64,196,235,0.10) 0%, rgba(9,31,65,0.06) 100%);"></span>
+
+                  {/* Icon */}
+                  <div class="relative shrink-0 w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden shadow-clay-button transition-all duration-300 group-hover:scale-110 group-hover:shadow-clay-button-hover" style="background: linear-gradient(135deg, rgba(64,196,235,0.18) 0%, rgba(9,31,65,0.10) 100%); border: 1.5px solid rgba(64,196,235,0.25);">
+                    {service.icon ? (
+                      <img src={service.icon} alt="" class="w-8 h-8 object-contain" style="filter: brightness(0) saturate(100%) invert(62%) sepia(80%) saturate(400%) hue-rotate(160deg) brightness(105%);" />
+                    ) : (
+                      <svg class="w-6 h-6" style="color: #40c4eb;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                      </svg>
+                    )}
                   </div>
-                )
+
+                  {/* Text */}
+                  <div class="relative flex-1 min-w-0">
+                    <h4 class="font-bold leading-snug mb-0.5 transition-colors duration-300 group-hover:text-accent" style="color: #091f41; font-size: 18px;">
+                      {service.title}
+                    </h4>
+                    <p class="text-clay-muted leading-relaxed line-clamp-1" style="font-size: 16px;" set:html={service.description} />
+                  </div>
+
+                  {/* Arrow indicator */}
+                  <div class="relative shrink-0 w-7 h-7 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300" style="background-color: rgba(64,196,235,0.15);">
+                    <svg class="w-3.5 h-3.5" style="color: #40c4eb;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </div>
+                </a>
               ))}
             </div>
           </div>
@@ -154,6 +156,25 @@ const CATEGORY_IMAGES: Record<string, string> = {
   .services-card {
     animation: fadeInSlideUp 0.3s ease-out forwards;
     opacity: 0;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(64, 196, 235, 0.18);
+    box-shadow: 0 4px 18px rgba(9, 31, 65, 0.08), 0 1px 4px rgba(64,196,235,0.08);
+  }
+
+  .services-card:hover {
+    border-color: rgba(64, 196, 235, 0.45);
+    box-shadow: 0 8px 28px rgba(9, 31, 65, 0.13), 0 2px 8px rgba(64,196,235,0.18);
+    transform: translateY(-2px);
+  }
+
+  .services-card-bar {
+    width: 3px;
+  }
+
+  .services-card:hover .services-card-bar {
+    width: 5px;
   }
 
   @keyframes fadeInSlideUp {
