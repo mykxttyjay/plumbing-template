@@ -1,5 +1,5 @@
 ---
-import { Droplet, ShieldCheck, Settings, Flame, Zap, Clock, CheckCircle2, ArrowRight, Activity, Wrench, Thermometer } from '@lucide/astro';
+import { Droplet, ShieldCheck, Settings, Flame, Zap, Clock, CircleCheck, ArrowRight, Activity, Wrench, Thermometer } from '@lucide/astro';
 import { getLocationText } from "@/config/site"
 import WavyDivider from "@/components/sections/WavyDivider.astro"
 
@@ -37,7 +37,7 @@ function getIconComponentForItem(title: string) {
 }
 ---
 
-<section class="relative py-20 md:py-28 overflow-hidden bg-[#091f41]">
+<section class="relative py-12 md:py-16 overflow-hidden bg-[#091f41]">
   {/* Decorative Background Elements */}
   <div class="absolute top-1/4 -right-20 w-80 h-80 bg-[#40c4eb] rounded-full blur-[120px] opacity-10"></div>
   <div class="absolute bottom-1/4 -left-20 w-60 h-60 bg-accent rounded-full blur-[100px] opacity-10"></div>
@@ -51,33 +51,29 @@ function getIconComponentForItem(title: string) {
         </span>
       )}
       <h2 class="font-extrabold mb-4 text-white" style="font-size: 43px;">{title}</h2>
-      <p class="text-white/80 max-w-4xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
+      <p class="text-white/90 max-w-4xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
     </div>
     
     <div class="grid lg:grid-cols-2 gap-10 max-w-7xl mx-auto" data-animate-stagger>
       {/* What's Included Card */}
-      <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-black/20 flex flex-col relative overflow-hidden group">
-        <div class="absolute top-0 right-0 w-32 h-32 bg-[#f1fbfe] rounded-bl-full -mr-10 -mt-10 transition-transform duration-500 group-hover:scale-110"></div>
+      <div class="bg-white rounded-2xl p-8 md:p-12 shadow-2xl shadow-black/20 flex flex-col relative overflow-hidden group">
         
         <div class="relative z-10 flex-1">
-          <div class="flex items-center gap-4 mb-10">
-            <div class="w-12 h-12 rounded-2xl bg-[#091f41] flex items-center justify-center text-white shadow-lg">
-              <Settings class="w-6 h-6" />
-            </div>
-            <h3 class="text-2xl font-black text-[#091f41]">What's Included</h3>
+          <div class="mb-8">
+            <h3 class="font-black text-[#091f41]" style="font-size: 20px;">What's Included in Our Maintenance Plans?</h3>
           </div>
 
-          <div class="space-y-6">
+          <div class="space-y-2">
             {includedItems.map((item) => {
               const Icon = getIconComponentForItem(item.title);
               return (
-                <div class="flex items-start gap-5 p-4 rounded-3xl hover:bg-[#f1fbfe] transition-all duration-300 group/item">
-                  <div class="w-12 h-12 rounded-2xl bg-[#f1fbfe] text-[#40c4eb] flex items-center justify-center shrink-0 group-hover/item:bg-[#40c4eb] group-hover/item:text-white transition-all duration-300">
+                <div class="flex items-start gap-5 py-3 pr-4 pl-0 rounded-3xl hover:bg-[#f1fbfe]/40 transition-all duration-300 group/item">
+                  <div class="w-12 h-12 rounded-2xl bg-[#f1fbfe] text-[#40c4eb] flex items-center justify-center shrink-0 group-hover/item:bg-[#40c4eb] group-hover/item:text-white transition-all duration-300 mt-1.5">
                     <Icon class="w-6 h-6" />
                   </div>
                   <div>
                     <h4 class="font-bold text-[#091f41] text-lg mb-1">{item.title}</h4>
-                    <p class="text-slate-500 text-sm leading-relaxed" set:html={item.description} />
+                    <p class="text-slate-600 text-[16px] leading-relaxed" set:html={item.description} />
                   </div>
                 </div>
               );
@@ -87,24 +83,20 @@ function getIconComponentForItem(title: string) {
       </div>
       
       {/* Why Invest Card */}
-      <div class="bg-[#f1fbfe] rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-black/20 flex flex-col relative overflow-hidden group">
-        <div class="absolute bottom-0 right-0 w-48 h-48 bg-white/50 rounded-tl-full -br-20 -bb-20 transition-transform duration-500 group-hover:scale-110"></div>
+      <div class="bg-[#f1fbfe] rounded-2xl p-8 md:p-12 shadow-2xl shadow-black/20 flex flex-col relative overflow-hidden group">
         
         <div class="relative z-10 flex-1 flex flex-col">
-          <div class="flex items-center gap-4 mb-10">
-            <div class="w-12 h-12 rounded-2xl bg-[#40c4eb] flex items-center justify-center text-white shadow-lg">
-              <Zap class="w-6 h-6" />
-            </div>
-            <h3 class="text-2xl font-black text-[#091f41]">Why Invest?</h3>
+          <div class="mb-10">
+            <h3 class="text-2xl font-black text-[#091f41]">Why Invest in a Maintenance Plan?</h3>
           </div>
 
-          <div class="space-y-4 mb-12 flex-1">
+          <div class="space-y-2 mb-12 flex-1">
             {benefits.map((benefit) => (
               <div class="flex items-center gap-4 p-4 rounded-2xl bg-white shadow-sm border border-slate-100 hover:border-[#40c4eb]/30 transition-all duration-300 group/benefit">
                 <div class="w-8 h-8 rounded-full bg-[#40c4eb]/10 text-[#40c4eb] flex items-center justify-center shrink-0 group-hover/benefit:bg-[#40c4eb] group-hover/benefit:text-white transition-all duration-300">
-                  <CheckCircle2 class="w-5 h-5" />
+                  <CircleCheck class="w-5 h-5" />
                 </div>
-                <span class="text-[#091f41] font-semibold text-[15px]">{benefit}</span>
+                <span class="text-[#091f41] font-semibold text-[16px]">{benefit}</span>
               </div>
             ))}
           </div>

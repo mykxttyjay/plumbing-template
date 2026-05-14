@@ -12,7 +12,8 @@
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@lucide/astro": ["node_modules/@lucide/astro/src/lucide-astro.ts"]
     }
   }
 }

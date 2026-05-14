@@ -59,7 +59,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
         </span>
       )}
       <h2 class="font-extrabold mb-4" style="font-size: 43px;">{title}</h2>
-      <p class="text-clay-muted max-w-3xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
+      <p class="text-brand-primary/80 max-w-3xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
     </div>
 
     {/* Grid layout with tabs on left and content on right */}
@@ -240,7 +240,6 @@ const CATEGORY_IMAGES: Record<string, string> = {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
       const windowHeight = window.innerHeight;
       
       // Calculate parallax offset based on scroll position

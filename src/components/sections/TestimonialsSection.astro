@@ -178,9 +178,9 @@ const carouselItems = processedTestimonials.slice(4);
 
 <script>
   function initTestimonialSlider() {
-    const track = document.getElementById('testimonial-track');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
+    const track = document.getElementById('testimonial-track') as HTMLElement;
+    const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
+    const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
     
     if (!track || !prevBtn || !nextBtn) return;
 

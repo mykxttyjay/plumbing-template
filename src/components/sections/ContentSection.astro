@@ -1,5 +1,5 @@
 ---
-import { Droplet, ArrowUpRight } from '@lucide/astro';
+import { Droplet, ArrowRight } from '@lucide/astro';
 import { getLocationText } from "@/config/site"
 
 interface Props {
@@ -86,7 +86,7 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
           </span>
         )}
         <h2 class="font-extrabold mt-2 mb-4" style="font-size: 43px;" set:html={title}></h2>
-        <p class="text-clay-muted mb-8 leading-relaxed" style="font-size: 18px;" set:html={description} />
+        <p class="text-brand-primary/50 mb-8 leading-relaxed" style="font-size: 18px;" set:html={description} />
         {features.length > 0 && (
           <ul class="space-y-5 mb-10">
             {features.map((feature) => (
@@ -102,11 +102,9 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
           </ul>
         )}
         {buttonText && buttonHref && (
-          <a href={buttonHref} class="inline-flex items-center justify-between rounded-clay-sm bg-accent text-accent-foreground pl-8 pr-2 py-2 text-lg font-bold shadow-clay-button clay-squish group hover:-translate-y-1 hover:shadow-clay-button-hover transition-all duration-200 hover:bg-[#091f41] hover:text-white">
-            <span class="mr-4">{buttonText}</span>
-            <span class="flex items-center justify-center w-12 h-12 rounded-full bg-white flex-shrink-0 transition-all duration-300 group-hover:bg-highlight group-hover:rotate-45">
-              <ArrowUpRight class="w-6 h-6 text-black transition-colors duration-300 group-hover:text-brand-primary" />
-            </span>
+          <a href={buttonHref} class="inline-flex items-center justify-center gap-3 rounded-full bg-[#091f41] text-white px-10 py-4 text-lg font-bold shadow-xl hover:bg-accent hover:-translate-y-1 transition-all duration-300 group no-underline">
+            <span>{buttonText}</span>
+            <ArrowRight class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
         )}
       </div>

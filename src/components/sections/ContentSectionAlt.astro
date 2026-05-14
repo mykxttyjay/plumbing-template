@@ -1,4 +1,5 @@
 ---
+import { ArrowRight } from '@lucide/astro';
 import { getLocationText } from "@/config/site"
 
 interface FeatureItem {
@@ -55,7 +56,7 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
           <span class="text-accent">{titleHighlightProcessed}</span>
         )}
       </h2>
-      <p class="text-clay-muted mt-4 max-w-3xl mx-auto" set:html={description} />
+      <p class="text-brand-primary/85 mt-4 max-w-3xl mx-auto" style="font-size: 18px;" set:html={description} />
     </div>
 
     {/* Two column layout */}
@@ -103,8 +104,9 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 
         {buttonText && buttonHref && (
           <div class="pt-6">
-            <a href={buttonHref} class="inline-flex items-center justify-center rounded-clay-sm bg-primary text-primary-foreground px-6 py-3 font-semibold shadow-clay-button clay-squish hover:shadow-clay-button-hover hover:-translate-y-1 transition-all">
-              {buttonText}
+            <a href={buttonHref} class="inline-flex items-center justify-center gap-3 rounded-full bg-[#091f41] text-white px-10 py-4 text-lg font-bold shadow-xl hover:bg-accent transition-all duration-300 group no-underline">
+              <span>{buttonText}</span>
+              <ArrowRight class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
           </div>
         )}

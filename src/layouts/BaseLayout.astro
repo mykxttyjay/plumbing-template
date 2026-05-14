@@ -63,7 +63,7 @@ const canonical = new URL(Astro.url.pathname, siteConfig.seo.siteUrl).href
     <meta name="twitter:image" content={ogImage} />
     
     <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "name": siteConfig.business.name,

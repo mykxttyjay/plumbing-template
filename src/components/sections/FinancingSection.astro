@@ -1,5 +1,5 @@
 ---
-import { Droplet, Check, CreditCard, Wallet, Calendar, ArrowRight, User, Clipboard, Star } from '@lucide/astro';
+import { Droplet, Check, CreditCard, Wallet, Calendar, ArrowRight, UserCheck, ClipboardCheck, Sparkles } from '@lucide/astro';
 import WavyDivider from './WavyDivider.astro';
 import { getLocationText } from "@/config/site"
 
@@ -19,33 +19,26 @@ interface Props {
 
 const { badge: raw_badge = "Financing", title: raw_title, description: raw_description, paymentPlans, financingOptions, steps } = Astro.props;
 
-// Process text placeholders
 const title = raw_title ? getLocationText(raw_title) : raw_title;
 const description = raw_description ? getLocationText(raw_description) : raw_description;
 const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
 ---
 
-<section class="relative bg-[#f1fbfe] pb-12 md:pb-24 pt-0 overflow-hidden">
-  {/* Decorative Background Elements */}
-  <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[500px] h-[500px] bg-[#40c4eb]/5 rounded-full blur-[100px] pointer-events-none"></div>
-  <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[80px] pointer-events-none"></div>
+<section class="relative bg-[#f1fbfe] pb-12 md:pb-16 pt-0 overflow-hidden">
 
   <div class="container mx-auto px-4 relative z-10">
-    <div class="text-center mb-10" data-animate="fade-up">
-      <span class="inline-flex items-center gap-2 text-accent text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide justify-center mb-6" style="border: 1.5px solid currentColor; background-color: rgba(64, 196, 235, 0.08);">
+    <div class="text-center mb-12" data-animate="fade-up">
+      <span class="inline-flex items-center gap-2 text-accent text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide justify-center mb-3" style="border: 1.5px solid currentColor; background-color: rgba(64, 196, 235, 0.08);">
         <Droplet class="w-3 h-3 flex-shrink-0" />
         {badge}
       </span>
       <h2 class="font-extrabold mt-2 mb-4" style="font-size: 43px;">{title}</h2>
-      <p class="text-clay-muted max-w-4xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
+      <p class="text-brand-primary/80 max-w-4xl mx-auto leading-relaxed" style="font-size: 18px;" set:html={description} />
     </div>
     
     <div class="grid lg:grid-cols-2 gap-10 max-w-6xl mx-auto mb-24" data-animate-stagger>
       {/* Payment Plans Card */}
       <div class="group relative bg-white border border-slate-200/60 rounded-[2rem] p-10 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden">
-        <div class="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] group-hover:scale-110 transition-all duration-500">
-          <CreditCard class="w-32 h-32 text-[#091f41]" />
-        </div>
         
         <div class="relative z-10">
           <div class="w-14 h-14 rounded-2xl bg-[#f1fbfe] flex items-center justify-center mb-8 border border-[#40c4eb]/20 group-hover:scale-110 transition-transform duration-300">
@@ -67,12 +60,9 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
       
       {/* Financing Options Card */}
       <div class="group relative bg-[#091f41] rounded-[2rem] p-10 shadow-2xl hover:shadow-[#091f41]/20 transition-all duration-500 overflow-hidden">
-        <div class="absolute -bottom-10 -right-10 p-8 opacity-[0.05] group-hover:opacity-[0.1] group-hover:-translate-y-4 transition-all duration-500">
-          <Star class="w-48 h-48 text-white" />
-        </div>
-
+        
         <div class="relative z-10">
-          <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-8 border border-white/20 group-hover:rotate-12 transition-transform duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-8 border border-white/20 transition-transform duration-300">
             <Calendar class="w-7 h-7 text-white" />
           </div>
           <h3 class="text-2xl font-black text-white mb-8">What Can You Finance?</h3>
@@ -102,7 +92,7 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
         <div class="hidden md:block absolute top-[45px] left-[15%] right-[15%] h-[2px] bg-dashed border-t-2 border-dashed border-slate-200"></div>
         
         {steps.map((step, index) => {
-          const StepIcon = [User, Clipboard, Star][index] || Check;
+          const StepIcon = [UserCheck, ClipboardCheck, Sparkles][index] || Check;
           return (
             <div class="group relative text-center">
               <div class="relative z-10 w-20 h-20 rounded-[2rem] bg-white text-[#40c4eb] flex items-center justify-center text-2xl font-black mx-auto mb-8 shadow-sm border border-slate-100 group-hover:border-[#40c4eb]/30 group-hover:shadow-xl group-hover:-translate-y-2 transition-all duration-500">
@@ -114,11 +104,7 @@ const badge = raw_badge ? getLocationText(raw_badge) : raw_badge;
               <h4 class="font-black text-[#091f41] text-xl mb-4">{step.title}</h4>
               <p class="text-[15px] text-slate-500 leading-relaxed px-4" set:html={step.description} />
               
-              {index < steps.length - 1 && (
-                <div class="hidden md:flex absolute top-[40px] -right-[15%] items-center justify-center text-slate-200">
-                   <ArrowRight class="w-6 h-6" />
-                </div>
-              )}
+
             </div>
           );
         })}

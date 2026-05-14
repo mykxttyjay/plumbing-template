@@ -13,7 +13,7 @@ const pages = defineCollection({
     sections: z.array(
       z.object({
         component: z.string(),
-        props: z.record(z.any()).default({}),
+        props: z.record(z.string(), z.any()).default({}),
       })
     ),
     noindex: z.boolean().default(false),

@@ -13,12 +13,14 @@ import sitemap from '@astrojs/sitemap';
 function siteConfigReloadPlugin() {
   return {
     name: 'site-config-reload',
+    /** @param {import('vite').ViteDevServer} server */
     configureServer(server) {
       // Watch site.json for changes (it's read via fs, not imported,
       // so Vite doesn't track it automatically)
       const siteJsonPath = new URL('./src/data/settings/site.json', import.meta.url).pathname.replace(/^\/([A-Z]:)/, '$1');
       server.watcher.add(siteJsonPath);
     },
+    /** @param {import('vite').HmrContext} context */
     handleHotUpdate({ file, server, modules }) {
       const normalized = file.replace(/\\/g, '/');
       if (
@@ -29,7 +31,7 @@ function siteConfigReloadPlugin() {
         const siteModule = server.moduleGraph.getModulesByFile(
           [...server.moduleGraph.fileToModulesMap.keys()].find(f =>
             f.replace(/\\/g, '/').endsWith('/src/config/site.ts')
-          )
+          ) || ''
         );
         if (siteModule) {
           siteModule.forEach(mod => server.moduleGraph.invalidateModule(mod));
