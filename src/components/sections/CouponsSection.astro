@@ -19,42 +19,59 @@ const { coupons, variant = 'default' } = Astro.props;
 const isMinimal = variant === 'minimal';
 ---
 
-<section class="pb-12 md:pb-16" style="background-color: #091f41;">
+<section class="py-12 md:py-16" style="background-color: #eaf9fe;">
   <div class="container mx-auto px-4">
-    <div class="text-center mb-10" data-animate="fade-up">
+    <div class="text-center mb-16" data-animate="fade-up">
       {!isMinimal && (
-        <div class="flex justify-center mb-2">
-          <span class="inline-flex items-center gap-2 text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide" style="color: #40c4eb; border: 1.5px solid #40c4eb; background-color: rgba(64, 196, 235, 0.1);">
-            <Droplet class="w-3 h-3 flex-shrink-0" />
+        <div class="flex justify-center mb-6">
+          <span class="inline-flex items-center gap-2 text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide" style="color: #40c4eb; border: 1.5px solid rgba(64, 196, 235, 0.6); background-color: rgba(64, 196, 235, 0.1);">
+            <Droplet class="w-4 h-4 flex-shrink-0" />
             LIMITED TIME OFFERS
           </span>
         </div>
       )}
-      <h2 class="font-bold text-white" style="color: #ffffff; font-size: 43px;">
+      <h2 class="font-black text-brand-primary leading-tight" style="font-size: 43px;">
         {isMinimal ? 'Special Discounts & Promotions' : 'Save Big on Plumbing Services'}
       </h2>
       {isMinimal && (
-        <p class="text-muted-foreground mt-3 max-w-2xl mx-auto">
+        <p class="text-brand-primary/70 mt-6 max-w-2xl mx-auto leading-relaxed" style="font-size: 18px;">
           Check this page regularly for the latest special offers and promotions from {getLocationText("{fullName}")}. We also offer financing.
         </p>
       )}
     </div>
-    <div class={isMinimal ? 'grid sm:grid-cols-2 lg:grid-cols-3 gap-4' : 'grid md:grid-cols-3 gap-6'} data-animate-stagger>
+    <div class={isMinimal ? 'grid sm:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid md:grid-cols-3 gap-8'} data-animate-stagger>
       {coupons.map((coupon, index) => (
         isMinimal ? (
-          <div class="bg-card border border-border rounded-lg p-5 hover:border-accent/50 transition-colors">
-            <div class="flex items-start justify-between gap-3 mb-3">
-              <span class="text-xs font-semibold text-accent uppercase tracking-wide">
+          <div class="relative group bg-white border-2 border-dashed rounded-[2rem] p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl overflow-hidden" style="border-color: rgba(64, 196, 235, 0.4);">
+            {/* Punch hole effects */}
+            <div class="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#eaf9fe] border-2 border-dashed border-r-0" style="border-color: rgba(64, 196, 235, 0.4);"></div>
+            <div class="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#eaf9fe] border-2 border-dashed border-l-0" style="border-color: rgba(64, 196, 235, 0.4);"></div>
+            
+            <div class="flex items-center justify-between gap-3 mb-6">
+              <span class="text-xs font-black px-3 py-1 rounded-full uppercase tracking-widest bg-[#40c4eb]/10 text-[#40c4eb]">
                 {coupon.label}
               </span>
-              <span class="text-xs text-muted-foreground whitespace-nowrap">
+              <span class="text-[11px] font-bold text-brand-primary/40 uppercase tracking-wider">
                 Expires: {coupon.expires}
               </span>
             </div>
-            <div class="text-2xl md:text-3xl font-bold text-accent mb-2">
+            
+            <div class="text-3xl md:text-4xl font-black text-[#40c4eb] mb-4 group-hover:scale-105 transition-transform duration-500">
               {coupon.discount}
             </div>
-            <p class="text-sm text-muted-foreground" set:html={coupon.description} />
+            
+            <p class="text-brand-primary/70 font-medium leading-relaxed" style="font-size: 15px;" set:html={coupon.description} />
+            
+            <div class="mt-8 pt-6 border-t border-dashed" style="border-color: rgba(64, 196, 235, 0.2);">
+              <div class="flex items-center justify-between group/btn cursor-pointer">
+                <span class="text-xs font-black text-brand-primary uppercase tracking-widest">Redeem Offer</span>
+                <div class="w-8 h-8 rounded-full bg-brand-primary/5 flex items-center justify-center transition-all duration-300 group-hover/btn:bg-[#40c4eb] group-hover/btn:text-white text-brand-primary">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </div>
+              </div>
+            </div>
           </div>
         ) : index === 0 ? (
           // CARD 1: Ribbon corner, cream background, scalloped bottom, accent button section

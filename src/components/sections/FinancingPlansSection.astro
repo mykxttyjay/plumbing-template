@@ -2,6 +2,7 @@
 import { getLocationText } from "@/config/site"
 
 import { Percent, CircleDollarSign, Calendar, CheckCircle, Home, Building2, Wrench, Settings, ArrowRight, MapPin, Clock } from "lucide-react"
+import WavyDivider from './WavyDivider.astro';
 
 interface Item {
   title: string;
@@ -43,27 +44,28 @@ const defaultIcon = variant === "services" ? Wrench : CheckCircle;
 ---
 
 {variant === "features" ? (
-  <section class="py-16 md:py-24 bg-muted/30">
+  <section class="py-12 md:py-16" style="background-color: #bbeaf8;">
     <div class="container mx-auto px-4">
-      <div class="text-center mb-12" data-animate="fade-up">
+      <div class="text-center mb-16" data-animate="fade-up">
         {badge && (
-          <span class="inline-block text-sm font-semibold text-accent uppercase tracking-wide border-b-2 border-accent pb-1">{badge}</span>
+          <span class="inline-flex items-center gap-2 text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide justify-center mb-6" style="color: #40c4eb; border: 1.5px solid rgba(64,196,235,0.6); background-color: rgba(64,196,235,0.12);">
+            {badge}
+          </span>
         )}
-        <h2 class="text-3xl md:text-4xl font-extrabold mt-4 mb-4">{title}</h2>
-        <div class="w-16 h-1 bg-accent mx-auto mb-4 rounded-full"></div>
-        {subtitle && <p class="text-clay-muted max-w-3xl mx-auto" set:html={subtitle} />}
+        <h2 class="font-black mb-6 leading-tight" style="font-size: 43px;">{title}</h2>
+        {subtitle && <p class="text-brand-primary/80 leading-relaxed mx-auto max-w-4xl" style="font-size: 18px;" set:html={subtitle} />}
       </div>
       
       <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto" data-animate-stagger>
         {items.map((item) => {
           const IconComponent = iconMap[item.icon as keyof typeof iconMap] || CheckCircle;
           return (
-            <div class="text-center p-6 glass-clay shadow-clay-card rounded-clay clay-lift hover:shadow-clay-card-hover transition-all">
-              <div class="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4 shadow-clay-button">
-                <IconComponent className="w-8 h-8 text-accent" />
+            <div class="text-center p-8 bg-white border-2 rounded-[2rem] transition-all duration-500 hover:-translate-y-2" style="border-color: rgba(9, 31, 65, 0.05);">
+              <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border-2" style="background-color: rgba(64, 196, 235, 0.08); border-color: rgba(64, 196, 235, 0.3);">
+                <IconComponent className="w-8 h-8 text-[#40c4eb]" />
               </div>
-              <h3 class="text-xl font-extrabold mb-3">{item.title}</h3>
-              {item.text && <p class="text-clay-muted" set:html={item.text} />}
+              <h3 class="text-xl font-black text-brand-primary mb-4">{item.title}</h3>
+              {item.text && <p class="text-brand-primary/70 leading-relaxed" set:html={item.text} />}
             </div>
           );
         })}
@@ -71,26 +73,26 @@ const defaultIcon = variant === "services" ? Wrench : CheckCircle;
     </div>
   </section>
 ) : variant === "services" ? (
-  <section class="py-16 md:py-24 bg-muted/30">
+  <WavyDivider topColor="#effafd" bottomColor="#bbeaf8" />
+  <section class="pb-12 md:pb-16 pt-0" style="background-color: #effafd;">
     <div class="container mx-auto px-4">
-      <div class="text-center mb-12" data-animate="fade-up">
-        <h2 class="text-3xl md:text-4xl font-extrabold">{title}</h2>
-        <div class="w-16 h-1 bg-accent mx-auto mt-4 rounded-full"></div>
-        {subtitle && <p class="text-clay-muted max-w-3xl mx-auto mt-4" set:html={subtitle} />}
+      <div class="text-center mb-16" data-animate="fade-up">
+        <h2 class="font-black mb-6 leading-tight" style="font-size: 43px;">{title}</h2>
+        {subtitle && <p class="text-brand-primary/80 leading-relaxed mx-auto max-w-4xl" style="font-size: 18px;" set:html={subtitle} />}
       </div>
       
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-8xl mx-auto" data-animate-stagger>
         {items.map((item) => {
           return (
-            <div class="glass-clay shadow-clay-card rounded-clay overflow-hidden clay-lift hover:shadow-clay-card-hover transition-all">
+            <div class="bg-white border-2 rounded-[2rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 group" style="border-color: rgba(9, 31, 65, 0.05);">
               {item.image && (
-                <div class="w-full h-48 bg-muted/50 flex items-center justify-center overflow-hidden">
-                  <img src={item.image} alt={item.title} class="w-full h-full object-cover" />
+                <div class="w-full h-52 bg-muted/50 flex items-center justify-center overflow-hidden">
+                  <img src={item.image} alt={item.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 </div>
               )}
-              <div class="p-6 text-center">
-                <h3 class="text-lg font-extrabold mb-2">{item.title}</h3>
-                {item.text && <p class="text-sm text-clay-muted leading-relaxed" set:html={item.text} />}
+              <div class="p-8 text-center">
+                <h3 class="text-xl font-black text-brand-primary mb-3">{item.title}</h3>
+                {item.text && <p class="text-[15px] text-brand-primary/70 leading-relaxed" set:html={item.text} />}
               </div>
             </div>
           );
@@ -98,25 +100,25 @@ const defaultIcon = variant === "services" ? Wrench : CheckCircle;
       </div>
     </div>
   </section>
+  <WavyDivider topColor="#bbeaf8" bottomColor="#effafd" />
 ) : (
-  <section class="py-16 md:py-24">
+  <section class="py-12 md:py-16" style="background-color: #bbeaf8;">
     <div class="container mx-auto px-4">
-      <div class="text-center mb-12" data-animate="fade-up">
-        <h2 class="text-3xl md:text-4xl font-extrabold mb-4">{title}</h2>
-        <div class="w-16 h-1 bg-accent mx-auto mb-4 rounded-full"></div>
-        {subtitle && <p class="text-clay-muted max-w-3xl mx-auto" set:html={subtitle} />}
+      <div class="text-center mb-16" data-animate="fade-up">
+        <h2 class="font-black mb-6 leading-tight" style="font-size: 43px;">{title}</h2>
+        {subtitle && <p class="text-brand-primary/80 leading-relaxed mx-auto max-w-4xl" style="font-size: 18px;" set:html={subtitle} />}
       </div>
       
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto" data-animate-stagger>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto" data-animate-stagger>
         {items.map((item) => {
           const IconComponent = iconMap[item.icon as keyof typeof iconMap] || defaultIcon;
           return (
-            <div class="glass-clay shadow-clay-card rounded-clay p-6 text-center clay-lift hover:shadow-clay-card-hover transition-all">
-              <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center shadow-clay-button">
-                <IconComponent className="w-8 h-8 text-accent" />
+            <div class="bg-white border-2 rounded-[2rem] p-8 text-center transition-all duration-500 hover:-translate-y-2 hover:border-[#40c4eb]/30" style="border-color: rgba(9, 31, 65, 0.05);">
+              <div class="w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center border-2" style="background-color: rgba(64, 196, 235, 0.08); border-color: rgba(64, 196, 235, 0.3);">
+                <IconComponent className="w-8 h-8 text-[#40c4eb]" />
               </div>
-              <h3 class="text-lg font-extrabold mb-2">{item.title}</h3>
-              {item.text && <p class="text-sm text-clay-muted" set:html={item.text} />}
+              <h3 class="text-xl font-black text-brand-primary mb-3">{item.title}</h3>
+              {item.text && <p class="text-[15px] text-brand-primary/70 leading-relaxed" set:html={item.text} />}
             </div>
           );
         })}
