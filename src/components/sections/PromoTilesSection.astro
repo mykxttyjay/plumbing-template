@@ -55,7 +55,7 @@ const tiles = rawTiles.map(tile => ({
               </div>
               <a 
                 href={tile.buttonHref || "/contact"} 
-                class="inline-flex items-center justify-center rounded-full bg-white text-brand-primary px-8 py-3.5 font-black hover:bg-sky-50 transition-all mb-6 text-sm uppercase tracking-widest"
+                class="inline-flex items-center justify-center rounded-full bg-white text-brand-primary px-8 py-3.5 font-bold hover:bg-sky-50 transition-all mb-6 text-sm uppercase tracking-widest"
                 aria-label={`${tile.buttonText} - ${tile.title || 'maintenance plan'}`}
               >
                 {tile.buttonText}
@@ -79,7 +79,7 @@ const tiles = rawTiles.map(tile => ({
               )}
               <a 
                 href={tile.buttonHref || "/financing"} 
-                class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-brand-secondary px-8 py-3.5 font-black hover:bg-slate-50 transition-all mb-6 text-sm uppercase tracking-widest"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-brand-secondary px-8 py-3.5 font-bold hover:bg-slate-50 transition-all mb-6 text-sm uppercase tracking-widest"
                 aria-label={`${tile.buttonText} - ${tile.headline?.join(' ') || 'financing options'}`}
               >
                 {tile.buttonText}
@@ -109,7 +109,7 @@ const tiles = rawTiles.map(tile => ({
               </div>
               <a 
                 href={tile.buttonHref || "/contact"} 
-                class="inline-flex items-center justify-center rounded-full bg-white text-brand-primary px-8 py-3.5 font-black hover:bg-sky-50 transition-all mb-6 text-sm uppercase tracking-widest"
+                class="inline-flex items-center justify-center rounded-full bg-white text-brand-primary px-8 py-3.5 font-bold hover:bg-sky-50 transition-all mb-6 text-sm uppercase tracking-widest"
                 aria-label={`${tile.buttonText} - ${tile.discount || ''} ${tile.subheadline?.join(' ') || 'special offer'}`}
               >
                 {tile.buttonText}

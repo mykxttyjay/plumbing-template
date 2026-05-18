@@ -58,7 +58,7 @@ const carouselItems = processedTestimonials.slice(4);
                       {testimonial.initials}
                     </div>
                     <div>
-                      <h4 class="font-bold text-[#091f41] leading-none mb-1">{testimonial.name}</h4>
+                      <h3 class="font-bold text-[#091f41] leading-none mb-1">{testimonial.name}</h3>
                       <p class="text-xs text-slate-400">{testimonial.date}</p>
                     </div>
                   </div>
@@ -105,10 +105,10 @@ const carouselItems = processedTestimonials.slice(4);
               <h3 class="font-bold text-[#091f41] text-lg">Google Reviews</h3>
             </div>
             <div class="flex gap-1">
-              <button id="prev-btn" class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-[#f1fbfe] hover:text-[#40c4eb] transition-all">
+              <button id="prev-btn" aria-label="Previous Review" class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-[#f1fbfe] hover:text-[#40c4eb] transition-all">
                 <ChevronLeft class="w-5 h-5" />
               </button>
-              <button id="next-btn" class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-[#f1fbfe] hover:text-[#40c4eb] transition-all">
+              <button id="next-btn" aria-label="Next Review" class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-[#f1fbfe] hover:text-[#40c4eb] transition-all">
                 <ChevronRight class="w-5 h-5" />
               </button>
             </div>
@@ -123,7 +123,7 @@ const carouselItems = processedTestimonials.slice(4);
                       {testimonial.initials}
                     </div>
                     <div>
-                      <h4 class="font-bold text-[#091f41] text-sm leading-none mb-1">{testimonial.name}</h4>
+                      <h3 class="font-bold text-[#091f41] text-sm leading-none mb-1">{testimonial.name}</h3>
                       <p class="text-[10px] text-slate-400">{testimonial.date}</p>
                     </div>
                   </div>
