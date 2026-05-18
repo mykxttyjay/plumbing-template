@@ -18,7 +18,7 @@ interface Props {
 
 const { 
   title: raw_title, 
-  highlightedText,
+  highlightedText: raw_highlightedText,
   description: raw_description, 
   image,
   imageAlt = "Service image",
@@ -27,6 +27,7 @@ const {
 
 // Process text placeholders
 const title = raw_title ? getLocationText(raw_title) : raw_title;
+const highlightedText = raw_highlightedText ? getLocationText(raw_highlightedText) : raw_highlightedText;
 const description = raw_description ? getLocationText(raw_description) : raw_description;
 
 const iconMap: Record<string, string> = {
@@ -40,35 +41,36 @@ const iconMap: Record<string, string> = {
 };
 ---
 
-<section class="py-16 md:py-24 bg-background">
+<section class="py-12 md:py-16 bg-white overflow-hidden">
   <div class="container mx-auto px-4">
-    <div class="grid md:grid-cols-2 gap-12 items-start">
-      <!-- Image with border -->
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Image with modern treatment -->
       <div class="relative" data-animate="fade-right">
-        <div class="border-4 border-secondary rounded-lg overflow-hidden max-h-[350px]">
-          <img src={image} alt={imageAlt} class="w-full h-full object-cover" />
+        <div class="absolute -inset-4 bg-accent/10 rounded-[2.5rem] transform -rotate-3 z-0"></div>
+        <div class="relative z-10 rounded-[2rem] overflow-hidden shadow-2xl max-h-[500px]">
+          <img src={image} alt={imageAlt} class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
         </div>
       </div>
 
       <!-- Content -->
       <div data-animate="fade-left">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        <h2 class="font-black mb-6 leading-tight text-brand-primary" style="font-size: 40px;">
           {title}
-          {highlightedText && <span class="text-secondary"> {highlightedText}</span>}
+          {highlightedText && <span class="text-accent"> {highlightedText}</span>}
         </h2>
         
-        <p class="text-muted-foreground mb-8 leading-relaxed" set:html={`At <span class="font-semibold text-foreground">${getLocationText("{fullName}")}</span>, ${description}`} />
+        <p class="text-brand-primary/80 mb-10 leading-relaxed" style="font-size: 18px;" set:html={`At <strong class="text-brand-primary font-bold">${getLocationText("{fullName}")}</strong>, ${description}`} />
 
         <!-- Feature boxes grid -->
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid sm:grid-cols-2 gap-6">
           {features.map((feature) => (
-            <div class="flex gap-3">
-              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center">
+            <div class="flex gap-4 p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:shadow-md transition-shadow duration-300">
+              <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center">
                 <Fragment set:html={iconMap[feature.icon] || iconMap.wrench} />
               </div>
               <div>
-                <h4 class="font-semibold text-foreground text-sm">{feature.title}</h4>
-                <p class="text-muted-foreground text-xs mt-1" set:html={feature.description} />
+                <h4 class="font-bold text-brand-primary text-base mb-1">{feature.title}</h4>
+                <p class="text-brand-primary/70 text-sm leading-relaxed" set:html={feature.description} />
               </div>
             </div>
           ))}
