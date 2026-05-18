@@ -91,9 +91,9 @@ const hasSlideshow = slides.length > 1;
             )}
 
             <div class="flex flex-wrap items-center gap-4">
-              <a href={buttonHref} class="group/btn inline-flex items-center justify-center gap-3 rounded-2xl bg-[#40c4eb] text-white px-8 py-4 font-bold shadow-xl hover:bg-white hover:text-[#091f41] transition-all duration-500 text-[16px] no-underline">
+              <a href={buttonHref} class="inline-flex items-center justify-center gap-3 rounded-full bg-[#40c4eb] text-white px-10 py-4 text-lg font-bold shadow-xl hover:!bg-[#091f41] hover:!text-white hover:-translate-y-1 transition-all duration-300 group no-underline">
                 <span>{buttonText}</span>
-                <ArrowRight class="w-5 h-5 transition-transform" />
+                <ArrowRight class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
             </div>
 
@@ -147,7 +147,7 @@ const hasSlideshow = slides.length > 1;
           {subtitle && (
             <p class="text-xl text-primary/85 mb-8" set:html={subtitle} />
           )}
-          <a href={buttonHref} class="inline-flex items-center justify-center gap-3 rounded-full bg-[#091f41] text-white px-10 py-4 text-lg font-bold shadow-xl hover:bg-accent hover:-translate-y-1 transition-all duration-300 group no-underline">
+          <a href={buttonHref} class="inline-flex items-center justify-center gap-3 rounded-full bg-[#40c4eb] text-white px-10 py-4 text-lg font-bold shadow-xl hover:!bg-[#091f41] hover:!text-white hover:-translate-y-1 transition-all duration-300 group no-underline">
             <span>{buttonText}</span>
             <ArrowRight class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
@@ -212,9 +212,12 @@ const hasSlideshow = slides.length > 1;
                 </p>
               )}
               <div>
-                <a href={buttonHref} class="group inline-flex items-center justify-center gap-3 rounded-2xl bg-[#40c4eb] text-white px-8 py-4 font-bold shadow-xl hover:bg-white hover:text-[#091f41] transition-all duration-500 text-[16px] no-underline">
+                <a
+                  href={buttonHref}
+                  class="inline-flex items-center justify-center gap-3 rounded-full bg-[#40c4eb] text-white px-10 py-4 text-lg font-bold shadow-xl hover:!bg-[#091f41] hover:!text-white hover:-translate-y-1 transition-all duration-300 group no-underline"
+                >
                   <span>{slide.buttonText || buttonText}</span>
-                  <ArrowRight class="w-5 h-5 transition-transform" />
+                  <ArrowRight class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
               </div>
             </div>
@@ -357,7 +360,7 @@ const hasSlideshow = slides.length > 1;
           {subtitle && (
             <p class="text-xl text-primary/85 mb-8" set:html={subtitle} />
           )}
-          <a href={buttonHref} class="inline-flex items-center justify-center gap-3 rounded-full bg-[#091f41] text-white px-10 py-4 text-lg font-bold shadow-xl hover:bg-accent hover:-translate-y-1 transition-all duration-300 group no-underline">
+          <a href={buttonHref} class="inline-flex items-center justify-center gap-3 rounded-full bg-[#40c4eb] text-white px-10 py-4 text-lg font-bold shadow-xl hover:!bg-[#091f41] hover:!text-white hover:-translate-y-1 transition-all duration-300 group no-underline">
             <span>{buttonText}</span>
             <ArrowRight class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
