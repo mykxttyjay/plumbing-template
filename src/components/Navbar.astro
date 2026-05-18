@@ -24,7 +24,7 @@ function getIconSVG(icon: string) {
 }
 ---
 
-<header class="sticky top-0 z-50 w-full" id="main-navbar">
+<header class="sticky top-0 z-50 w-full mb-12" id="main-navbar">
   <!-- Top Bar - Dark Blue -->
   <div class="hidden lg:block bg-brand-primary text-white">
     <div class="container mx-auto px-4">
@@ -158,10 +158,10 @@ function getIconSVG(icon: string) {
   </div>
 
   <!-- Bottom Nav Bar - Blue -->
-  <div class="hidden lg:block bg-brand-secondary relative z-[60]" id="bottom-nav">
-    <div class="container mx-auto px-4">
-      <div class="flex h-12 items-center justify-center">
-        <nav class="flex items-center h-full -mx-2">
+  <div class="hidden lg:block absolute w-full top-full left-0 z-[60]" id="bottom-nav">
+    <div class="container mx-auto px-4 mt-2">
+      <div class="bg-brand-secondary rounded-2xl flex h-14 items-center justify-center shadow-md">
+        <nav class="flex items-center h-full">
           {mainNavItems.map((item) => (
             <div class="relative h-full flex items-center service-nav-item" data-mega-menu>
               <a href={item.href} class="flex items-center gap-1 text-base font-semibold text-white hover:text-white hover:bg-white/10 transition-all duration-200 px-4 h-full cursor-pointer relative after:absolute after:bottom-0 after:left-2 after:right-2 after:h-[3px] after:bg-white after:rounded-t after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-center">
@@ -170,9 +170,9 @@ function getIconSVG(icon: string) {
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
               </a>
-              <div class="mega-menu hidden fixed left-0 right-0 z-[100]">
+              <div class="mega-menu hidden fixed left-0 right-0 z-[100] mt-2">
                 <div class="container mx-auto px-4">
-                  <div class="bg-white shadow-2xl border-t-2 border-gray-200 rounded-b-lg px-8 py-10">
+                  <div class="bg-white shadow-2xl rounded-2xl px-8 py-10 border border-gray-100">
                     <div class="grid grid-cols-6 gap-x-8 gap-y-6">
                       {item.categories.map((category) => (
                         <div class="min-w-0">
@@ -274,8 +274,13 @@ function getIconSVG(icon: string) {
   function initDropdowns() {
     // Calculate navbar height for mega menu positioning
     const navbar = document.getElementById('main-navbar');
-    const navbarHeight = navbar?.offsetHeight || 0;
+    let navbarHeight = navbar?.offsetHeight || 0;
     
+    const bottomNav = document.getElementById('bottom-nav');
+    if (bottomNav && window.getComputedStyle(bottomNav).display !== 'none') {
+      const rect = bottomNav.getBoundingClientRect();
+      navbarHeight = rect.bottom;
+    }
     // Top nav dropdowns
     document.querySelectorAll('[data-dropdown]').forEach(dropdown => {
       const menu = dropdown.querySelector('.dropdown-menu');
